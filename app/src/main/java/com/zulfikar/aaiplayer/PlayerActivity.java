@@ -54,6 +54,7 @@ public class PlayerActivity extends AppCompatActivity {
         }
         duration = lastPlayed.getOrDefault(path, (long) 0);
         startVideo(duration);
+        //this.path;
     }
 
     private void startVideo(long duration) {
