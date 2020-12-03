@@ -5,7 +5,7 @@
         android:title="Hornil"
         android:id="@+id/folderList"
         android:icon="@drawable/ic_baseline_folder"
-        app:showAsAction="ifRoom"></item>
+        app:showAsAction="ifRoom"/>
 
     <item
         android:title="Sucks"
