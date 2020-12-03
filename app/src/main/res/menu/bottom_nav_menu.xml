@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="Folder"
+        android:id="@+id/folderList"
+        android:icon="@drawable/ic_baseline_folder"
+        app:showAsAction="ifRoom"></item>
+
+    <item
+        android:title="Files"
+        android:id="@+id/filesList"
+        android:icon="@drawable/ic_baseline_filter_list"
+        app:showAsAction="ifRoom"></item>
+
+</menu>
