@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "AAI Player"
+rootProject.name = "Olosh Player"
