@@ -37,7 +37,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.fileName.setText(videoFiles.get(position).getTitle());
-//        holder.videoDuration.setText(getDuration(holder, position));
+        holder.videoDuration.setText(getDuration(holder, position));
         Glide.with(mContext).load(new File(videoFiles.get(position).getPath())).into(holder.thumbnail);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,13 +55,13 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
         return videoFiles.size();
     }
 
-//    private String getDuration(@NonNull MyViewHolder holder, int position) {
-//        long duration = Long.parseLong(videoFiles.get(position).getDuration()) / 1000;
-//        long hour = duration / 3600;
-//        long minute = duration % 3600 / 60;
-//        long seconds = duration % 3600 % 60;
-//        return String.format("%02d:%02d:%02d", hour, minute, seconds);
-//    }
+    private String getDuration(@NonNull MyViewHolder holder, int position) {
+        long duration = Long.parseLong(videoFiles.get(position).getDuration()) / 1000;
+        long hour = duration / 3600;
+        long minute = duration % 3600 / 60;
+        long seconds = duration % 3600 % 60;
+        return String.format("%02d:%02d:%02d", hour, minute, seconds);
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView thumbnail, menuMore;
