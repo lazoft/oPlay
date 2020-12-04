@@ -22,6 +22,7 @@
     <item
         android:title="Daily"
         android:id="@+id/testItem"
-        android:icon="@drawable/ic_baseline_folder"
-        app:showAsAction="ifRoom"/>
+        android:icon="@drawable/ic_baseline_more_vert"
+        app:showAsAction="ifRoom"></item>
+
 </menu>
