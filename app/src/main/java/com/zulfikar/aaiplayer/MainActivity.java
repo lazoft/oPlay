@@ -24,7 +24,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    // test by ornil
     private static final int REQUEST_CODE_PERMISSION = 123;
     BottomNavigationView bottomNav;
     static ArrayList<VideoFiles> videoFiles = new ArrayList<>();
