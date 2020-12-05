@@ -7,4 +7,5 @@
     <string name="default_forward_playback_time">10</string>
     <string name="backward_playback_duration">Backward Playback Duration:</string>
     <string name="default_backward_playback_time">10</string>
+    <string name="noDescription"/>
 </resources>

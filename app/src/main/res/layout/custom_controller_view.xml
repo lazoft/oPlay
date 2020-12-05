@@ -18,28 +18,32 @@
             android:layout_height="40dp"
             android:id="@+id/exo_rew"
             android:layout_margin="10dp"
-            android:src="@drawable/ic_baseline_replay_10"/>
+            android:src="@drawable/ic_baseline_replay_10"
+            android:contentDescription="@string/noDescription" />
         
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:id="@+id/exo_play"
             android:layout_margin="10dp"
-            android:src="@drawable/ic_baseline_play_circle_outline"/>
+            android:src="@drawable/ic_baseline_play_circle_outline"
+            android:contentDescription="@string/noDescription" />
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:id="@+id/exo_pause"
             android:layout_margin="10dp"
-            android:src="@drawable/ic_baseline_pause_circle_outline"/>
+            android:src="@drawable/ic_baseline_pause_circle_outline"
+            android:contentDescription="@string/noDescription" />
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:id="@+id/exo_ffwd"
             android:layout_margin="10dp"
-            android:src="@drawable/ic_baseline_forward_10"/>
+            android:src="@drawable/ic_baseline_forward_10"
+            android:contentDescription="@string/noDescription" />
 
     </LinearLayout>
     
@@ -63,8 +67,10 @@
             android:id="@+id/exo_position"
             android:layout_alignTop="@+id/exo_progress"
             android:layout_alignLeft="@+id/exo_progress"
+            android:layout_alignStart="@+id/exo_progress"
             android:paddingTop="20dp"
             android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:textColor="#fff"/>
 
         <TextView
@@ -73,9 +79,12 @@
             android:id="@+id/exo_duration"
             android:layout_alignTop="@+id/exo_progress"
             android:layout_alignRight="@+id/exo_progress"
+            android:layout_alignEnd="@+id/exo_progress"
             android:paddingTop="20dp"
             android:paddingRight="10dp"
-            android:textColor="#fff"/>
+            android:paddingEnd="10dp"
+            android:paddingLeft="10dp"
+            android:textColor="#fff" />
 
     </RelativeLayout>
 
