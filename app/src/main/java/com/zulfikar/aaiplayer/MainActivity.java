@@ -48,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
                         fileFragmentTransaction.replace(R.id.mainFragment, new FilesFragment());
                         fileFragmentTransaction.commit();
                         break;
+                    case R.id.btnNavSettings:
+                        FragmentTransaction settingsFragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        settingsFragmentTransaction.replace(R.id.mainFragment, new SettingsFragment());
+                        settingsFragmentTransaction.commit();
                 }
                 item.setChecked(true);
                 return false;

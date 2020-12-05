@@ -15,15 +15,8 @@
 
     <item
         android:title="Bamboo"
-        android:id="@+id/settings"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:id="@+id/btnNavSettings"
+        android:icon="@drawable/ic_baseline_settings"
         app:showAsAction="ifRoom"></item>
-
-    <item
-        android:title="Daily"
-        android:id="@+id/test"
-        android:icon="@drawable/ic_home_black_24dp"
-        app:showAsAction="ifRoom"></item>
-
 
 </menu>
