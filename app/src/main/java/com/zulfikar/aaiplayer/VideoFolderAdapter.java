@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.MyViewHolder> {
     private Context mContext;
@@ -23,7 +24,7 @@ public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.
 
     public VideoFolderAdapter(Context mContext, ArrayList<VideoFiles> folderVideoFiles) {
         this.mContext = mContext;
-        this.folderVideoFiles = folderVideoFiles;
+        VideoFolderAdapter.folderVideoFiles = folderVideoFiles;
     }
 
     @NonNull
@@ -38,14 +39,11 @@ public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.
         holder.fileName.setText(folderVideoFiles.get(position).getTitle());
         holder.videoDuration.setText(getDuration(holder, position));
         Glide.with(mContext).load(new File(folderVideoFiles.get(position).getPath())).into(holder.thumbnail);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, PlayerActivity.class);
-                intent.putExtra("position", position);
-                intent.putExtra("sender", "VideoFolder");
-                mContext.startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, PlayerActivity.class);
+            intent.putExtra("position", position);
+            intent.putExtra("sender", "VideoFolder");
+            mContext.startActivity(intent);
         });
     }
 
@@ -59,7 +57,9 @@ public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.
         long hour = duration / 3600;
         long minute = duration % 3600 / 60;
         long seconds = duration % 3600 % 60;
-        return String.format("%02d:%02d:%02d", hour, minute, seconds);
+        String durationFormatted = String.format(Locale.US, "%02d:%02d:%02d", hour, minute, seconds);
+        if (hour == 0) durationFormatted = String.format(Locale.ENGLISH, "%02d:%02d", minute, seconds);
+        return durationFormatted;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -68,10 +68,10 @@ public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            thumbnail = itemView.findViewById(R.id.thumbnail);
+            thumbnail = itemView.findViewById(R.id.thumbnailImage);
             menuMore = itemView.findViewById(R.id.menu_more);
             fileName = itemView.findViewById(R.id.video_file_name);
-            videoDuration = itemView.findViewById(R.id.video_duration);
+            videoDuration = itemView.findViewById(R.id.thumbnailDuration);
         }
     }
 }

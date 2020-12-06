@@ -9,13 +9,14 @@
         android:id="@+id/folderImage"
         android:src="@drawable/ic_baseline_folder"
         android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginLeft="10dp"
+        android:contentDescription="@string/no_description" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/folderName"
-        android:text="Foler Name"
+        android:text="@string/folder_name"
         android:layout_toEndOf="@+id/folderImage"
         android:layout_toRightOf="@+id/folderImage"
         android:layout_centerVertical="true"

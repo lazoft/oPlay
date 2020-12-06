@@ -23,7 +23,6 @@
         android:id="@+id/bottomNavView"
         app:menu="@menu/bottom_nav_menu"
         app:itemIconTint="@drawable/state_for_nav"
-        app:itemTextColor="@drawable/state_for_nav"
-        ></com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:itemTextColor="@drawable/state_for_nav"/>
 
 </RelativeLayout>

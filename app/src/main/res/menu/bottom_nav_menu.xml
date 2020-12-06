@@ -2,21 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:title="Hornil"
+        android:title="@string/folder_label"
         android:id="@+id/folderList"
         android:icon="@drawable/ic_baseline_folder"
         app:showAsAction="ifRoom"/>
 
     <item
-        android:title="Sucks"
+        android:title="@string/video_label"
         android:id="@+id/filesList"
-        android:icon="@drawable/ic_baseline_filter_list"
-        app:showAsAction="ifRoom"></item>
+        android:icon="@drawable/ic_baseline_videocam"
+        app:showAsAction="ifRoom"/>
 
     <item
-        android:title="Bamboo"
+        android:title="@string/settings_label"
         android:id="@+id/btnNavSettings"
         android:icon="@drawable/ic_baseline_settings"
-        app:showAsAction="ifRoom"></item>
+        app:showAsAction="ifRoom"/>
 
 </menu>

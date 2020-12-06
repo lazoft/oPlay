@@ -7,5 +7,11 @@
     <string name="default_forward_playback_time">10</string>
     <string name="backward_playback_duration">Backward Playback Duration:</string>
     <string name="default_backward_playback_time">10</string>
-    <string name="noDescription"/>
+    <string name="no_description"/>
+    <string name="folder_name">Folder Name</string>
+    <string name="default_video_duration">4:69</string>
+    <string name="default_file_name">File Name</string>
+    <string name="folder_label">Hornil</string>
+    <string name="video_label">Sucks</string>
+    <string name="settings_label">Daily</string>
 </resources>

@@ -19,7 +19,7 @@
             android:id="@+id/exo_rew"
             android:layout_margin="10dp"
             android:src="@drawable/ic_baseline_replay_10"
-            android:contentDescription="@string/noDescription" />
+            android:contentDescription="@string/no_description" />
         
         <ImageView
             android:layout_width="40dp"
@@ -27,7 +27,7 @@
             android:id="@+id/exo_play"
             android:layout_margin="10dp"
             android:src="@drawable/ic_baseline_play_circle_outline"
-            android:contentDescription="@string/noDescription" />
+            android:contentDescription="@string/no_description" />
 
         <ImageView
             android:layout_width="40dp"
@@ -35,7 +35,7 @@
             android:id="@+id/exo_pause"
             android:layout_margin="10dp"
             android:src="@drawable/ic_baseline_pause_circle_outline"
-            android:contentDescription="@string/noDescription" />
+            android:contentDescription="@string/no_description" />
 
         <ImageView
             android:layout_width="40dp"
@@ -43,7 +43,7 @@
             android:id="@+id/exo_ffwd"
             android:layout_margin="10dp"
             android:src="@drawable/ic_baseline_forward_10"
-            android:contentDescription="@string/noDescription" />
+            android:contentDescription="@string/no_description" />
 
     </LinearLayout>
     
