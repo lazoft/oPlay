@@ -13,4 +13,11 @@
         <item name="colorControlHighlight">#FFFFFF</item>
     </style>
 
+    <style name="TasniaTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/tasniaPrimary</item>
+        <item name="colorPrimaryDark">@color/tasniaDark</item>
+        <item name="colorAccent">@color/tasniaAccent</item>
+    </style>
+
 </resources>

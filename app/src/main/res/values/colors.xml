@@ -3,6 +3,9 @@
     <color name="colorPrimary">#222023</color>
     <color name="colorPrimaryDark">#101011</color>
     <color name="colorAccent">#009688</color>
+    <color name="tasniaPrimary">#DE8CF0</color>
+    <color name="tasniaDark">#D61CFF</color>
+    <color name="tasniaAccent">#C382D1</color>
     <color name="settingsBackground">#2C2C2C</color>
     <color name="settingsItemBackground">#252525</color>
 </resources>
