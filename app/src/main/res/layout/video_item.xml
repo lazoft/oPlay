@@ -38,9 +38,9 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
+        android:id="@+id/video_file_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/video_file_name"
         android:text="@string/default_file_name"
         android:layout_toEndOf="@+id/videoThumbnail"
         android:layout_toRightOf="@+id/videoThumbnail"
@@ -57,7 +57,9 @@
         android:layout_height="60dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
         android:src="@drawable/ic_baseline_more_vert"
+        app:tint="@drawable/state_for_more_icon"
         android:padding="10dp"
         android:contentDescription="@string/no_description" />
 

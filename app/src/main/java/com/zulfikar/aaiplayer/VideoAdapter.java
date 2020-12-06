@@ -40,12 +40,17 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
         holder.fileName.setText(videoFiles.get(position).getTitle());
         holder.videoDuration.setText(getDuration(holder, position));
         Glide.with(mContext).load(new File(videoFiles.get(position).getPath())).into(holder.thumbnail);
-        holder.itemView.setOnClickListener(v -> {
-           Intent intent = new Intent(mContext, PlayerActivity.class);
-            intent.putExtra("position", position);
-            intent.putExtra("sender", "Video");
-            mContext.startActivity(intent);
+        holder.menuMore.setOnClickListener(v -> {
+
         });
+        holder.itemView.setOnClickListener(v -> startPlayerActivity(position));
+    }
+
+    public void startPlayerActivity(int position) {
+        Intent intent = new Intent(mContext, PlayerActivity.class);
+        intent.putExtra("position", position);
+        intent.putExtra("sender", "Video");
+        mContext.startActivity(intent);
     }
 
     @Override

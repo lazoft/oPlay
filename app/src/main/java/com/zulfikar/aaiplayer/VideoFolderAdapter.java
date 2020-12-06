@@ -39,12 +39,17 @@ public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.
         holder.fileName.setText(folderVideoFiles.get(position).getTitle());
         holder.videoDuration.setText(getDuration(holder, position));
         Glide.with(mContext).load(new File(folderVideoFiles.get(position).getPath())).into(holder.thumbnail);
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, PlayerActivity.class);
-            intent.putExtra("position", position);
-            intent.putExtra("sender", "VideoFolder");
-            mContext.startActivity(intent);
+        holder.itemView.setOnClickListener(v -> startPlayerActivity(position));
+        holder.menuMore.setOnClickListener(v -> {
+
         });
+    }
+
+    public void startPlayerActivity(int position) {
+        Intent intent = new Intent(mContext, PlayerActivity.class);
+        intent.putExtra("position", position);
+        intent.putExtra("sender", "Video");
+        mContext.startActivity(intent);
     }
 
     @Override

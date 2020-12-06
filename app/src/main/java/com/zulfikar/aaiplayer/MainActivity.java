@@ -33,29 +33,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         permission();
-        bottomNav = findViewById(R.id.bottomNavView);
-        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.folderList:
-                        FragmentTransaction folderFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        folderFragmentTransaction.replace(R.id.mainFragment, new FolderFragment());
-                        folderFragmentTransaction.commit();
-                        break;
-                    case R.id.filesList:
-                        FragmentTransaction fileFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fileFragmentTransaction.replace(R.id.mainFragment, new FilesFragment());
-                        fileFragmentTransaction.commit();
-                        break;
-                    case R.id.btnNavSettings:
-                        FragmentTransaction settingsFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        settingsFragmentTransaction.replace(R.id.mainFragment, new SettingsFragment());
-                        settingsFragmentTransaction.commit();
-                }
-                item.setChecked(true);
-                return false;
+        bottomNav = findViewById(R.id.bottomNavViewAM);
+        bottomNav.setOnNavigationItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.folderList) {
+                FragmentTransaction folderFragmentTransaction = getSupportFragmentManager().beginTransaction();
+                folderFragmentTransaction.replace(R.id.mainFragment, new FolderFragment());
+                folderFragmentTransaction.commit();
+            } else if (item.getItemId() == R.id.filesList) {
+                FragmentTransaction fileFragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fileFragmentTransaction.replace(R.id.mainFragment, new FilesFragment());
+                fileFragmentTransaction.commit();
+            } else if (item.getItemId() == R.id.btnNavSettings) {
+                FragmentTransaction settingsFragmentTransaction = getSupportFragmentManager().beginTransaction();
+                settingsFragmentTransaction.replace(R.id.mainFragment, new SettingsFragment());
+                settingsFragmentTransaction.commit();
             }
+            item.setChecked(true);
+            return false;
         });
     }
 
@@ -90,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<VideoFiles> getAllVideos(Context context) {
         ArrayList<VideoFiles> tempVideoFiles = new ArrayList<>();
         Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-        String[] projection = {MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, MediaStore.Video.Media.DURATION, MediaStore.Video.Media.DISPLAY_NAME};
+        String[] projection = {MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, "duration", MediaStore.Video.Media.DISPLAY_NAME};
         Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
         if (cursor != null) {
             while(cursor.moveToNext()) {

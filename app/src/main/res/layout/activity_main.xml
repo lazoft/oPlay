@@ -8,19 +8,19 @@
     tools:context=".MainActivity">
 
     <FrameLayout
+        android:id="@+id/mainFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/mainFragment"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/bottomNavView"
+        android:layout_above="@+id/bottomNavViewAM"
         />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavViewAM"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
-        android:id="@+id/bottomNavView"
         app:menu="@menu/bottom_nav_menu"
         app:itemIconTint="@drawable/state_for_nav"
         app:itemTextColor="@drawable/state_for_nav"/>

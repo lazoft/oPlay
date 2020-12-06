@@ -14,4 +14,8 @@
     <string name="folder_label">Hornil</string>
     <string name="video_label">Sucks</string>
     <string name="settings_label">Daily</string>
+    <string name="my_account">My Account</string>
+    <string name="change_theme">Change Theme</string>
+    <string name="wifi_share">Wifi Share</string>
+    <string name="reset_settings">Reset Settings</string>
 </resources>
