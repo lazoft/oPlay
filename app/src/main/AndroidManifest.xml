@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ThemeActivity"/>
         <activity android:name=".VideoFolderActivity"/>
         <activity android:name=".PlayerActivity" android:configChanges="orientation|screenSize"/>
         <activity android:name=".MainActivity">
