@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -28,10 +30,15 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNav;
     static ArrayList<VideoFiles> videoFiles = new ArrayList<>();
     static ArrayList<String> folderList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        ThemeActivity.applyTheme(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         permission();
         bottomNav = findViewById(R.id.bottomNavViewAM);
         bottomNav.setOnNavigationItemSelectedListener(item -> {
@@ -107,6 +114,14 @@ public class MainActivity extends AppCompatActivity {
             }
             cursor.close();
         }
-        return  tempVideoFiles;
+        return tempVideoFiles;
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        ThemeActivity.applyTheme(this);
+        this.recreate();
+    }
+
 }

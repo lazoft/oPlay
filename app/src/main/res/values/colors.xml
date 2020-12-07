@@ -3,12 +3,31 @@
     <color name="colorPrimary">#222023</color>
     <color name="colorPrimaryDark">#101011</color>
     <color name="colorAccent">#009688</color>
-    <color name="tasniaPrimary">#DE8CF0</color>
-    <color name="tasniaDark">#D61CFF</color>
-    <color name="tasniaAccent">#C382D1</color>
+    <color name="settingsBackground">#2C2C2C</color>
+    <color name="settingsItemBackground">#252525</color>
+    <color name="defaultButton">@color/tasniaPrimary</color>
+
+    <color name="textPrimary">#FFFFFF</color>
+
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorTransparent">#00000000</color>
     <color name="customControllerBackground">#99000000</color>
-    <color name="settingsBackground">#2C2C2C</color>
-    <color name="settingsItemBackground">#252525</color>
+
+    <color name="tasniaPrimary">#D825FF</color>
+    <color name="tasniaDark">#A500CA</color>
+    <color name="tasniaAccent">#E051FF</color>
+    <color name="tasniaSettingsBg">#770091</color>
+    <color name="tasniaButton">@color/rimiPrimary</color>
+
+
+    <color name="rimiPrimary">#E4AC00</color>
+    <color name="rimiDark">#BA8C00</color>
+    <color name="rimiAccent">#D1AE00</color>
+    <color name="rimiSettingsBg">#916D00</color>
+    <color name="rimiButton">@color/colorPrimary</color>
+
+    <color name="AppThemeItem">#D50000</color>
+    <color name="TasniaThemeItem">#FAE100</color>
+    <color name="RimiThemeItem">#B50000</color>
+
 </resources>

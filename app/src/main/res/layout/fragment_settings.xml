@@ -3,143 +3,146 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/settingsBackground"
     android:id="@+id/frameLayoutFS"
     tools:context=".SettingsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:background="?settingsBackground"
+            android:gravity="center_vertical"
+            android:textColor="#FFFFFF"
+            android:text="@string/my_account"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textSize="20sp"
+            android:layout_weight="7" />
+
+        <TextView
+            android:id="@+id/themeBtn"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:background="?settingsBackground"
+            android:gravity="center_vertical"
+            android:textColor="#FFFFFF"
+            android:text="@string/change_theme"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textSize="20sp"
+            android:layout_weight="7" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:background="?settingsBackground"
+            android:gravity="center_vertical"
+            android:textColor="#FFFFFF"
+            android:text="@string/wifi_share"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textSize="20sp"
+            android:layout_weight="7" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="5dp"
+            android:background="?settingsBackground"
+            android:orientation="horizontal"
+            android:weightSum="9">
 
             <TextView
+                android:background="?settingsBackground"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/settingsItemBackground"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
                 android:textColor="#FFFFFF"
-                android:text="@string/my_account"
-                android:paddingStart="10dp"
-                android:paddingLeft="10dp"
-                android:paddingEnd="10dp"
-                android:paddingRight="10dp"
+                android:text="@string/forward_playback_duration"
                 android:textSize="20sp"
-                android:layout_weight="7" />
+                android:layout_weight="7"
+                />
 
-            <TextView
+            <EditText
 
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/settingsItemBackground"
-                android:gravity="center_vertical"
+                android:id="@+id/txtForwardPlayback"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
                 android:textColor="#FFFFFF"
-                android:text="@string/change_theme"
-                android:paddingStart="10dp"
-                android:paddingLeft="10dp"
-                android:paddingEnd="10dp"
-                android:paddingRight="10dp"
-                android:textSize="20sp"
-                android:layout_weight="7" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/settingsItemBackground"
-                android:gravity="center_vertical"
-                android:textColor="#FFFFFF"
-                android:text="@string/wifi_share"
-                android:paddingStart="10dp"
-                android:paddingLeft="10dp"
-                android:paddingEnd="10dp"
-                android:paddingRight="10dp"
-                android:textSize="20sp"
-                android:layout_weight="7" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@color/settingsItemBackground"
-                android:orientation="horizontal"
-                android:weightSum="9">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:gravity="center_vertical"
-                    android:textColor="#FFFFFF"
-                    android:text="@string/forward_playback_duration"
-                    android:textSize="20sp"
-                    android:layout_weight="7"
-                    />
-
-                <EditText
-                    android:id="@+id/txtForwardPlayback"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:textColor="#FFFFFF"
-                    android:text="@string/default_forward_playback_time"
-                    android:layout_weight="2"
-                    android:importantForAutofill="no"
-                    android:inputType="number"
-                    android:theme="@style/EditTextTheme"
-                    tools:ignore="labelFor"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@color/settingsItemBackground"
-                android:orientation="horizontal"
-                android:weightSum="9">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:gravity="center_vertical"
-                    android:textColor="#FFFFFF"
-                    android:text="@string/backward_playback_duration"
-                    android:textSize="20sp"
-                    android:layout_weight="7" />
-
-                <EditText
-                    android:id="@+id/txtBackwardPlayback"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:textColor="#FFFFFF"
-                    android:theme="@style/EditTextTheme"
-                    android:text="@string/default_backward_playback_time"
-                    android:layout_weight="2"
-                    android:importantForAutofill="no"
-                    android:inputType="number"
-                    tools:ignore="labelFor"/>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/settingsItemBackground"
-                android:gravity="center_vertical"
-                android:textColor="#FFFFFF"
-                android:text="@string/reset_settings"
-                android:paddingStart="10dp"
-                android:paddingLeft="10dp"
-                android:paddingEnd="10dp"
-                android:paddingRight="10dp"
-                android:textSize="20sp"
-                android:layout_weight="7" />
-
+                android:text="@string/default_forward_playback_time"
+                android:layout_weight="2"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:theme="@style/EditTextTheme"
+                tools:ignore="labelFor"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="?settingsBackground"
+            android:orientation="horizontal"
+            android:weightSum="9">
+
+            <TextView
+                android:background="?settingsBackground"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"
+                android:textColor="#FFFFFF"
+                android:text="@string/backward_playback_duration"
+                android:textSize="20sp"
+                android:layout_weight="7" />
+
+            <EditText
+                android:id="@+id/txtBackwardPlayback"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:textColor="#FFFFFF"
+                android:theme="@style/EditTextTheme"
+                android:text="@string/default_backward_playback_time"
+                android:layout_weight="2"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                tools:ignore="labelFor"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:background="?settingsBackground"
+            android:gravity="center_vertical"
+            android:textColor="#FFFFFF"
+            android:text="@string/reset_settings"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textSize="20sp"
+            android:layout_weight="7" />
+
+    </LinearLayout>
 
 </ScrollView>

@@ -15,8 +15,9 @@
     <string name="video_label">Sucks</string>
     <string name="settings_label">Daily</string>
     <string name="my_account">My Account</string>
-    <string name="change_theme">Change Theme</string>
     <string name="wifi_share">Wifi Share</string>
     <string name="reset_settings">Reset Settings</string>
+    <string name="themeCaption">Choose Theme</string>
+    <string name="change_theme">Change Theme</string>
     <string name="controller_label">Controller Label</string>
 </resources>
