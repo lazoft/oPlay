@@ -4,4 +4,6 @@
     <attr name="bottomNavBg" format="reference"/>
     <attr name="bottomNavItemChecked" format="reference"/>
     <attr name="themeButtonBg" format="reference"/>
+    <attr name="surpriseText" format="reference"/>
+    <attr name="themeInfo" format="reference"/>
 </resources>

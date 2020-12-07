@@ -10,6 +10,8 @@
         <item name="bottomNavBg">@color/colorPrimaryDark</item>
         <item name="bottomNavItemChecked">@color/AppThemeItem</item>
         <item name="themeButtonBg">@color/defaultButton</item>
+        <item name="surpriseText">@string/defaultThemeText</item>
+        <item name="themeInfo">@string/themeText1</item>
 
     </style>
 
@@ -29,6 +31,8 @@
         <item name="bottomNavBg">@color/settingsBackground</item>
         <item name="bottomNavItemChecked">@color/TasniaThemeItem</item>
         <item name="themeButtonBg">@color/tasniaButton</item>
+        <item name="surpriseText">@string/tasniaThemeText</item>
+        <item name="themeInfo">@string/themeText2</item>
 
     </style>
 
@@ -42,6 +46,8 @@
         <item name="bottomNavBg">@color/settingsBackground</item>
         <item name="bottomNavItemChecked">@color/RimiThemeItem</item>
         <item name="themeButtonBg">@color/rimiButton</item>
+        <item name="surpriseText">@string/rimiThemeText</item>
+        <item name="themeInfo">@string/themeText3</item>
 
     </style>
 

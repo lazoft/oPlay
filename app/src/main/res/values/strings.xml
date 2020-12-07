@@ -20,4 +20,10 @@
     <string name="themeCaption">Choose Theme</string>
     <string name="change_theme">Change Theme</string>
     <string name="controller_label">Controller Label</string>
+    <string name="defaultThemeText">MEET TASNIA</string>
+    <string name="tasniaThemeText">DICKSHONARIMI</string>
+    <string name="rimiThemeText">ARITFICIAL ASS INTELLIGENCE</string>
+    <string name="themeText1">Current theme: AAI</string>
+    <string name="themeText2">Current theme: TASNIA</string>
+    <string name="themeText3">Current theme: RIMI</string>
 </resources>
