@@ -18,4 +18,5 @@
     <string name="change_theme">Change Theme</string>
     <string name="wifi_share">Wifi Share</string>
     <string name="reset_settings">Reset Settings</string>
+    <string name="themeCaption">Choose Theme</string>
 </resources>

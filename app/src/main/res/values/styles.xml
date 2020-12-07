@@ -18,6 +18,7 @@
         <item name="colorPrimary">@color/tasniaPrimary</item>
         <item name="colorPrimaryDark">@color/tasniaDark</item>
         <item name="colorAccent">@color/tasniaAccent</item>
+        <item name="textAppearanceBody1">@color/textPrimary</item>
     </style>
 
 </resources>
