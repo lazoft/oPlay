@@ -267,11 +267,11 @@ public class PlayerActivity extends AppCompatActivity {
         public void run() {
             while (durationEnd < 0) {
                 playerHandler.post(() -> durationEnd = simpleExoPlayer.getDuration());
-                try {
-                    playerHandler.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    playerHandler.wait();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
 //                durationEnd = 45;
             }
 
@@ -283,12 +283,12 @@ public class PlayerActivity extends AppCompatActivity {
             while (durationCurrent < durationEnd) {
                 try {
                     playerHandler.post(() -> durationCurrent = simpleExoPlayer.getCurrentPosition());
-                    playerHandler.wait();
+                    //playerHandler.wait();
                     playerHandler.post(() -> {
                         videoPosition.setText(getDurationFormat(durationCurrent));
                         timeBar.setPosition(durationCurrent);
                     });
-                    playerHandler.wait();
+                    //playerHandler.wait();
                     TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException e) {
                     Log.e("threadMessage", e.getMessage());
