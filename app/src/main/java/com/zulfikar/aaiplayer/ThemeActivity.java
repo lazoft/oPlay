@@ -1,39 +1,56 @@
 package com.zulfikar.aaiplayer;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 //import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ThemeActivity extends AppCompatActivity {
-    private static final String PREFS_NAME = "prefs";
-    private static final String PREF_DARK_THEME = "dark_theme";
+    public static final String PREFS_NAME = "prefs";
+    public static final String PREFS_THEME_TAS = "testTheme";
+    int themeId;
+    Button toggle;
+
+
 
     protected void onCreate(Bundle savedInstanceState){
-        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
-        Button toggle = findViewById(R.id.tasniaThemeBtn);
-        if(useDarkTheme) {
-            setTheme(R.style.TasniaTheme);
-        }
+        ThemeActivity.applyTheme(this);
+        //SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        //themeId = preferences.getInt(PREF_DARK_THEME, 0);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme);
-        //Switch toggle = (Switch)findViewById()
 
+        toggle = findViewById(R.id.tasniaThemeBtn);
+        toggle.setOnClickListener(view -> toggleTheme());
     }
 
-    private void toggleTheme(boolean darkTheme) {
+
+    private void toggleTheme() {
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-        editor.putBoolean(PREF_DARK_THEME, darkTheme);
+        this.themeId = preferences.getInt(PREFS_THEME_TAS, R.style.AppTheme);
+
+        if (themeId == R.style.AppTheme) themeId = R.style.TasniaTheme;
+        else if (themeId == R.style.TasniaTheme) themeId = R.style.RimiTheme;
+        else if (themeId == R.style.RimiTheme) themeId = R.style.AppTheme;
+        else themeId = R.style.AppTheme;
+
+        editor.putInt(PREFS_THEME_TAS, themeId);
         editor.apply();
+        applyTheme(this);
+        recreate();
+    }
 
-        Intent intent = getIntent();
-        finish();
-
-        startActivity(intent);
+    public static void applyTheme(Activity activity){
+        SharedPreferences preferences = activity.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        int themeId = preferences.getInt(PREFS_THEME_TAS, R.style.AppTheme);
+        //Log.d("Themeid", themeId+": "+R.style.TasniaTheme+": "+R.style.AppTheme);
+        activity.setTheme(themeId);
     }
 
 }

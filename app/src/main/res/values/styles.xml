@@ -5,6 +5,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="settingsBackground">@color/settingsBackground</item>
+        <item name="bottomNavBg">@color/colorPrimaryDark</item>
+        <item name="bottomNavItemChecked">@color/AppThemeItem</item>
+        <item name="themeButtonBg">@color/defaultButton</item>
+
     </style>
 
     <style name="EditTextTheme">
@@ -18,7 +24,25 @@
         <item name="colorPrimary">@color/tasniaPrimary</item>
         <item name="colorPrimaryDark">@color/tasniaDark</item>
         <item name="colorAccent">@color/tasniaAccent</item>
-        <item name="textAppearanceBody1">@color/textPrimary</item>
+        <item name="android:background">@color/tasniaPrimary</item>
+        <item name="settingsBackground">@color/tasniaSettingsBg</item>
+        <item name="bottomNavBg">@color/settingsBackground</item>
+        <item name="bottomNavItemChecked">@color/TasniaThemeItem</item>
+        <item name="themeButtonBg">@color/tasniaButton</item>
+
+    </style>
+
+    <style name="RimiTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/rimiPrimary</item>
+        <item name="colorPrimaryDark">@color/rimiDark</item>
+        <item name="colorAccent">@color/rimiAccent</item>
+        <item name="settingsBackground">@color/rimiSettingsBg</item>
+        <item name="android:background">@color/rimiPrimary</item>
+        <item name="bottomNavBg">@color/settingsBackground</item>
+        <item name="bottomNavItemChecked">@color/RimiThemeItem</item>
+        <item name="themeButtonBg">@color/rimiButton</item>
+
     </style>
 
 </resources>

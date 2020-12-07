@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="settingsBackground" format="reference"/>
+    <attr name="bottomNavBg" format="reference"/>
+    <attr name="bottomNavItemChecked" format="reference"/>
+    <attr name="themeButtonBg" format="reference"/>
+</resources>
