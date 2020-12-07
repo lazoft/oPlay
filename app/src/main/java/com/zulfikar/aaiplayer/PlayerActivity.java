@@ -45,7 +45,8 @@ public class PlayerActivity extends AppCompatActivity {
 
     DefaultTimeBar timeBar;
     Handler playerHandler = new Handler();
-    ImageView btnBackward, btnForward, btnPlay, btnPause;
+    CustomImageView btnBackward, btnForward;
+    ImageView  btnPlay, btnPause;
     LinearLayout playbackController, controlLabelLayout;
     PlayerView playerView;
     RelativeLayout customController, timeBarLayout;
@@ -73,10 +74,9 @@ public class PlayerActivity extends AppCompatActivity {
         position = getIntent().getIntExtra("position", -1);
         sender = getIntent().getStringExtra("sender");
         path = sender.equals("Video") ? videoFiles.get(position).getPath() : sender.equals("VideoFolder") ? folderVideoFiles.get(position).getPath() : path;
-        duration = Objects.requireNonNull(lastPlayed.getOrDefault(path, 0l));
+        duration = Objects.requireNonNull(lastPlayed.getOrDefault(path, 0L));
         forwardJumpTime = Integer.parseInt(getResources().getString(R.string.default_forward_playback_time));
         backwardJumpTime = Integer.parseInt(getResources().getString(R.string.default_backward_playback_time));
-        Log.e("forwardJumpTime", forwardJumpTime + "");
         startVideo(duration);
         functioningCustomController(customController);
     }
@@ -267,12 +267,6 @@ public class PlayerActivity extends AppCompatActivity {
         public void run() {
             while (durationEnd < 0) {
                 playerHandler.post(() -> durationEnd = simpleExoPlayer.getDuration());
-                try {
-                    playerHandler.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-//                durationEnd = 45;
             }
 
             playerHandler.post(() -> {
@@ -283,12 +277,10 @@ public class PlayerActivity extends AppCompatActivity {
             while (durationCurrent < durationEnd) {
                 try {
                     playerHandler.post(() -> durationCurrent = simpleExoPlayer.getCurrentPosition());
-                    playerHandler.wait();
                     playerHandler.post(() -> {
                         videoPosition.setText(getDurationFormat(durationCurrent));
                         timeBar.setPosition(durationCurrent);
                     });
-                    playerHandler.wait();
                     TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException e) {
                     Log.e("threadMessage", e.getMessage());

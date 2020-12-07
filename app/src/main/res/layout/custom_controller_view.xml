@@ -32,7 +32,7 @@
         android:orientation="horizontal"
         android:layout_centerInParent="true">
 
-        <ImageView
+        <com.zulfikar.aaiplayer.CustomImageView
             android:id="@+id/exo_rew"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -56,7 +56,7 @@
             android:src="@drawable/ic_baseline_pause_circle_outline"
             android:contentDescription="@string/no_description" />
 
-        <ImageView
+        <com.zulfikar.aaiplayer.CustomImageView
             android:id="@+id/exo_ffwd"
             android:layout_width="40dp"
             android:layout_height="40dp"
