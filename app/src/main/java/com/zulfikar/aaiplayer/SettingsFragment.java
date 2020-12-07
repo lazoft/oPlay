@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 public class SettingsFragment extends Fragment {
 
-
     TextView button;
 
     @Override
