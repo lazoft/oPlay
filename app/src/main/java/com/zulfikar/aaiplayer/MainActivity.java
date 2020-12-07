@@ -33,12 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         ThemeActivity.applyTheme(this);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         permission();
         bottomNav = findViewById(R.id.bottomNavViewAM);
         bottomNav.setOnNavigationItemSelectedListener(item -> {

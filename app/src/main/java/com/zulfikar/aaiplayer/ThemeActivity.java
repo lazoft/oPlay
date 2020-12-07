@@ -10,30 +10,25 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ThemeActivity extends AppCompatActivity {
-    public static final String PREFS_NAME = "prefs";
-    public static final String PREFS_THEME_TAS = "testTheme";
+
     int themeId;
     Button toggle;
 
+    private static final String PREFS_NAME = "prefs", PREFS_THEME_TAS = "testTheme";
 
-
+    @Override
     protected void onCreate(Bundle savedInstanceState){
         ThemeActivity.applyTheme(this);
-        //SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        //themeId = preferences.getInt(PREF_DARK_THEME, 0);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme);
-
-        toggle = findViewById(R.id.tasniaThemeBtn);
+        toggle = findViewById(R.id.btnChangeTheme);
         toggle.setOnClickListener(view -> toggleTheme());
     }
-
 
     private void toggleTheme() {
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-        this.themeId = preferences.getInt(PREFS_THEME_TAS, R.style.AppTheme);
+        themeId = preferences.getInt(PREFS_THEME_TAS, R.style.AppTheme);
 
         if (themeId == R.style.AppTheme) themeId = R.style.TasniaTheme;
         else if (themeId == R.style.TasniaTheme) themeId = R.style.RimiTheme;
@@ -49,7 +44,7 @@ public class ThemeActivity extends AppCompatActivity {
     public static void applyTheme(Activity activity){
         SharedPreferences preferences = activity.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         int themeId = preferences.getInt(PREFS_THEME_TAS, R.style.AppTheme);
-        //Log.d("Themeid", themeId+": "+R.style.TasniaTheme+": "+R.style.AppTheme);
+
         activity.setTheme(themeId);
     }
 

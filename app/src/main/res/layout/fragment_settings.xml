@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?settingsBackground"
     android:id="@+id/frameLayoutFS"
     tools:context=".SettingsFragment">
 
@@ -16,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="20dp"
-            android:background="?settingsBackground"
+            android:background="?settingsItemBackground"
             android:gravity="center_vertical"
             android:textColor="#FFFFFF"
             android:text="@string/my_account"
@@ -32,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="5dp"
-            android:background="?settingsBackground"
+            android:background="?settingsItemBackground"
             android:gravity="center_vertical"
             android:textColor="#FFFFFF"
             android:text="@string/change_theme"
@@ -47,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="5dp"
-            android:background="?settingsBackground"
+            android:background="?settingsItemBackground"
             android:gravity="center_vertical"
             android:textColor="#FFFFFF"
             android:text="@string/wifi_share"
@@ -62,12 +63,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:background="?settingsBackground"
+            android:background="?settingsItemBackground"
             android:orientation="horizontal"
             android:weightSum="9">
 
             <TextView
-                android:background="?settingsBackground"
+                android:background="?settingsItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
@@ -98,12 +99,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:background="?settingsBackground"
+            android:background="?settingsItemBackground"
             android:orientation="horizontal"
             android:weightSum="9">
 
             <TextView
-                android:background="?settingsBackground"
+                android:background="?settingsItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
@@ -132,7 +133,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="5dp"
-            android:background="?settingsBackground"
+            android:background="?settingsItemBackground"
             android:gravity="center_vertical"
             android:textColor="#FFFFFF"
             android:text="@string/reset_settings"

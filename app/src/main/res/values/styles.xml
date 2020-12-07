@@ -1,54 +1,51 @@
 <resources>
-    <!-- Base application theme. -->
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:background">@color/colorPrimary</item>
         <item name="settingsBackground">@color/settingsBackground</item>
-        <item name="bottomNavBg">@color/colorPrimaryDark</item>
-        <item name="bottomNavItemChecked">@color/AppThemeItem</item>
-        <item name="themeButtonBg">@color/defaultButton</item>
+        <item name="settingsItemBackground">@color/settingsItemBackground</item>
+        <item name="bottomNavBackground">@color/colorPrimaryDark</item>
+        <item name="bottomNavItemChecked">@color/bottomNavItemChecked</item>
+        <item name="bottomNavItemUnchecked">@color/bottomNavItemUnchecked</item>
+        <item name="themeButtonBg">@color/defaultThemeChangeButton</item>
         <item name="surpriseText">@string/defaultThemeText</item>
         <item name="themeInfo">@string/themeText1</item>
+    </style>
 
+    <style name="TasniaTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/tasniaPrimary</item>
+        <item name="colorPrimaryDark">@color/tasniaDark</item>
+        <item name="colorAccent">@color/tasniaAccent</item>
+        <item name="settingsBackground">@color/tasniaSettingsBackground</item>
+        <item name="settingsItemBackground">@color/tasniaSettingsItemBackground</item>
+        <item name="bottomNavBackground">@color/tasniaDark</item>
+        <item name="bottomNavItemChecked">@color/tasniaBottomNavItemChecked</item>
+        <item name="bottomNavItemUnchecked">@color/tasniaBottomNavItemUnchecked</item>
+        <item name="themeButtonBg">@color/tasniaThemeChangeButton</item>
+        <item name="surpriseText">@string/tasniaThemeText</item>
+        <item name="themeInfo">@string/themeText2</item>
+    </style>
+
+    <style name="RimiTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/rimiPrimary</item>
+        <item name="colorPrimaryDark">@color/rimiDark</item>
+        <item name="colorAccent">@color/rimiAccent</item>
+        <item name="settingsBackground">@color/rimiSettingsBackground</item>
+        <item name="settingsItemBackground">@color/rimiSettingsItemBackground</item>
+        <item name="bottomNavBackground">@color/rimiDark</item>
+        <item name="bottomNavItemChecked">@color/rimiBottomNavItemChecked</item>
+        <item name="bottomNavItemUnchecked">@color/rimiBottomNavItemUnchecked</item>
+        <item name="themeButtonBg">@color/rimiThemeChangeButton</item>
+        <item name="surpriseText">@string/rimiThemeText</item>
+        <item name="themeInfo">@string/themeText3</item>
     </style>
 
     <style name="EditTextTheme">
         <item name="colorControlNormal">#FFFFFF</item>
         <item name="colorControlActivated">#FFFFFF</item>
         <item name="colorControlHighlight">#FFFFFF</item>
-    </style>
-
-    <style name="TasniaTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/tasniaPrimary</item>
-        <item name="colorPrimaryDark">@color/tasniaDark</item>
-        <item name="colorAccent">@color/tasniaAccent</item>
-        <item name="android:background">@color/tasniaPrimary</item>
-        <item name="settingsBackground">@color/tasniaSettingsBg</item>
-        <item name="bottomNavBg">@color/settingsBackground</item>
-        <item name="bottomNavItemChecked">@color/TasniaThemeItem</item>
-        <item name="themeButtonBg">@color/tasniaButton</item>
-        <item name="surpriseText">@string/tasniaThemeText</item>
-        <item name="themeInfo">@string/themeText2</item>
-
-    </style>
-
-    <style name="RimiTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/rimiPrimary</item>
-        <item name="colorPrimaryDark">@color/rimiDark</item>
-        <item name="colorAccent">@color/rimiAccent</item>
-        <item name="settingsBackground">@color/rimiSettingsBg</item>
-        <item name="android:background">@color/rimiPrimary</item>
-        <item name="bottomNavBg">@color/settingsBackground</item>
-        <item name="bottomNavItemChecked">@color/RimiThemeItem</item>
-        <item name="themeButtonBg">@color/rimiButton</item>
-        <item name="surpriseText">@string/rimiThemeText</item>
-        <item name="themeInfo">@string/themeText3</item>
-
     </style>
 
 </resources>
