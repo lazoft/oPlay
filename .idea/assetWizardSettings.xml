@@ -319,7 +319,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/videocam/baseline_videocam_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/construction/baseline_construction_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -329,7 +329,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_baseline_videocam" />
+                            <entry key="outputName" value="ic_baseline_construction" />
                             <entry key="sourceFile" value="C:\Users\Zulfikar\Documents\GitHub\Olosh-Player" />
                           </map>
                         </option>

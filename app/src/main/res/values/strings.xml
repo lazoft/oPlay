@@ -7,7 +7,7 @@
     <string name="default_forward_playback_time">10</string>
     <string name="backward_playback_duration">Backward Playback Duration:</string>
     <string name="default_backward_playback_time">10</string>
-    <string name="no_description"/>
+    <string name="no_description" />
     <string name="folder_name">Folder Name</string>
     <string name="default_video_duration">4:69</string>
     <string name="default_file_name">File Name</string>
@@ -41,4 +41,5 @@
     <string name="button_video_recorded_clips_text">View Video Recorded Clips</string>
     <string name="button_exit_text">Exit</string>
     <string name="button_send_feedback_text">Send Feedback</string>
+    <string name="under_maintenance_text">Feature Under Maintenance</string>
 </resources>

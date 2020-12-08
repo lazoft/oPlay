@@ -83,12 +83,7 @@ public class SettingsFragment extends Fragment {
     }
 
     public void setOnClickForUpcomingButtons(TextView... buttons) {
-        for (TextView button : buttons) button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        for (TextView button : buttons) button.setOnClickListener(v -> startActivity(new Intent(getActivity(), UnderMaintenanceActivity.class)));
     }
 }
 
