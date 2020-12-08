@@ -122,16 +122,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         ThemeActivity.applyTheme(this);
-
         recreate();
     }
-
-//    @Override
-//    public Resources.Theme getTheme() {
-//        Resources.Theme theme = super.getTheme();
-//        theme.applyStyle(ThemeActivity.getStyle(this), true);
-//        // you could also use a switch if you have many themes that could apply
-//        return theme;
-//    }
-
 }

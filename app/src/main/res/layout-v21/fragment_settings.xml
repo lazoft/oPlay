@@ -56,7 +56,6 @@
                 android:background="?settingsItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
                 android:textColor="#FFFFFF"
@@ -75,6 +74,7 @@
                 android:layout_weight="2"
                 android:importantForAutofill="no"
                 android:inputType="number"
+                android:backgroundTint="?settingsItemBackground"
                 tools:ignore="labelFor"/>
         </LinearLayout>
 
@@ -90,7 +90,6 @@
                 android:background="?settingsItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
                 android:textColor="#FFFFFF"
@@ -104,6 +103,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
+                android:backgroundTint="?settingsItemBackground"
                 android:text="@string/default_backward_playback_time"
                 android:layout_weight="2"
                 android:importantForAutofill="no"

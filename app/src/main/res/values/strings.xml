@@ -29,4 +29,6 @@
     <string name="button_playlist_text">Open Playlist</string>
     <string name="button_video_snaps_text">View Video Snaps</string>
     <string name="button_video_recorded_clips_text">View Video Recorded Clips</string>
+    <string name="button_exit_text">Exit</string>
+    <string name="button_send_feedback_text">Send Feedback</string>
 </resources>

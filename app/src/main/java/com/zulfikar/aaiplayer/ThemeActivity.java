@@ -3,7 +3,6 @@ package com.zulfikar.aaiplayer;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 //import android.widget.Switch;
 
@@ -12,7 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ThemeActivity extends AppCompatActivity {
 
     int themeId;
-    Button toggle;
+
+    Button btnChangeTheme;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     private static final String PREFS_NAME = "prefs";
     private static final String PREFS_THEME_TAS = "testTheme";
@@ -22,14 +24,15 @@ public class ThemeActivity extends AppCompatActivity {
         ThemeActivity.applyTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme);
-        toggle = findViewById(R.id.btnChangeTheme);
-        toggle.setOnClickListener(view -> toggleTheme());
+        btnChangeTheme = findViewById(R.id.btnChangeTheme);
+        btnChangeTheme.setOnClickListener(view -> toggleTheme());
     }
 
     private void toggleTheme() {
-        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-        themeId = preferences.getInt(PREFS_THEME_TAS, R.style.AppTheme);
+        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        themeId = sharedPreferences.getInt(PREFS_THEME_TAS, R.style.AppTheme);
 
         if (themeId == R.style.AppTheme) themeId = R.style.TasniaTheme;
         else if (themeId == R.style.TasniaTheme) themeId = R.style.RimiTheme;
@@ -38,19 +41,15 @@ public class ThemeActivity extends AppCompatActivity {
 
         editor.putInt(PREFS_THEME_TAS, themeId);
         editor.apply();
+
         applyTheme(this);
         recreate();
     }
 
     public static void applyTheme(Activity activity){
-        activity.setTheme(getStyle(activity));
-    }
+        int themeId = activity.getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getInt(PREFS_THEME_TAS, R.style.AppTheme);
 
-    public static int getStyle(Activity activity) {
-        SharedPreferences preferences = activity.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        int themeId = preferences.getInt(PREFS_THEME_TAS, R.style.AppTheme);
-
-        return themeId;
+        activity.setTheme(themeId);
     }
 
 }
