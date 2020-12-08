@@ -9,7 +9,8 @@
         <item name="bottomNavBackground">@color/colorPrimaryDark</item>
         <item name="bottomNavItemChecked">@color/bottomNavItemChecked</item>
         <item name="bottomNavItemUnchecked">@color/bottomNavItemUnchecked</item>
-        <item name="themeButtonBg">@color/defaultThemeChangeButton</item>
+        <item name="buttonBackground">@color/buttonBackground</item>
+        <item name="buttonPressedBackground">@color/buttonPressedBackground</item>
         <item name="surpriseText">@string/defaultThemeText</item>
         <item name="themeInfo">@string/themeText1</item>
     </style>
@@ -23,7 +24,8 @@
         <item name="bottomNavBackground">@color/tasniaDark</item>
         <item name="bottomNavItemChecked">@color/tasniaBottomNavItemChecked</item>
         <item name="bottomNavItemUnchecked">@color/tasniaBottomNavItemUnchecked</item>
-        <item name="themeButtonBg">@color/tasniaThemeChangeButton</item>
+        <item name="buttonBackground">@color/tasniaButtonBackground</item>
+        <item name="buttonPressedBackground">@color/tasniaButtonPressedBackground</item>
         <item name="surpriseText">@string/tasniaThemeText</item>
         <item name="themeInfo">@string/themeText2</item>
     </style>
@@ -37,13 +39,14 @@
         <item name="bottomNavBackground">@color/rimiDark</item>
         <item name="bottomNavItemChecked">@color/rimiBottomNavItemChecked</item>
         <item name="bottomNavItemUnchecked">@color/rimiBottomNavItemUnchecked</item>
-        <item name="themeButtonBg">@color/rimiThemeChangeButton</item>
+        <item name="buttonBackground">@color/rimiButtonBackground</item>
+        <item name="buttonPressedBackground">@color/rimiButtonPressedBackground</item>
         <item name="surpriseText">@string/rimiThemeText</item>
         <item name="themeInfo">@string/themeText3</item>
     </style>
 
     <style name="EditTextTheme">
-        <item name="colorControlNormal">#FFFFFF</item>
+        <item name="colorControlNormal">#00FFFFFF</item>
         <item name="colorControlActivated">#FFFFFF</item>
         <item name="colorControlHighlight">#FFFFFF</item>
     </style>

@@ -8,4 +8,6 @@
     <attr name="themeButtonBg" format="reference"/>
     <attr name="surpriseText" format="reference"/>
     <attr name="themeInfo" format="reference"/>
+    <attr name="buttonBackground" format="color"/>
+    <attr name="buttonPressedBackground" format="color"/>
 </resources>

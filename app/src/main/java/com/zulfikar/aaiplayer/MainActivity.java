@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,10 +34,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.e("MainRun", "Running MainActivit " + savedInstanceState);
         ThemeActivity.applyTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        permission();
         bottomNav = findViewById(R.id.bottomNavViewAM);
         bottomNav.setOnNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.folderList) {
@@ -55,17 +56,20 @@ public class MainActivity extends AppCompatActivity {
             item.setChecked(true);
             return false;
         });
+        permission(savedInstanceState);
     }
 
 
-    private void permission() {
+    private void permission(Bundle savedInstanceState) {
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION);
         } else {
             videoFiles = getAllVideos(MainActivity.this);
-            FragmentTransaction folderFragmentTransaction = getSupportFragmentManager().beginTransaction();
-            folderFragmentTransaction.replace(R.id.mainFragment, new FolderFragment());
-            folderFragmentTransaction.commit();
+            if (savedInstanceState == null) {
+                FragmentTransaction folderFragmentTransaction = getSupportFragmentManager().beginTransaction();
+                folderFragmentTransaction.replace(R.id.mainFragment, new FolderFragment());
+                folderFragmentTransaction.commit();
+            }
         }
     }
 
@@ -118,7 +122,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         ThemeActivity.applyTheme(this);
-        this.recreate();
+
+        recreate();
     }
+
+//    @Override
+//    public Resources.Theme getTheme() {
+//        Resources.Theme theme = super.getTheme();
+//        theme.applyStyle(ThemeActivity.getStyle(this), true);
+//        // you could also use a switch if you have many themes that could apply
+//        return theme;
+//    }
 
 }

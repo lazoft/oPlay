@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -43,6 +45,7 @@ import static com.zulfikar.aaiplayer.VideoFolderAdapter.folderVideoFiles;
 
 public class PlayerActivity extends AppCompatActivity {
 
+    SharedPreferences sharedPreferences;
     DefaultTimeBar timeBar;
     Handler playerHandler = new Handler();
     CustomImageView btnBackward, btnForward;
@@ -53,14 +56,17 @@ public class PlayerActivity extends AppCompatActivity {
     SimpleExoPlayer simpleExoPlayer;
     String sender, path;
     TextView controlLabel;
+    Thread playbackControllerThread;
 
     boolean controllerVisible = true;
     int forwardJumpTime, backwardJumpTime, position = -1;
 
+    private static final String PLAYBACK_JUMPER_PREFERENCE = "playback_jumper_preferences";
     static HashMap<String, Long> lastPlayed = new HashMap<>();
     static long duration = 0;
 
     volatile TextView videoPosition, videoDuration;
+    volatile boolean exitPlayer;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -68,6 +74,7 @@ public class PlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setFullScreen();
         setContentView(R.layout.activity_player);
+        sharedPreferences = getSharedPreferences(PLAYBACK_JUMPER_PREFERENCE, MODE_PRIVATE);
         Objects.requireNonNull(getSupportActionBar()).hide();
         playerView = findViewById(R.id.exoplayer_movie);
         customController = findViewById(R.id.cloneCustomController);
@@ -75,8 +82,8 @@ public class PlayerActivity extends AppCompatActivity {
         sender = getIntent().getStringExtra("sender");
         path = sender.equals("Video") ? videoFiles.get(position).getPath() : sender.equals("VideoFolder") ? folderVideoFiles.get(position).getPath() : path;
         duration = Objects.requireNonNull(lastPlayed.getOrDefault(path, 0L));
-        forwardJumpTime = Integer.parseInt(getResources().getString(R.string.default_forward_playback_time));
-        backwardJumpTime = Integer.parseInt(getResources().getString(R.string.default_backward_playback_time));
+        backwardJumpTime = Integer.parseInt(sharedPreferences.getString("backward_jumper_time", "10"));
+        forwardJumpTime = Integer.parseInt(sharedPreferences.getString("forward_jumper_time", "10"));
         startVideo(duration);
         functioningCustomController(customController);
     }
@@ -101,6 +108,7 @@ public class PlayerActivity extends AppCompatActivity {
         super.onBackPressed();
         lastPlayed.put(path, simpleExoPlayer.getContentPosition());
         simpleExoPlayer.stop();
+        exitPlayer = true;
     }
 
     private void setFullScreen() {
@@ -121,7 +129,7 @@ public class PlayerActivity extends AppCompatActivity {
         videoPosition = customController.findViewById(R.id.exo_position);
         videoDuration = customController.findViewById(R.id.exo_duration);
 
-        new Thread(new CustomTimeBar()).start();
+        (playbackControllerThread = new Thread(new CustomTimeBar())).start();
 
         customController.setOnClickListener(v -> {
 
@@ -140,23 +148,25 @@ public class PlayerActivity extends AppCompatActivity {
 
         btnBackward.setOnTouchListener(new View.OnTouchListener() {
             float y;
-            int seek;
+            int seek = backwardJumpTime;
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     y = event.getRawY();
                     controlLabelLayout.setVisibility(View.VISIBLE);
-                    controlLabel.setText("Backward " + backwardJumpTime + " Sec");
+                    controlLabel.setText(String.format(Locale.US,"Backward %d Sec", backwardJumpTime));
                     return true;
                 } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
                     if (event.getRawY() < y) seek = (int) (backwardJumpTime * ((1 + (11 - (int) (11 / y * event.getRawY())) / 10.0) % 2.1));
                     else if (event.getRawY() > y) seek = (int) (backwardJumpTime * (11 - 11 / y * (event.getRawY() - y)) / 10);
 
-                    controlLabel.setText(String.format("Backward %d Sec", seek));
+                    controlLabel.setText(String.format(Locale.US,"Backward %d Sec", seek));
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     controlLabelLayout.setVisibility(View.INVISIBLE);
                     simpleExoPlayer.seekTo(simpleExoPlayer.getCurrentPosition() - TimeUnit.SECONDS.toMillis(seek));
+                    timeBar.setPosition(simpleExoPlayer.getCurrentPosition());
                     videoPosition.setText(getDurationFormat(simpleExoPlayer.getCurrentPosition()));
+                    seek = backwardJumpTime;
                     return true;
                 }
                 return false;
@@ -191,23 +201,24 @@ public class PlayerActivity extends AppCompatActivity {
 
         btnForward.setOnTouchListener(new View.OnTouchListener() {
             float y;
-            int seek;
+            int seek = forwardJumpTime;
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     y = event.getRawY();
                     controlLabelLayout.setVisibility(View.VISIBLE);
-                    controlLabel.setText("Forward " + forwardJumpTime + " Sec");
+                    controlLabel.setText(String.format(Locale.US, "Forward %d Sec", forwardJumpTime));
                     return true;
                 } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
                     if (event.getRawY() < y) seek = (int) (backwardJumpTime * ((1 + (11 - (int) (11 / y * event.getRawY())) / 10.0) % 2.1));
                     else if (event.getRawY() > y) seek = (int) (backwardJumpTime * (11 - 11 / y * (event.getRawY() - y)) / 10);
-
-                    controlLabel.setText(String.format("Forward %d Sec", seek));
+                    controlLabel.setText(String.format(Locale.US, "Forward %d Sec", seek));
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     controlLabelLayout.setVisibility(View.INVISIBLE);
                     simpleExoPlayer.seekTo(simpleExoPlayer.getCurrentPosition() + TimeUnit.SECONDS.toMillis(seek));
+                    timeBar.setPosition(simpleExoPlayer.getCurrentPosition());
                     videoPosition.setText(getDurationFormat(simpleExoPlayer.getCurrentPosition()));
+                    seek = forwardJumpTime;
                     return true;
                 }
                 return false;
@@ -267,6 +278,7 @@ public class PlayerActivity extends AppCompatActivity {
         public void run() {
             while (durationEnd < 0) {
                 playerHandler.post(() -> durationEnd = simpleExoPlayer.getDuration());
+//                durationEnd = simpleExoPlayer.getContentDuration();
             }
 
             playerHandler.post(() -> {
@@ -274,7 +286,7 @@ public class PlayerActivity extends AppCompatActivity {
                 timeBar.setDuration(durationEnd);
             });
 
-            while (durationCurrent < durationEnd) {
+            while (!exitPlayer) {
                 try {
                     playerHandler.post(() -> durationCurrent = simpleExoPlayer.getCurrentPosition());
                     playerHandler.post(() -> {

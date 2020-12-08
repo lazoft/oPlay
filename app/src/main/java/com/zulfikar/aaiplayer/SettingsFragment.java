@@ -1,31 +1,76 @@
 package com.zulfikar.aaiplayer;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 //import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class SettingsFragment extends Fragment {
 
-    TextView button;
+    SharedPreferences.Editor editor;
+    SharedPreferences sharedPreferences;
+    EditText txtForwardPlayback, txtBackwardPlayback;
+    TextView btnChangeTheme;
+
+    private static final String PLAYBACK_JUMPER_PREFERENCE = "playback_jumper_preferences";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
-        button = view.findViewById(R.id.themeBtn);
-        button.setOnClickListener(view1 -> openThemeActivity());
-        return view;
-    }
+        sharedPreferences = getActivity().getSharedPreferences(PLAYBACK_JUMPER_PREFERENCE, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        btnChangeTheme = view.findViewById(R.id.btnChangeThemeFS);
+        txtBackwardPlayback = view.findViewById(R.id.txtBackwardPlaybackFS);
+        txtForwardPlayback = view.findViewById(R.id.txtForwardPlaybackFS);
+        txtBackwardPlayback.setText(sharedPreferences.getString("backward_jumper_time", "10"));
+        txtForwardPlayback.setText(sharedPreferences.getString("forward_jumper_time", "10"));
+        btnChangeTheme.setOnClickListener(view1 -> startActivity(new Intent(getActivity(), ThemeActivity.class)));
+        txtBackwardPlayback.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-    public void openThemeActivity() {
-        Intent intent = new Intent(getActivity(), ThemeActivity.class);
-        startActivity(intent);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                editor.putString("backward_jumper_time", txtBackwardPlayback.getText().toString());
+                editor.apply();
+            }
+        });
+        txtForwardPlayback.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                editor.putString("forward_jumper_time", txtForwardPlayback.getText().toString());
+                editor.apply();
+            }
+        });
+        return view;
     }
 }
 

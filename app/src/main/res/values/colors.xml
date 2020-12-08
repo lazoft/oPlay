@@ -7,7 +7,8 @@
     <color name="settingsItemBackground">#252525</color>
     <color name="bottomNavItemChecked">#9E0707</color>
     <color name="bottomNavItemUnchecked">#FFFFFF</color>
-    <color name="defaultThemeChangeButton">@color/tasniaPrimary</color>
+    <color name="buttonBackground">@color/tasniaPrimary</color>
+    <color name="buttonPressedBackground">@color/tasniaDark</color>
 
     <color name="tasniaPrimary">#D825FF</color>
     <color name="tasniaDark">#A500CA</color>
@@ -16,7 +17,8 @@
     <color name="tasniaSettingsItemBackground">#64007A</color>
     <color name="tasniaBottomNavItemChecked">#FFFFFF</color>
     <color name="tasniaBottomNavItemUnchecked">#A574AE</color>
-    <color name="tasniaThemeChangeButton">@color/rimiPrimary</color>
+    <color name="tasniaButtonBackground">@color/rimiPrimary</color>
+    <color name="tasniaButtonPressedBackground">@color/rimiDark</color>
 
     <color name="rimiPrimary">#E4AC00</color>
     <color name="rimiDark">#BA8C00</color>
@@ -25,7 +27,8 @@
     <color name="rimiSettingsItemBackground">#705400</color>
     <color name="rimiBottomNavItemChecked">#9E0707</color>
     <color name="rimiBottomNavItemUnchecked">#5E5D5D</color>
-    <color name="rimiThemeChangeButton">@color/colorPrimary</color>
+    <color name="rimiButtonBackground">@color/colorPrimary</color>
+    <color name="rimiButtonPressedBackground">@color/colorPrimaryDark</color>
 
     <color name="textPrimary">#FFFFFF</color>
 

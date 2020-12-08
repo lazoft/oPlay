@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <TextView
-
+            android:id="@+id/btnMyAccountFS"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="20dp"
@@ -29,7 +29,7 @@
             android:layout_weight="7" />
 
         <TextView
-            android:id="@+id/themeBtn"
+            android:id="@+id/btnChangeThemeFS"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="5dp"
@@ -45,6 +45,7 @@
             android:layout_weight="7" />
 
         <TextView
+            android:id="@+id/btnWifiShareFS"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="5dp"
@@ -81,8 +82,7 @@
                 />
 
             <EditText
-
-                android:id="@+id/txtForwardPlayback"
+                android:id="@+id/txtForwardPlaybackFS"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
@@ -116,7 +116,7 @@
                 android:layout_weight="7" />
 
             <EditText
-                android:id="@+id/txtBackwardPlayback"
+                android:id="@+id/txtBackwardPlaybackFS"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
@@ -130,6 +130,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/btnResetSettingsFS"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="5dp"

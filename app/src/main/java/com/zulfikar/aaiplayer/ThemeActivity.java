@@ -14,7 +14,8 @@ public class ThemeActivity extends AppCompatActivity {
     int themeId;
     Button toggle;
 
-    private static final String PREFS_NAME = "prefs", PREFS_THEME_TAS = "testTheme";
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREFS_THEME_TAS = "testTheme";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -42,10 +43,14 @@ public class ThemeActivity extends AppCompatActivity {
     }
 
     public static void applyTheme(Activity activity){
+        activity.setTheme(getStyle(activity));
+    }
+
+    public static int getStyle(Activity activity) {
         SharedPreferences preferences = activity.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         int themeId = preferences.getInt(PREFS_THEME_TAS, R.style.AppTheme);
 
-        activity.setTheme(themeId);
+        return themeId;
     }
 
 }
