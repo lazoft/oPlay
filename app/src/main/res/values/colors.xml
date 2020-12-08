@@ -5,6 +5,7 @@
     <color name="colorAccent">#2196F3</color>
     <color name="settingsBackground">#2C2C2C</color>
     <color name="settingsItemBackground">#252525</color>
+    <color name="settingsItemPressedBackground">#4D252525</color>
     <color name="bottomNavItemChecked">#9E0707</color>
     <color name="bottomNavItemUnchecked">#FFFFFF</color>
     <color name="buttonBackground">@color/tasniaPrimary</color>
@@ -15,6 +16,7 @@
     <color name="tasniaAccent">#9A46AC</color>
     <color name="tasniaSettingsBackground">#770091</color>
     <color name="tasniaSettingsItemBackground">#64007A</color>
+    <color name="tasniaSettingsItemPressedBackground">#4D64007A</color>
     <color name="tasniaBottomNavItemChecked">#FFFFFF</color>
     <color name="tasniaBottomNavItemUnchecked">#A574AE</color>
     <color name="tasniaButtonBackground">@color/rimiPrimary</color>
@@ -25,6 +27,7 @@
     <color name="rimiAccent">#D1AE00</color>
     <color name="rimiSettingsBackground">#916D00</color>
     <color name="rimiSettingsItemBackground">#705400</color>
+    <color name="rimiSettingsItemPressedBackground">#4D705400</color>
     <color name="rimiBottomNavItemChecked">#9E0707</color>
     <color name="rimiBottomNavItemUnchecked">#5E5D5D</color>
     <color name="rimiButtonBackground">@color/colorPrimary</color>

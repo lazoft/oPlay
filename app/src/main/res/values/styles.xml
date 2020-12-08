@@ -6,6 +6,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="settingsBackground">@color/settingsBackground</item>
         <item name="settingsItemBackground">@color/settingsItemBackground</item>
+        <item name="settingsItemPressedBackground">@color/settingsItemPressedBackground</item>
         <item name="bottomNavBackground">@color/colorPrimaryDark</item>
         <item name="bottomNavItemChecked">@color/bottomNavItemChecked</item>
         <item name="bottomNavItemUnchecked">@color/bottomNavItemUnchecked</item>
@@ -21,6 +22,7 @@
         <item name="colorAccent">@color/tasniaAccent</item>
         <item name="settingsBackground">@color/tasniaSettingsBackground</item>
         <item name="settingsItemBackground">@color/tasniaSettingsItemBackground</item>
+        <item name="settingsItemPressedBackground">@color/tasniaSettingsItemPressedBackground</item>
         <item name="bottomNavBackground">@color/tasniaDark</item>
         <item name="bottomNavItemChecked">@color/tasniaBottomNavItemChecked</item>
         <item name="bottomNavItemUnchecked">@color/tasniaBottomNavItemUnchecked</item>
@@ -36,6 +38,7 @@
         <item name="colorAccent">@color/rimiAccent</item>
         <item name="settingsBackground">@color/rimiSettingsBackground</item>
         <item name="settingsItemBackground">@color/rimiSettingsItemBackground</item>
+        <item name="settingsItemPressedBackground">@color/rimiSettingsItemPressedBackground</item>
         <item name="bottomNavBackground">@color/rimiDark</item>
         <item name="bottomNavItemChecked">@color/rimiBottomNavItemChecked</item>
         <item name="bottomNavItemUnchecked">@color/rimiBottomNavItemUnchecked</item>

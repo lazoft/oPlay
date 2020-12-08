@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="settingsBackground" format="reference"/>
-    <attr name="settingsItemBackground" format="reference"/>
+    <attr name="settingsItemPressedBackground" format="color"/>
+    <attr name="settingsItemBackground" format="color"/>
     <attr name="bottomNavBackground" format="reference"/>
     <attr name="bottomNavItemChecked" format="reference"/>
     <attr name="bottomNavItemUnchecked" format="reference"/>

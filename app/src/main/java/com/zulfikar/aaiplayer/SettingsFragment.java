@@ -21,7 +21,7 @@ public class SettingsFragment extends Fragment {
     SharedPreferences.Editor editor;
     SharedPreferences sharedPreferences;
     EditText txtForwardPlayback, txtBackwardPlayback;
-    TextView btnChangeTheme;
+    TextView btnMyAccount, btnPlaylist, btnChangeTheme, btnWifiShare, btnVideoSnaps, btnVideoRecordedClips, btnResetSettings, btnSendFeedback, btnExit;
 
     private static final String PLAYBACK_JUMPER_PREFERENCE = "playback_jumper_preferences";
 
@@ -31,6 +31,14 @@ public class SettingsFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences(PLAYBACK_JUMPER_PREFERENCE, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         btnChangeTheme = view.findViewById(R.id.btnChangeThemeFS);
+        btnMyAccount = view.findViewById(R.id.btnMyAccountFS);
+        btnPlaylist = view.findViewById(R.id.btnPlaylistFS);
+        btnWifiShare = view.findViewById(R.id.btnWifiShareFS);
+        btnVideoSnaps = view.findViewById(R.id.btnVideoSnapsFS);
+        btnVideoRecordedClips = view.findViewById(R.id.btnVideoRecordedClipsFS);
+        btnResetSettings = view.findViewById(R.id.btnResetSettingsFS);
+        btnSendFeedback = view.findViewById(R.id.btnFeedbackFS);
+        btnExit = view.findViewById(R.id.btnExitFS);
         txtBackwardPlayback = view.findViewById(R.id.txtBackwardPlaybackFS);
         txtForwardPlayback = view.findViewById(R.id.txtForwardPlaybackFS);
         txtBackwardPlayback.setText(sharedPreferences.getString("backward_jumper_time", "10"));
@@ -70,7 +78,17 @@ public class SettingsFragment extends Fragment {
                 editor.apply();
             }
         });
+        setOnClickForUpcomingButtons(btnMyAccount, btnPlaylist, btnWifiShare, btnVideoSnaps, btnVideoRecordedClips, btnResetSettings, btnSendFeedback, btnExit);
         return view;
+    }
+
+    public void setOnClickForUpcomingButtons(TextView... buttons) {
+        for (TextView button : buttons) button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 }
 
