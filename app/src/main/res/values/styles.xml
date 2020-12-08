@@ -61,7 +61,7 @@
         <item name="buttonBackground">@color/soulmateButtonBackground</item>
         <item name="buttonPressedBackground">@color/soulmateButtonPressedBackground</item>
         <item name="surpriseText">@string/soulmateThemeText</item>
-        <item name="themeInfo">@string/soulmateThemeinfo</item>
+        <item name="themeInfo">@string/soulmateThemeInfo</item>
     </style>
 
     <style name="InLawsTheme" parent="Theme.AppCompat.Light.DarkActionBar">
