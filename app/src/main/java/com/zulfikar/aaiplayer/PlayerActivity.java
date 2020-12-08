@@ -277,8 +277,8 @@ public class PlayerActivity extends AppCompatActivity {
         @Override
         public void run() {
             while (durationEnd < 0) {
-                playerHandler.post(() -> durationEnd = simpleExoPlayer.getDuration());
-//                durationEnd = simpleExoPlayer.getContentDuration();
+//                playerHandler.post(() -> durationEnd = simpleExoPlayer.getDuration());
+                durationEnd = simpleExoPlayer.getDuration();
             }
 
             playerHandler.post(() -> {
@@ -288,7 +288,8 @@ public class PlayerActivity extends AppCompatActivity {
 
             while (!exitPlayer) {
                 try {
-                    playerHandler.post(() -> durationCurrent = simpleExoPlayer.getCurrentPosition());
+                    durationCurrent = simpleExoPlayer.getCurrentPosition();
+//                    playerHandler.post(() -> durationCurrent = simpleExoPlayer.getCurrentPosition());
                     playerHandler.post(() -> {
                         videoPosition.setText(getDurationFormat(durationCurrent));
                         timeBar.setPosition(durationCurrent);

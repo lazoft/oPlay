@@ -17,8 +17,12 @@ public class FolderFragment extends Fragment {
 
     FolderAdapter folderAdapter;
     RecyclerView recyclerView;
+
+    static boolean loaded;
+    static FolderFragment me;
+
     public FolderFragment() {
-        // Required empty public constructor
+        me = this;
     }
 
     @Override
@@ -27,7 +31,7 @@ public class FolderFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.folderRV);
         if (folderList != null && videoFiles != null && folderList.size() > 0) {
-            folderAdapter = new FolderAdapter(folderList, videoFiles, getContext());
+            folderAdapter = new FolderAdapter(folderList, videoFiles, getActivity());
             recyclerView.setAdapter(folderAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         }

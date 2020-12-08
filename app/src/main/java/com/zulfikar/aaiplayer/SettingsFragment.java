@@ -43,7 +43,11 @@ public class SettingsFragment extends Fragment {
         txtForwardPlayback = view.findViewById(R.id.txtForwardPlaybackFS);
         txtBackwardPlayback.setText(sharedPreferences.getString("backward_jumper_time", "10"));
         txtForwardPlayback.setText(sharedPreferences.getString("forward_jumper_time", "10"));
-        btnChangeTheme.setOnClickListener(view1 -> startActivity(new Intent(getActivity(), ThemeActivity.class)));
+        btnChangeTheme.setOnClickListener(view1 -> {
+            Intent themeActivityIntent = new Intent(getActivity(), ThemeActivity.class);
+            themeActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(themeActivityIntent);
+        });
         txtBackwardPlayback.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

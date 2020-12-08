@@ -29,24 +29,36 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_PERMISSION = 123;
     BottomNavigationView bottomNav;
+    FolderFragment folderFragment;
+    FilesFragment filesFragment;
+
+    static FragmentManager fragmentManager;
     static ArrayList<VideoFiles> videoFiles = new ArrayList<>();
     static ArrayList<String> folderList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.e("MainRun", "Running MainActivit " + savedInstanceState);
         ThemeActivity.applyTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomNav = findViewById(R.id.bottomNavViewAM);
+        if (fragmentManager == null) fragmentManager = getSupportFragmentManager();
         bottomNav.setOnNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.folderList) {
-                FragmentTransaction folderFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                folderFragmentTransaction.replace(R.id.mainFragment, new FolderFragment());
-                folderFragmentTransaction.commit();
+                if (FolderVideoFragment.loaded) {
+                    FragmentTransaction folderFragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    folderFragmentTransaction.replace(R.id.mainFragment, FolderVideoFragment.me);
+                    folderFragmentTransaction.commit();
+                } else {
+                    FragmentTransaction folderFragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    if (folderFragment == null) folderFragment = new FolderFragment();
+                    folderFragmentTransaction.replace(R.id.mainFragment, folderFragment);
+                    folderFragmentTransaction.commit();
+                }
             } else if (item.getItemId() == R.id.filesList) {
                 FragmentTransaction fileFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fileFragmentTransaction.replace(R.id.mainFragment, new FilesFragment());
+                if (filesFragment == null) filesFragment = new FilesFragment();
+                fileFragmentTransaction.replace(R.id.mainFragment, filesFragment);
                 fileFragmentTransaction.commit();
             } else if (item.getItemId() == R.id.btnNavSettings) {
                 FragmentTransaction settingsFragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -59,16 +71,13 @@ public class MainActivity extends AppCompatActivity {
         permission(savedInstanceState);
     }
 
-
     private void permission(Bundle savedInstanceState) {
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION);
         } else {
             videoFiles = getAllVideos(MainActivity.this);
             if (savedInstanceState == null) {
-                FragmentTransaction folderFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                folderFragmentTransaction.replace(R.id.mainFragment, new FolderFragment());
-                folderFragmentTransaction.commit();
+                loadFolderFragment();
             }
         }
     }
@@ -87,6 +96,23 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION);
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (FolderVideoFragment.loaded && bottomNav.getSelectedItemId() == R.id.folderList) {
+            FolderVideoFragment.loaded = false;
+            loadFolderFragment();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        ThemeActivity.applyTheme(this);
+        recreate();
     }
 
     public ArrayList<VideoFiles> getAllVideos(Context context) {
@@ -118,10 +144,10 @@ public class MainActivity extends AppCompatActivity {
         return tempVideoFiles;
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        ThemeActivity.applyTheme(this);
-        recreate();
+    private void loadFolderFragment() {
+        FragmentTransaction folderFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (folderFragment == null) folderFragment = new FolderFragment();
+        folderFragmentTransaction.replace(R.id.mainFragment, folderFragment);
+        folderFragmentTransaction.commit();
     }
 }
