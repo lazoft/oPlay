@@ -29,30 +29,14 @@
             android:layout_weight="7" />
 
         <TextView
-            android:id="@+id/btnChangeThemeFS"
+            android:id="@+id/btnPlaylistFS"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="5dp"
             android:background="?settingsItemBackground"
             android:gravity="center_vertical"
             android:textColor="#FFFFFF"
-            android:text="@string/change_theme"
-            android:paddingStart="10dp"
-            android:paddingLeft="10dp"
-            android:paddingEnd="10dp"
-            android:paddingRight="10dp"
-            android:textSize="20sp"
-            android:layout_weight="7" />
-
-        <TextView
-            android:id="@+id/btnWifiShareFS"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="5dp"
-            android:background="?settingsItemBackground"
-            android:gravity="center_vertical"
-            android:textColor="#FFFFFF"
-            android:text="@string/wifi_share"
+            android:text="@string/button_playlist_text"
             android:paddingStart="10dp"
             android:paddingLeft="10dp"
             android:paddingEnd="10dp"
@@ -128,6 +112,70 @@
                 android:inputType="number"
                 tools:ignore="labelFor"/>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/btnChangeThemeFS"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:background="?settingsItemBackground"
+            android:gravity="center_vertical"
+            android:textColor="#FFFFFF"
+            android:text="@string/change_theme"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textSize="20sp"
+            android:layout_weight="7" />
+
+        <TextView
+            android:id="@+id/btnWifiShareFS"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:background="?settingsItemBackground"
+            android:gravity="center_vertical"
+            android:textColor="#FFFFFF"
+            android:text="@string/wifi_share"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textSize="20sp"
+            android:layout_weight="7" />
+
+        <TextView
+            android:id="@+id/btnVideoSnapsFS"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:background="?settingsItemBackground"
+            android:gravity="center_vertical"
+            android:textColor="#FFFFFF"
+            android:text="@string/button_video_snaps_text"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textSize="20sp"
+            android:layout_weight="7" />
+
+        <TextView
+            android:id="@+id/btnVideoRecordedClipsFS"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:background="?settingsItemBackground"
+            android:gravity="center_vertical"
+            android:textColor="#FFFFFF"
+            android:text="@string/button_video_recorded_clips_text"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textSize="20sp"
+            android:layout_weight="7" />
 
         <TextView
             android:id="@+id/btnResetSettingsFS"

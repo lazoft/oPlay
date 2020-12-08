@@ -26,4 +26,7 @@
     <string name="themeText1">Current theme: AAI</string>
     <string name="themeText2">Current theme: TASNIA</string>
     <string name="themeText3">Current theme: RIMI</string>
+    <string name="button_playlist_text">Open Playlist</string>
+    <string name="button_video_snaps_text">View Video Snaps</string>
+    <string name="button_video_recorded_clips_text">View Video Recorded Clips</string>
 </resources>
