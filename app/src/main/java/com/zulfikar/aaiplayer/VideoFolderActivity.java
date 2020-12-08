@@ -20,6 +20,7 @@ public class VideoFolderActivity extends AppCompatActivity {
     ArrayList<VideoFiles> videoFilesArrayList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ThemeActivity.applyTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_folder);
         recyclerView = findViewById(R.id.FolderVideoRV);
@@ -57,5 +58,13 @@ public class VideoFolderActivity extends AppCompatActivity {
             cursor.close();
         }
         return  tempVideoFiles;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        ThemeActivity.applyTheme(this);
+
+        recreate();
     }
 }
