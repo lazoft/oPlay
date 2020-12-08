@@ -13,7 +13,7 @@
         <item name="buttonBackground">@color/buttonBackground</item>
         <item name="buttonPressedBackground">@color/buttonPressedBackground</item>
         <item name="surpriseText">@string/defaultThemeText</item>
-        <item name="themeInfo">@string/themeText1</item>
+        <item name="themeInfo">@string/defaultThemeInfo</item>
     </style>
 
     <style name="TasniaTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -29,7 +29,7 @@
         <item name="buttonBackground">@color/tasniaButtonBackground</item>
         <item name="buttonPressedBackground">@color/tasniaButtonPressedBackground</item>
         <item name="surpriseText">@string/tasniaThemeText</item>
-        <item name="themeInfo">@string/themeText2</item>
+        <item name="themeInfo">@string/tasniaThemeInfo</item>
     </style>
 
     <style name="RimiTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -45,7 +45,39 @@
         <item name="buttonBackground">@color/rimiButtonBackground</item>
         <item name="buttonPressedBackground">@color/rimiButtonPressedBackground</item>
         <item name="surpriseText">@string/rimiThemeText</item>
-        <item name="themeInfo">@string/themeText3</item>
+        <item name="themeInfo">@string/rimiThemeInfo</item>
+    </style>
+
+    <style name="SoulMateTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/soulmatePrimary</item>
+        <item name="colorPrimaryDark">@color/soulmatePrimaryDark</item>
+        <item name="colorAccent">@color/soulmateAccent</item>
+        <item name="settingsBackground">@color/soulmateSettingsBackground</item>
+        <item name="settingsItemBackground">@color/soulmateSettingsItemBackground</item>
+        <item name="settingsItemPressedBackground">@color/soulmateSettingsItemPressedBackground</item>
+        <item name="bottomNavBackground">@color/soulmatePrimaryDark</item>
+        <item name="bottomNavItemChecked">@color/soulmateBottomNavItemChecked</item>
+        <item name="bottomNavItemUnchecked">@color/soulmateBottomNavItemUnchecked</item>
+        <item name="buttonBackground">@color/soulmateButtonBackground</item>
+        <item name="buttonPressedBackground">@color/soulmateButtonPressedBackground</item>
+        <item name="surpriseText">@string/soulmateThemeText</item>
+        <item name="themeInfo">@string/soulmateThemeinfo</item>
+    </style>
+
+    <style name="InLawsTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/inlawsPrimary</item>
+        <item name="colorPrimaryDark">@color/inlawsPrimaryDark</item>
+        <item name="colorAccent">@color/inlawsAccent</item>
+        <item name="settingsBackground">@color/inlawsSettingsBackground</item>
+        <item name="settingsItemBackground">@color/inlawsSettingsItemBackground</item>
+        <item name="settingsItemPressedBackground">@color/inlawsSettingsItemPressedBackground</item>
+        <item name="bottomNavBackground">@color/inlawsPrimaryDark</item>
+        <item name="bottomNavItemChecked">@color/inlawsBottomNavItemChecked</item>
+        <item name="bottomNavItemUnchecked">@color/inlawsBottomNavItemUnchecked</item>
+        <item name="buttonBackground">@color/inlawsButtonBackground</item>
+        <item name="buttonPressedBackground">@color/inlawsButtonPressedBackground</item>
+        <item name="surpriseText">@string/inlawsThemeText</item>
+        <item name="themeInfo">@string/inlawsThemeInfo</item>
     </style>
 
     <style name="EditTextTheme">

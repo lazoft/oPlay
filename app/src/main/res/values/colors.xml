@@ -6,7 +6,7 @@
     <color name="settingsBackground">#2C2C2C</color>
     <color name="settingsItemBackground">#252525</color>
     <color name="settingsItemPressedBackground">#4D252525</color>
-    <color name="bottomNavItemChecked">#9E0707</color>
+    <color name="bottomNavItemChecked">#C30808</color>
     <color name="bottomNavItemUnchecked">#FFFFFF</color>
     <color name="buttonBackground">@color/tasniaPrimary</color>
     <color name="buttonPressedBackground">@color/tasniaDark</color>
@@ -14,8 +14,8 @@
     <color name="tasniaPrimary">#D825FF</color>
     <color name="tasniaDark">#A500CA</color>
     <color name="tasniaAccent">#9A46AC</color>
-    <color name="tasniaSettingsBackground">#770091</color>
-    <color name="tasniaSettingsItemBackground">#64007A</color>
+    <color name="tasniaSettingsBackground">#BE00E8</color>
+    <color name="tasniaSettingsItemBackground">#AD00D3</color>
     <color name="tasniaSettingsItemPressedBackground">#4D64007A</color>
     <color name="tasniaBottomNavItemChecked">#FFFFFF</color>
     <color name="tasniaBottomNavItemUnchecked">#A574AE</color>
@@ -25,13 +25,35 @@
     <color name="rimiPrimary">#E4AC00</color>
     <color name="rimiDark">#BA8C00</color>
     <color name="rimiAccent">#D1AE00</color>
-    <color name="rimiSettingsBackground">#916D00</color>
-    <color name="rimiSettingsItemBackground">#705400</color>
+    <color name="rimiSettingsBackground">#D5A000</color>
+    <color name="rimiSettingsItemBackground">#C89600</color>
     <color name="rimiSettingsItemPressedBackground">#4D705400</color>
     <color name="rimiBottomNavItemChecked">#9E0707</color>
-    <color name="rimiBottomNavItemUnchecked">#5E5D5D</color>
-    <color name="rimiButtonBackground">@color/colorPrimary</color>
-    <color name="rimiButtonPressedBackground">@color/colorPrimaryDark</color>
+    <color name="rimiBottomNavItemUnchecked">#DDDDDD</color>
+    <color name="rimiButtonBackground">@color/soulmatePrimary</color>
+    <color name="rimiButtonPressedBackground">@color/soulmatePrimaryDark</color>
+
+    <color name="soulmatePrimary">#0063BA</color>
+    <color name="soulmatePrimaryDark">#0057A3</color>
+    <color name="soulmateAccent">#0077DF</color>
+    <color name="soulmateSettingsBackground">#005CAE</color>
+    <color name="soulmateSettingsItemBackground">#0057A5</color>
+    <color name="soulmateSettingsItemPressedBackground">#4D005097</color>
+    <color name="soulmateBottomNavItemChecked">#FF7812</color>
+    <color name="soulmateBottomNavItemUnchecked">#BC5017</color>
+    <color name="soulmateButtonBackground">@color/inlawsPrimary</color>
+    <color name="soulmateButtonPressedBackground">@color/inlawsPrimaryDark</color>
+
+    <color name="inlawsPrimary">#3A8C3D</color>
+    <color name="inlawsPrimaryDark">#006C04</color>
+    <color name="inlawsAccent">#36CF3C</color>
+    <color name="inlawsSettingsBackground">#289A2D</color>
+    <color name="inlawsSettingsItemBackground">#258F2A</color>
+    <color name="inlawsSettingsItemPressedBackground">#4D06F30F</color>
+    <color name="inlawsBottomNavItemChecked">#25DEFF</color>
+    <color name="inlawsBottomNavItemUnchecked">#009F9F</color>
+    <color name="inlawsButtonBackground">@color/colorPrimary</color>
+    <color name="inlawsButtonPressedBackground">@color/colorPrimaryDark</color>
 
     <color name="textPrimary">#FFFFFF</color>
 

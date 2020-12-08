@@ -36,7 +36,9 @@ public class ThemeActivity extends AppCompatActivity {
 
         if (themeId == R.style.AppTheme) themeId = R.style.TasniaTheme;
         else if (themeId == R.style.TasniaTheme) themeId = R.style.RimiTheme;
-        else if (themeId == R.style.RimiTheme) themeId = R.style.AppTheme;
+        else if (themeId == R.style.RimiTheme) themeId = R.style.SoulMateTheme;
+        else if (themeId == R.style.SoulMateTheme) themeId = R.style.InLawsTheme;
+        else if (themeId == R.style.InLawsTheme) themeId = R.style.AppTheme;
         else themeId = R.style.AppTheme;
 
         editor.putInt(PREFS_THEME_TAS, themeId);
