@@ -1,5 +1,6 @@
 package com.zulfikar.aaiplayer;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 
@@ -18,6 +20,7 @@ public class VideoFolderActivity extends AppCompatActivity {
     VideoFolderAdapter videoFolderAdapter;
     String myFolderName;
     ArrayList<VideoFiles> videoFilesArrayList = new ArrayList<>();
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ThemeActivity.applyTheme(this);
@@ -35,6 +38,7 @@ public class VideoFolderActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     public ArrayList<VideoFiles> getAllVideos(Context context, String myFolderName) {
         ArrayList<VideoFiles> tempVideoFiles = new ArrayList<>();
         Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;

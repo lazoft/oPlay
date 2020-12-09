@@ -44,4 +44,22 @@
     <string name="under_maintenance_text">Feature Under Maintenance</string>
     <string name="about_button_text">About</string>
     <string name="button_update_text">Check for update</string>
+    <string name="text_play">Play</string>
+    <string name="text_pause">Pause</string>
+    <string name="name_zulfikar">Mohammed Julfikar Ali Mahbub</string>
+    <string name="name_shahriyar">Md. Shahriyar Hossain Shihab</string>
+    <string name="name_ornil">Abu Hasnayen Zillanee</string>
+    <string name="name_sohan">Sohanur Rahman Sohan</string>
+    <string name="name_afsan">Afsan Saeed</string>
+    <string name="name_adnan">Md Adnanul Haq</string>
+    <string name="name_sohan_rockStar">Shona Khan</string>
+    <string name="role_rockStar">Finance Manager</string>
+    <string name="role_zulfikar">Co-founder\nSenior Developer</string>
+    <string name="role_shahriyar">Co-founder\nJunior Developer\nTheme Designer</string>
+    <string name="role_ornil">Playlist Developer</string>
+    <string name="role_sohan">Clip Recorder Developer</string>
+    <string name="role_afsan">Playlist Enhancer</string>
+    <string name="role_adnan">Frame Capturing Developer</string>
+    <string name="app_version">Version 1.0</string>
+    <string name="app_build">Build 115</string>
 </resources>

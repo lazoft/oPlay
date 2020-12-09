@@ -1,8 +1,5 @@
 package com.zulfikar.aaiplayer;
 
-import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,23 +7,19 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.MyHolder> {
 
-    private ArrayList<String> folderName;
-    private ArrayList<VideoFiles> videoFiles;
-    private FragmentActivity mContext;
+    private final ArrayList<String> folderName;
+    private final FragmentActivity mContext;
 
     public static String folderTitle;
 
-    public FolderAdapter(ArrayList<String> folderName, ArrayList<VideoFiles> videoFiles, FragmentActivity mContext) {
+    public FolderAdapter(ArrayList<String> folderName, FragmentActivity mContext) {
         this.folderName = folderName;
-        this.videoFiles = videoFiles;
         this.mContext = mContext;
     }
 
