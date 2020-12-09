@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +34,14 @@ public class MainActivity extends AppCompatActivity {
     FilesFragment filesFragment;
 
     static FragmentManager fragmentManager;
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("folderFragment", folderFragment);
+        outState.putSerializable("filesFragment", filesFragment);
+    }
+
     static ArrayList<VideoFiles> videoFiles = new ArrayList<>();
     static ArrayList<String> folderList = new ArrayList<>();
 
@@ -42,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomNav = findViewById(R.id.bottomNavViewAM);
+        if (savedInstanceState != null) {
+            folderFragment = (FolderFragment) savedInstanceState.getSerializable("folderFragment");
+            filesFragment = (FilesFragment) savedInstanceState.getSerializable("filesFragment");
+        }
         if (fragmentManager == null) fragmentManager = getSupportFragmentManager();
         bottomNav.setOnNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.folderList) {

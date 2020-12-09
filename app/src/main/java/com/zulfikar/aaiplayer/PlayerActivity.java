@@ -35,6 +35,8 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.Util;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Objects;
@@ -116,6 +118,7 @@ public class PlayerActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
+    @SuppressLint("SetTextI18n")
     private void functioningCustomController(RelativeLayout customController) {
         playbackController = customController.findViewById(R.id.playbackControl);
         timeBarLayout = customController.findViewById(R.id.time_bar_layout);
@@ -128,8 +131,6 @@ public class PlayerActivity extends AppCompatActivity {
         timeBar = customController.findViewById(R.id.exo_progress);
         videoPosition = customController.findViewById(R.id.exo_position);
         videoDuration = customController.findViewById(R.id.exo_duration);
-
-        (playbackControllerThread = new Thread(new CustomTimeBar())).start();
 
         customController.setOnClickListener(v -> {
 
@@ -163,7 +164,9 @@ public class PlayerActivity extends AppCompatActivity {
                     controlLabel.setText(String.format(Locale.US,"Backward %d Sec", seek));
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     controlLabelLayout.setVisibility(View.INVISIBLE);
-                    simpleExoPlayer.seekTo(simpleExoPlayer.getCurrentPosition() - TimeUnit.SECONDS.toMillis(seek));
+                    long seekPosition = simpleExoPlayer.getCurrentPosition() - TimeUnit.SECONDS.toMillis(seek);
+                    if (seekPosition < 0) seekPosition = 0;
+                    simpleExoPlayer.seekTo(seekPosition);
                     timeBar.setPosition(simpleExoPlayer.getCurrentPosition());
                     videoPosition.setText(getDurationFormat(simpleExoPlayer.getCurrentPosition()));
                     seek = backwardJumpTime;
@@ -215,7 +218,9 @@ public class PlayerActivity extends AppCompatActivity {
                     controlLabel.setText(String.format(Locale.US, "Forward %d Sec", seek));
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     controlLabelLayout.setVisibility(View.INVISIBLE);
-                    simpleExoPlayer.seekTo(simpleExoPlayer.getCurrentPosition() + TimeUnit.SECONDS.toMillis(seek));
+                    long seekPosition = simpleExoPlayer.getCurrentPosition() + TimeUnit.SECONDS.toMillis(seek);
+                    if (seekPosition > simpleExoPlayer.getDuration()) seekPosition = simpleExoPlayer.getDuration();
+                    simpleExoPlayer.seekTo(seekPosition);
                     timeBar.setPosition(simpleExoPlayer.getCurrentPosition());
                     videoPosition.setText(getDurationFormat(simpleExoPlayer.getCurrentPosition()));
                     seek = forwardJumpTime;
@@ -227,20 +232,24 @@ public class PlayerActivity extends AppCompatActivity {
 
         timeBar.addListener(new TimeBar.OnScrubListener() {
             @Override
-            public void onScrubStart(TimeBar timeBar, long position) {
-
+            public void onScrubStart(@NotNull TimeBar timeBar, long position) {
+                controlLabelLayout.setVisibility(View.VISIBLE);
+                controlLabel.setText(String.format(Locale.US, "Seek to: %s", getDurationFormat(position)));
             }
 
             @Override
-            public void onScrubMove(TimeBar timeBar, long position) {
+            public void onScrubMove(@NotNull TimeBar timeBar, long position) {
+                controlLabel.setText(String.format(Locale.US, "Seek to: %s", getDurationFormat(position)));
+            }
+
+            @Override
+            public void onScrubStop(@NotNull TimeBar timeBar, long position, boolean canceled) {
                 simpleExoPlayer.seekTo(position);
-            }
-
-            @Override
-            public void onScrubStop(TimeBar timeBar, long position, boolean canceled) {
-
+                controlLabelLayout.setVisibility(View.INVISIBLE);
             }
         });
+
+        (playbackControllerThread = new Thread(new CustomTimeBar())).start();
     }
 
     private String getDurationFormat(long duration) {
@@ -248,8 +257,7 @@ public class PlayerActivity extends AppCompatActivity {
         long minute = TimeUnit.MILLISECONDS.toMinutes(duration - TimeUnit.HOURS.toMillis(hour));
         long seconds = TimeUnit.MILLISECONDS.toSeconds(duration - TimeUnit.HOURS.toMillis(hour) - TimeUnit.MINUTES.toMillis(minute));
 
-        String durationFormatted = String.format(Locale.ENGLISH, "%02d:%02d:%02d", roundValue(String.valueOf(hour)), roundValue(String.valueOf(minute)), roundValue(String.valueOf(seconds)));
-        return durationFormatted;
+        return String.format(Locale.ENGLISH, "%02d:%02d:%02d", roundValue(String.valueOf(hour)), roundValue(String.valueOf(minute)), roundValue(String.valueOf(seconds)));
     }
 
     private int roundValue(String val) {
@@ -276,28 +284,31 @@ public class PlayerActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            while (durationEnd < 0) {
-//                playerHandler.post(() -> durationEnd = simpleExoPlayer.getDuration());
-                durationEnd = simpleExoPlayer.getDuration();
-            }
+            try {
+                while (durationEnd < 0) {
+    //                playerHandler.postDelayed(this, 1000);// -> durationEnd = simpleExoPlayer.getDuration());
+                    TimeUnit.MILLISECONDS.sleep(125);
+                    playerHandler.post(() -> durationEnd = simpleExoPlayer.getDuration());
+    //                    playerHandler.postDelayed(this, 20000);
+    //                durationEnd = simpleExoPlayer.getDuration();
+                }
 
-            playerHandler.post(() -> {
-                videoDuration.setText(getDurationFormat(durationEnd));
-                timeBar.setDuration(durationEnd);
-            });
+                playerHandler.post(() -> {
+                    videoDuration.setText(getDurationFormat(durationEnd));
+                    timeBar.setDuration(durationEnd);
+                });
 
-            while (!exitPlayer) {
-                try {
-                    durationCurrent = simpleExoPlayer.getCurrentPosition();
-//                    playerHandler.post(() -> durationCurrent = simpleExoPlayer.getCurrentPosition());
+                while (!exitPlayer) {
+//                    durationCurrent = simpleExoPlayer.getCurrentPosition();
+                    playerHandler.post(() -> durationCurrent = simpleExoPlayer.getCurrentPosition());
                     playerHandler.post(() -> {
                         videoPosition.setText(getDurationFormat(durationCurrent));
                         timeBar.setPosition(durationCurrent);
                     });
                     TimeUnit.SECONDS.sleep(1);
-                } catch (InterruptedException e) {
-                    Log.e("threadMessage", e.getMessage());
                 }
+            } catch (InterruptedException e) {
+                Log.e("threadMessage", Objects.requireNonNull(e.getMessage()));
             }
         }
     }

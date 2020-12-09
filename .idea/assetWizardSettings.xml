@@ -329,8 +329,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_baseline_construction" />
-                            <entry key="sourceFile" value="C:\Users\Zulfikar\Documents\GitHub\Olosh-Player" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_circleborder" />
+                            <entry key="sourceFile" value="C:\Users\Zulfikar\Desktop\circleBorder.psd" />
                           </map>
                         </option>
                       </PersistentState>

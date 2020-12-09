@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorText">@color/colorText</item>
         <item name="settingsBackground">@color/settingsBackground</item>
         <item name="settingsItemBackground">@color/settingsItemBackground</item>
         <item name="settingsItemPressedBackground">@color/settingsItemPressedBackground</item>
@@ -20,6 +21,7 @@
         <item name="colorPrimary">@color/tasniaPrimary</item>
         <item name="colorPrimaryDark">@color/tasniaDark</item>
         <item name="colorAccent">@color/tasniaAccent</item>
+        <item name="colorText">@color/tasniaColorText</item>
         <item name="settingsBackground">@color/tasniaSettingsBackground</item>
         <item name="settingsItemBackground">@color/tasniaSettingsItemBackground</item>
         <item name="settingsItemPressedBackground">@color/tasniaSettingsItemPressedBackground</item>
@@ -36,6 +38,7 @@
         <item name="colorPrimary">@color/rimiPrimary</item>
         <item name="colorPrimaryDark">@color/rimiDark</item>
         <item name="colorAccent">@color/rimiAccent</item>
+        <item name="colorText">@color/rimiColorText</item>
         <item name="settingsBackground">@color/rimiSettingsBackground</item>
         <item name="settingsItemBackground">@color/rimiSettingsItemBackground</item>
         <item name="settingsItemPressedBackground">@color/rimiSettingsItemPressedBackground</item>
@@ -52,6 +55,7 @@
         <item name="colorPrimary">@color/soulmatePrimary</item>
         <item name="colorPrimaryDark">@color/soulmatePrimaryDark</item>
         <item name="colorAccent">@color/soulmateAccent</item>
+        <item name="colorText">@color/soulmateColorText</item>
         <item name="settingsBackground">@color/soulmateSettingsBackground</item>
         <item name="settingsItemBackground">@color/soulmateSettingsItemBackground</item>
         <item name="settingsItemPressedBackground">@color/soulmateSettingsItemPressedBackground</item>
@@ -68,6 +72,7 @@
         <item name="colorPrimary">@color/inlawsPrimary</item>
         <item name="colorPrimaryDark">@color/inlawsPrimaryDark</item>
         <item name="colorAccent">@color/inlawsAccent</item>
+        <item name="colorText">@color/inlawsColorText</item>
         <item name="settingsBackground">@color/inlawsSettingsBackground</item>
         <item name="settingsItemBackground">@color/inlawsSettingsItemBackground</item>
         <item name="settingsItemPressedBackground">@color/inlawsSettingsItemPressedBackground</item>

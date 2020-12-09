@@ -208,6 +208,38 @@
             android:layout_weight="7" />
 
         <TextView
+            android:id="@+id/btnUpdateFS"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/settings_button_background"
+            android:gravity="center_vertical"
+            android:textColor="#FFFFFF"
+            android:text="@string/button_update_text"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textSize="20sp"
+            android:layout_weight="7"/>
+
+        <TextView
+            android:id="@+id/btnAboutFS"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/settings_button_background"
+            android:gravity="center_vertical"
+            android:textColor="#FFFFFF"
+            android:text="@string/about_button_text"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textSize="20sp"
+            android:layout_weight="7"/>
+
+        <TextView
             android:id="@+id/btnExitFS"
             android:layout_width="match_parent"
             android:layout_height="45dp"

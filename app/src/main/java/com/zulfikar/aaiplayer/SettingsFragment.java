@@ -16,19 +16,21 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 public class SettingsFragment extends Fragment {
 
     SharedPreferences.Editor editor;
     SharedPreferences sharedPreferences;
     EditText txtForwardPlayback, txtBackwardPlayback;
-    TextView btnMyAccount, btnPlaylist, btnChangeTheme, btnWifiShare, btnVideoSnaps, btnVideoRecordedClips, btnResetSettings, btnSendFeedback, btnExit;
+    TextView btnMyAccount, btnPlaylist, btnChangeTheme, btnWifiShare, btnVideoSnaps, btnVideoRecordedClips, btnResetSettings, btnSendFeedback, btnUpdate, btnAbout, btnExit;
 
     private static final String PLAYBACK_JUMPER_PREFERENCE = "playback_jumper_preferences";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
-        sharedPreferences = getActivity().getSharedPreferences(PLAYBACK_JUMPER_PREFERENCE, Context.MODE_PRIVATE);
+        sharedPreferences = requireActivity().getSharedPreferences(PLAYBACK_JUMPER_PREFERENCE, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         btnChangeTheme = view.findViewById(R.id.btnChangeThemeFS);
         btnMyAccount = view.findViewById(R.id.btnMyAccountFS);
@@ -38,6 +40,8 @@ public class SettingsFragment extends Fragment {
         btnVideoRecordedClips = view.findViewById(R.id.btnVideoRecordedClipsFS);
         btnResetSettings = view.findViewById(R.id.btnResetSettingsFS);
         btnSendFeedback = view.findViewById(R.id.btnFeedbackFS);
+        btnUpdate = view.findViewById(R.id.btnUpdateFS);
+        btnAbout = view.findViewById(R.id.btnAboutFS);
         btnExit = view.findViewById(R.id.btnExitFS);
         txtBackwardPlayback = view.findViewById(R.id.txtBackwardPlaybackFS);
         txtForwardPlayback = view.findViewById(R.id.txtForwardPlaybackFS);
@@ -82,7 +86,8 @@ public class SettingsFragment extends Fragment {
                 editor.apply();
             }
         });
-        setOnClickForUpcomingButtons(btnMyAccount, btnPlaylist, btnWifiShare, btnVideoSnaps, btnVideoRecordedClips, btnResetSettings, btnSendFeedback, btnExit);
+        btnAbout.setOnClickListener(v -> startActivity(new Intent(getActivity(), AboutActivity.class)));
+        setOnClickForUpcomingButtons(btnMyAccount, btnPlaylist, btnWifiShare, btnVideoSnaps, btnVideoRecordedClips, btnResetSettings, btnSendFeedback, btnUpdate, btnExit);
         return view;
     }
 

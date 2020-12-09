@@ -10,19 +10,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.Serializable;
+
 import static com.zulfikar.aaiplayer.MainActivity.folderList;
 import static com.zulfikar.aaiplayer.MainActivity.videoFiles;
 
-public class FolderFragment extends Fragment {
+public class FolderFragment extends Fragment implements Serializable {
 
-    FolderAdapter folderAdapter;
-    RecyclerView recyclerView;
+    transient FolderAdapter folderAdapter;
+    transient RecyclerView recyclerView;
 
     static boolean loaded;
     static FolderFragment me;
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        me = null;
+        loaded = false;
+    }
+
     public FolderFragment() {
         me = this;
+        loaded = true;
     }
 
     @Override

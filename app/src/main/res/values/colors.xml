@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#222023</color>
     <color name="colorPrimaryDark">#101011</color>
-    <color name="colorAccent">#2196F3</color>
+    <color name="colorAccent">#FFFFFF</color>
+    <color name="colorText">#FFFFFF</color>
     <color name="settingsBackground">#2C2C2C</color>
     <color name="settingsItemBackground">#252525</color>
     <color name="settingsItemPressedBackground">#4D252525</color>
@@ -14,6 +15,7 @@
     <color name="tasniaPrimary">#D825FF</color>
     <color name="tasniaDark">#A500CA</color>
     <color name="tasniaAccent">#9A46AC</color>
+    <color name="tasniaColorText">#FFFFFF</color>
     <color name="tasniaSettingsBackground">#BE00E8</color>
     <color name="tasniaSettingsItemBackground">#AD00D3</color>
     <color name="tasniaSettingsItemPressedBackground">#4D64007A</color>
@@ -25,6 +27,7 @@
     <color name="rimiPrimary">#E4AC00</color>
     <color name="rimiDark">#BA8C00</color>
     <color name="rimiAccent">#D1AE00</color>
+    <color name="rimiColorText">#000000</color>
     <color name="rimiSettingsBackground">#D5A000</color>
     <color name="rimiSettingsItemBackground">#C89600</color>
     <color name="rimiSettingsItemPressedBackground">#4D705400</color>
@@ -36,17 +39,19 @@
     <color name="soulmatePrimary">#0063BA</color>
     <color name="soulmatePrimaryDark">#0057A3</color>
     <color name="soulmateAccent">#0077DF</color>
+    <color name="soulmateColorText">#FFFFFF</color>
     <color name="soulmateSettingsBackground">#005CAE</color>
     <color name="soulmateSettingsItemBackground">#0057A5</color>
     <color name="soulmateSettingsItemPressedBackground">#4D005097</color>
-    <color name="soulmateBottomNavItemChecked">#FF7812</color>
-    <color name="soulmateBottomNavItemUnchecked">#BC5017</color>
+    <color name="soulmateBottomNavItemChecked">#A0D5FF</color>
+    <color name="soulmateBottomNavItemUnchecked">#000000</color>
     <color name="soulmateButtonBackground">@color/inlawsPrimary</color>
     <color name="soulmateButtonPressedBackground">@color/inlawsPrimaryDark</color>
 
     <color name="inlawsPrimary">#3A8C3D</color>
     <color name="inlawsPrimaryDark">#006C04</color>
     <color name="inlawsAccent">#36CF3C</color>
+    <color name="inlawsColorText">#FFFFFF</color>
     <color name="inlawsSettingsBackground">#289A2D</color>
     <color name="inlawsSettingsItemBackground">#258F2A</color>
     <color name="inlawsSettingsItemPressedBackground">#4D06F30F</color>

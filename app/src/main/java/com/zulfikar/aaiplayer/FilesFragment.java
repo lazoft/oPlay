@@ -10,21 +10,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.Serializable;
+
 import static com.zulfikar.aaiplayer.MainActivity.videoFiles;
 
-public class FilesFragment extends Fragment {
+public class FilesFragment extends Fragment implements Serializable {
 
-    RecyclerView recyclerView;
-    View view;
-    VideoAdapter videoAdapter;
+    transient RecyclerView recyclerView;
+    transient View view;
+    transient VideoAdapter videoAdapter;
 
     public FilesFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_files, container, false);
         recyclerView = view.findViewById(R.id.filesRV);
         if (videoFiles != null && videoFiles.size() > 0) {
