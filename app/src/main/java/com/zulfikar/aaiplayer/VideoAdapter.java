@@ -12,14 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.model.GlideUrl;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder> {
-    private Context mContext;
+    private final Context mContext;
     static ArrayList<VideoFiles> videoFiles;
     View view;
 
@@ -38,7 +37,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.fileName.setText(videoFiles.get(position).getTitle());
-        holder.videoDuration.setText(getDuration(holder, position));
+        holder.videoDuration.setText(getDuration(position));
         Glide.with(mContext).load(new File(videoFiles.get(position).getPath())).into(holder.thumbnail);
         holder.menuMore.setOnClickListener(v -> {
 
@@ -58,7 +57,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
         return videoFiles.size();
     }
 
-    private String getDuration(@NonNull MyViewHolder holder, int position) {
+    private String getDuration(int position) {
         long duration = Long.parseLong(videoFiles.get(position).getDuration()) / 1000;
         long hour = duration / 3600;
         long minute = duration % 3600 / 60;
@@ -68,7 +67,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
         return durationFormatted;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView thumbnail, menuMore;
         TextView fileName, videoDuration;
 

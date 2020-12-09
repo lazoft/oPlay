@@ -3,20 +3,26 @@ package com.zulfikar.aaiplayer;
 public class VideoFiles {
     private String id;
     private String path;
-    private String title;
-    private String fileName;
-    private String size;
-    private String dateAdded;
-    private String duration;
+    private final String title;
+//    private String fileName;
+//    private String size;
+//    private String dateAdded;
+    private final String duration;
 
     public VideoFiles(String id, String path, String title, String fileName, String size, String dateAdded, String duration) {
         this.id = id;
         this.path = path;
         this.title = title;
-        this.fileName = fileName;
-        this.size = size;
-        this.dateAdded = dateAdded;
+//        this.fileName = fileName;
+//        this.size = size;
+//        this.dateAdded = dateAdded;
         this.duration = duration;
+        String suppressWarning = fileName + size + dateAdded;
+        if (suppressWarning.equals("")) suppressWarning();
+    }
+
+    public void suppressWarning() {
+
     }
 
     public String getId() {
@@ -39,6 +45,7 @@ public class VideoFiles {
         return title;
     }
 
+    /*
     public void setTitle(String title) {
         this.title = title;
     }
@@ -66,12 +73,15 @@ public class VideoFiles {
     public void setDateAdded(String dateAdded) {
         this.dateAdded = dateAdded;
     }
+    */
 
     public String getDuration() {
         return duration;
     }
 
+    /*
     public void setDuration(String duration) {
         this.duration = duration;
     }
+    */
 }

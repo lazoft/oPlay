@@ -25,7 +25,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="OLOSH PlAYER"
+            android:text="@string/app_name"
             android:textColor="?colorText"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -35,7 +35,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Version 1.0"
+            android:text="@string/app_version"
             android:textColor="?colorText"
             android:fontFamily="serif"
             android:gravity="center_horizontal"/>
@@ -43,7 +43,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Build 115"
+            android:text="@string/app_build"
             android:textColor="?colorText"
             android:fontFamily="serif"
             android:gravity="center_horizontal"/>
@@ -83,13 +83,13 @@
                         android:layout_height="wrap_content"
                         android:textColor="?colorText"
                         android:textSize="16sp"
-                        android:text="Mohammed Julfikar Ali Mahbub"/>
+                        android:text="@string/name_zulfikar"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="?colorText"
-                        android:text="Co-founder\nSenior Developer"/>
+                        android:text="@string/role_zulfikar"/>
                 </LinearLayout>
 
                 <ImageView
@@ -97,7 +97,7 @@
                     android:layout_height="100dp"
                     android:layout_weight="3"
                     android:background="@drawable/zulfikar"
-                    android:src="@drawable/ic_circleborder"
+                    android:src="@drawable/ic_circleBorder"
                     app:tint="?colorPrimary"
                     android:contentDescription="@string/no_description" />
 
@@ -124,13 +124,13 @@
                         android:layout_height="wrap_content"
                         android:textColor="?colorText"
                         android:textSize="16sp"
-                        android:text="Md. Shahriyar Hossain Shihab"/>
+                        android:text="@string/name_shahriyar"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="?colorText"
-                        android:text="Co-founder\nJunior Developer\nTheme Designer"/>
+                        android:text="@string/role_shahriyar"/>
                 </LinearLayout>
 
                 <ImageView
@@ -138,7 +138,7 @@
                     android:layout_height="100dp"
                     android:layout_weight="3"
                     android:background="@drawable/shahriyar"
-                    android:src="@drawable/ic_circleborder"
+                    android:src="@drawable/ic_circleBorder"
                     app:tint="?colorPrimary"
                     android:contentDescription="@string/no_description" />
 
@@ -165,13 +165,13 @@
                         android:layout_height="wrap_content"
                         android:textColor="?colorText"
                         android:textSize="16sp"
-                        android:text="Abu Hasnayen Zillanee"/>
+                        android:text="@string/name_ornil"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="?colorText"
-                        android:text="Playlist Developer"/>
+                        android:text="@string/role_ornil"/>
                 </LinearLayout>
 
                 <ImageView
@@ -179,7 +179,7 @@
                     android:layout_height="100dp"
                     android:layout_weight="3"
                     android:background="@drawable/ornil"
-                    android:src="@drawable/ic_circleborder"
+                    android:src="@drawable/ic_circleBorder"
                     app:tint="?colorPrimary"
                     android:contentDescription="@string/no_description" />
 
@@ -206,13 +206,13 @@
                         android:layout_height="wrap_content"
                         android:textColor="?colorText"
                         android:textSize="16sp"
-                        android:text="Sohanur Rahman Sohan"/>
+                        android:text="@string/name_sohan"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="?colorText"
-                        android:text="Clip Recorder Developer"/>
+                        android:text="@string/role_sohan"/>
                 </LinearLayout>
 
                 <ImageView
@@ -220,7 +220,7 @@
                     android:layout_height="100dp"
                     android:layout_weight="3"
                     android:background="@drawable/sohan"
-                    android:src="@drawable/ic_circleborder"
+                    android:src="@drawable/ic_circleBorder"
                     app:tint="?colorPrimary"
                     android:contentDescription="@string/no_description" />
 
@@ -247,13 +247,13 @@
                         android:layout_height="wrap_content"
                         android:textColor="?colorText"
                         android:textSize="16sp"
-                        android:text="Afsan Saeed"/>
+                        android:text="@string/name_afsan"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="?colorText"
-                        android:text="Playlist Enhancer"/>
+                        android:text="@string/role_afsan"/>
                 </LinearLayout>
 
                 <ImageView
@@ -261,7 +261,7 @@
                     android:layout_height="100dp"
                     android:layout_weight="3"
                     android:background="@drawable/afsan"
-                    android:src="@drawable/ic_circleborder"
+                    android:src="@drawable/ic_circleBorder"
                     app:tint="?colorPrimary"
                     android:contentDescription="@string/no_description" />
 
@@ -288,13 +288,13 @@
                         android:layout_height="wrap_content"
                         android:textColor="?colorText"
                         android:textSize="16sp"
-                        android:text="Md Adnanul Haq"/>
+                        android:text="@string/name_adnan"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="?colorText"
-                        android:text="Frame Capturing Developer"/>
+                        android:text="@string/role_adnan"/>
                 </LinearLayout>
 
                 <ImageView
@@ -302,7 +302,7 @@
                     android:layout_height="100dp"
                     android:layout_weight="3"
                     android:background="@drawable/adnan"
-                    android:src="@drawable/ic_circleborder"
+                    android:src="@drawable/ic_circleBorder"
                     app:tint="?colorPrimary"
                     android:contentDescription="@string/no_description" />
 
@@ -329,21 +329,21 @@
                         android:layout_height="wrap_content"
                         android:textColor="?colorText"
                         android:textSize="16sp"
-                        android:text="Shona Khan"/>
+                        android:text="@string/name_sohan_rockStar"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="?colorText"
-                        android:text="Finance Manager"/>
+                        android:text="@string/role_rockStar"/>
                 </LinearLayout>
 
                 <ImageView
                     android:layout_width="251dp"
                     android:layout_height="100dp"
                     android:layout_weight="3"
-                    android:background="@drawable/sohan_rockstart"
-                    android:src="@drawable/ic_circleborder"
+                    android:background="@drawable/sohan_rockStar"
+                    android:src="@drawable/ic_circleBorder"
                     app:tint="?colorPrimary"
                     android:contentDescription="@string/no_description" />
 

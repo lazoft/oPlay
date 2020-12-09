@@ -1,11 +1,8 @@
 package com.zulfikar.aaiplayer;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
@@ -15,13 +12,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
@@ -50,8 +44,7 @@ public class PlayerActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     DefaultTimeBar timeBar;
     Handler playerHandler = new Handler();
-    CustomImageView btnBackward, btnForward;
-    ImageView  btnPlay, btnPause;
+    ImageViewButton btnBackward, btnForward, btnPlay, btnPause;
     LinearLayout playbackController, controlLabelLayout;
     PlayerView playerView;
     RelativeLayout customController, timeBarLayout;
@@ -118,7 +111,6 @@ public class PlayerActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
-    @SuppressLint("SetTextI18n")
     private void functioningCustomController(RelativeLayout customController) {
         playbackController = customController.findViewById(R.id.playbackControl);
         timeBarLayout = customController.findViewById(R.id.time_bar_layout);
@@ -170,6 +162,7 @@ public class PlayerActivity extends AppCompatActivity {
                     timeBar.setPosition(simpleExoPlayer.getCurrentPosition());
                     videoPosition.setText(getDurationFormat(simpleExoPlayer.getCurrentPosition()));
                     seek = backwardJumpTime;
+                    v.performClick();
                     return true;
                 }
                 return false;
@@ -179,11 +172,12 @@ public class PlayerActivity extends AppCompatActivity {
         btnPlay.setOnTouchListener((v, e) -> {
             if (e.getAction() == MotionEvent.ACTION_DOWN) {
                 controlLabelLayout.setVisibility(View.VISIBLE);
-                controlLabel.setText("Play");
+                controlLabel.setText(R.string.text_play);
                 return true;
             } else if (e.getAction() == MotionEvent.ACTION_UP) {
                 controlLabelLayout.setVisibility(View.INVISIBLE);
                 simpleExoPlayer.setPlayWhenReady(true);
+                v.performClick();
                 return true;
             }
             return false;
@@ -192,11 +186,12 @@ public class PlayerActivity extends AppCompatActivity {
         btnPause.setOnTouchListener((v, e) -> {
             if (e.getAction() == MotionEvent.ACTION_DOWN) {
                 controlLabelLayout.setVisibility(View.VISIBLE);
-                controlLabel.setText("Pause");
+                controlLabel.setText(R.string.text_pause);
                 return true;
             } else if (e.getAction() == MotionEvent.ACTION_UP) {
                 controlLabelLayout.setVisibility(View.INVISIBLE);
                 simpleExoPlayer.setPlayWhenReady(false);
+                v.performClick();
                 return true;
             }
             return false;
@@ -224,6 +219,7 @@ public class PlayerActivity extends AppCompatActivity {
                     timeBar.setPosition(simpleExoPlayer.getCurrentPosition());
                     videoPosition.setText(getDurationFormat(simpleExoPlayer.getCurrentPosition()));
                     seek = forwardJumpTime;
+                    v.performClick();
                     return true;
                 }
                 return false;
@@ -286,10 +282,8 @@ public class PlayerActivity extends AppCompatActivity {
         public void run() {
             try {
                 while (durationEnd < 0) {
-    //                playerHandler.postDelayed(this, 1000);// -> durationEnd = simpleExoPlayer.getDuration());
                     TimeUnit.MILLISECONDS.sleep(125);
                     playerHandler.post(() -> durationEnd = simpleExoPlayer.getDuration());
-    //                    playerHandler.postDelayed(this, 20000);
     //                durationEnd = simpleExoPlayer.getDuration();
                 }
 

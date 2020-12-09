@@ -1,18 +1,17 @@
 package com.zulfikar.aaiplayer;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,13 +34,14 @@ public class FolderVideoFragment extends Fragment {
         me = this;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_folder_video, container, false);
 
         recyclerView = view.findViewById(R.id.FolderVideoRV);
         if (myFolderName != null) {
-            videoFilesArrayList = getAllVideos(getContext(), myFolderName);
+            videoFilesArrayList = getAllVideos(requireContext(), myFolderName);
         }
         if (videoFilesArrayList.size() > 0) {
             videoFolderAdapter = new VideoFolderAdapter(getActivity(), videoFilesArrayList);
@@ -51,6 +51,7 @@ public class FolderVideoFragment extends Fragment {
         return view;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     public ArrayList<VideoFiles> getAllVideos(Context context, String myFolderName) {
         ArrayList<VideoFiles> tempVideoFiles = new ArrayList<>();
         Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;

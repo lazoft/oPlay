@@ -8,22 +8,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,16 +52,14 @@ public class MainActivity extends AppCompatActivity {
         if (fragmentManager == null) fragmentManager = getSupportFragmentManager();
         bottomNav.setOnNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.folderList) {
+                FragmentTransaction folderFragmentTransaction = getSupportFragmentManager().beginTransaction();
                 if (FolderVideoFragment.loaded) {
-                    FragmentTransaction folderFragmentTransaction = getSupportFragmentManager().beginTransaction();
                     folderFragmentTransaction.replace(R.id.mainFragment, FolderVideoFragment.me);
-                    folderFragmentTransaction.commit();
                 } else {
-                    FragmentTransaction folderFragmentTransaction = getSupportFragmentManager().beginTransaction();
                     if (folderFragment == null) folderFragment = new FolderFragment();
                     folderFragmentTransaction.replace(R.id.mainFragment, folderFragment);
-                    folderFragmentTransaction.commit();
                 }
+                folderFragmentTransaction.commit();
             } else if (item.getItemId() == R.id.filesList) {
                 FragmentTransaction fileFragmentTransaction = getSupportFragmentManager().beginTransaction();
                 if (filesFragment == null) filesFragment = new FilesFragment();

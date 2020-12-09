@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/customControllerBackground"
@@ -32,7 +31,7 @@
         android:orientation="horizontal"
         android:layout_centerInParent="true">
 
-        <com.zulfikar.aaiplayer.CustomImageView
+        <com.zulfikar.aaiplayer.ImageViewButton
             android:id="@+id/exo_rew"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -40,7 +39,7 @@
             android:src="@drawable/ic_baseline_replay_10"
             android:contentDescription="@string/no_description"/>
 
-        <ImageView
+        <com.zulfikar.aaiplayer.ImageViewButton
             android:id="@+id/exo_play"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -48,7 +47,7 @@
             android:src="@drawable/ic_baseline_play_circle_outline"
             android:contentDescription="@string/no_description" />
 
-        <ImageView
+        <com.zulfikar.aaiplayer.ImageViewButton
             android:id="@+id/exo_pause"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -56,7 +55,7 @@
             android:src="@drawable/ic_baseline_pause_circle_outline"
             android:contentDescription="@string/no_description" />
 
-        <com.zulfikar.aaiplayer.CustomImageView
+        <com.zulfikar.aaiplayer.ImageViewButton
             android:id="@+id/exo_ffwd"
             android:layout_width="40dp"
             android:layout_height="40dp"
