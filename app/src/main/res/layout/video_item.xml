@@ -58,7 +58,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_baseline_more_vertical"
+        android:src="@drawable/ic_baseline_more_vert"
         app:tint="@drawable/state_for_more_icon"
         android:padding="10dp"
         android:contentDescription="@string/no_description" />

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.MyViewHolder> {
-    private final Context mContext;
+    private Context mContext;
     static ArrayList<VideoFiles> folderVideoFiles;
     View view;
 
@@ -37,7 +37,7 @@ public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.fileName.setText(folderVideoFiles.get(position).getTitle());
-        holder.videoDuration.setText(getDuration(position));
+        holder.videoDuration.setText(getDuration(holder, position));
         Glide.with(mContext).load(new File(folderVideoFiles.get(position).getPath())).into(holder.thumbnail);
         holder.itemView.setOnClickListener(v -> startPlayerActivity(position));
         holder.menuMore.setOnClickListener(v -> {});
@@ -55,7 +55,7 @@ public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.
         return folderVideoFiles.size();
     }
 
-    private String getDuration(int position) {
+    private String getDuration(@NonNull MyViewHolder holder, int position) {
         long duration = Long.parseLong(folderVideoFiles.get(position).getDuration()) / 1000;
         long hour = duration / 3600;
         long minute = duration % 3600 / 60;
@@ -65,7 +65,7 @@ public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.
         return durationFormatted;
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView thumbnail, menuMore;
         TextView fileName, videoDuration;
 

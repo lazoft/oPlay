@@ -3,26 +3,26 @@ package com.zulfikar.aaiplayer;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 
-public class ImageViewButton extends androidx.appcompat.widget.AppCompatImageView {
+public class CustomImageView extends androidx.appcompat.widget.AppCompatImageView {
 
-    public ImageViewButton(Context context) {
+    public CustomImageView(Context context) {
         super(context);
     }
 
-    public ImageViewButton(Context context, @Nullable AttributeSet attrs) {
+    public CustomImageView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public ImageViewButton(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public CustomImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP) performClick();
         return super.onTouchEvent(event);
     }
 

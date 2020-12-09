@@ -41,7 +41,7 @@ public class FolderFragment extends Fragment implements Serializable {
 
         recyclerView = view.findViewById(R.id.folderRV);
         if (folderList != null && videoFiles != null && folderList.size() > 0) {
-            folderAdapter = new FolderAdapter(folderList, getActivity());
+            folderAdapter = new FolderAdapter(folderList, videoFiles, getActivity());
             recyclerView.setAdapter(folderAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         }
