@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_PERMISSION = 123;
+
     BottomNavigationView bottomNav;
     FolderFragment folderFragment;
     FilesFragment filesFragment;
