@@ -25,6 +25,7 @@ public class ThemeActivity extends AppCompatActivity {
         ThemeActivity.applyTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme);
+
         tasniaThemeBtn = findViewById(R.id.tasniaThemeBtn);
         rimiThemeBtn = findViewById(R.id.rimiThemeBtn);
         soulmateThemeBtn = findViewById(R.id.soulmateThemeBtn);
@@ -45,11 +46,12 @@ public class ThemeActivity extends AppCompatActivity {
         themeBtn.setOnClickListener(v -> {
             editor.putInt(PREFS_THEME_TAS, themeId);
             editor.apply();
+            applyTheme(this);
+            recreate();
         });
 
 
-        applyTheme(this);
-        recreate();
+
     }
 
     public static void applyTheme(Activity activity){
