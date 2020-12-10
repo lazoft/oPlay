@@ -3,6 +3,7 @@ package com.zulfikar.aaiplayer;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
@@ -44,7 +45,7 @@ public class PlayerActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     DefaultTimeBar timeBar;
     Handler playerHandler = new Handler();
-    ImageViewButton btnBackward, btnForward, btnPlay, btnPause;
+    ImageViewButton btnBackward, btnForward, btnPlayPause, btnCamera;
     LinearLayout playbackController, controlLabelLayout;
     PlayerView playerView;
     RelativeLayout customController, timeBarLayout;
@@ -53,7 +54,7 @@ public class PlayerActivity extends AppCompatActivity {
     TextView controlLabel;
     Thread playbackControllerThread;
 
-    boolean controllerVisible = true;
+    boolean recordingClip, controllerVisible = true;
     int forwardJumpTime, backwardJumpTime, position = -1;
 
     private static final String PLAYBACK_JUMPER_PREFERENCE = "playback_jumper_preferences";
@@ -111,14 +112,15 @@ public class PlayerActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void functioningCustomController(RelativeLayout customController) {
         playbackController = customController.findViewById(R.id.playbackControl);
         timeBarLayout = customController.findViewById(R.id.time_bar_layout);
         controlLabelLayout = customController.findViewById(R.id.control_label_layout);
         controlLabel = customController.findViewById(R.id.control_label);
         btnBackward = customController.findViewById(R.id.exo_rew);
-        btnPlay = customController.findViewById(R.id.exo_play);
-        btnPause = customController.findViewById(R.id.exo_pause);
+        btnPlayPause = customController.findViewById(R.id.exo_play);
+        btnCamera = customController.findViewById(R.id.btnCapture);
         btnForward = customController.findViewById(R.id.exo_ffwd);
         timeBar = customController.findViewById(R.id.exo_progress);
         videoPosition = customController.findViewById(R.id.exo_position);
@@ -169,32 +171,69 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
 
-        btnPlay.setOnTouchListener((v, e) -> {
+        btnPlayPause.setOnTouchListener((v, e) -> {
             if (e.getAction() == MotionEvent.ACTION_DOWN) {
                 controlLabelLayout.setVisibility(View.VISIBLE);
-                controlLabel.setText(R.string.text_play);
+                controlLabel.setText(simpleExoPlayer.getPlayWhenReady()? R.string.text_pause : R.string.text_play);
                 return true;
             } else if (e.getAction() == MotionEvent.ACTION_UP) {
                 controlLabelLayout.setVisibility(View.INVISIBLE);
-                simpleExoPlayer.setPlayWhenReady(true);
+                simpleExoPlayer.setPlayWhenReady(!simpleExoPlayer.getPlayWhenReady());
+                btnPlayPause.setImageDrawable(simpleExoPlayer.getPlayWhenReady()? getResources().getDrawable(R.drawable.ic_baseline_pause_circle_outline) : getResources().getDrawable(R.drawable.ic_baseline_play_circle_outline));
                 v.performClick();
                 return true;
             }
             return false;
         });
 
-        btnPause.setOnTouchListener((v, e) -> {
-            if (e.getAction() == MotionEvent.ACTION_DOWN) {
-                controlLabelLayout.setVisibility(View.VISIBLE);
-                controlLabel.setText(R.string.text_pause);
-                return true;
-            } else if (e.getAction() == MotionEvent.ACTION_UP) {
-                controlLabelLayout.setVisibility(View.INVISIBLE);
-                simpleExoPlayer.setPlayWhenReady(false);
-                v.performClick();
-                return true;
+        btnCamera.setOnTouchListener(new View.OnTouchListener() {
+            float y;
+            @Override
+            public boolean onTouch(View v, MotionEvent e) {
+                if (recordingClip) {
+                    if (e.getAction() == MotionEvent.ACTION_DOWN) {
+                        controlLabelLayout.setVisibility(View.VISIBLE);
+                        controlLabel.setText(R.string.stop_clip_recording_label);
+                        return true;
+                    } else if (e.getAction() == MotionEvent.ACTION_UP) {
+                        controlLabelLayout.setVisibility(View.INVISIBLE);
+                        btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_normal));
+                        recordClip(recordingClip = false);
+                        return true;
+                    }
+                } else {
+                    if (e.getAction() == MotionEvent.ACTION_DOWN) {
+                        y = e.getRawY();
+                        controlLabelLayout.setVisibility(View.VISIBLE);
+                        controlLabel.setText(R.string.capture_label);
+                        btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_pressed));
+                        return true;
+                    } else if (e.getAction() == MotionEvent.ACTION_MOVE) {
+                        if (e.getRawY() > y && 1.0 * e.getRawY() / y > 1.15) {
+                            btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_record_start));
+                            controlLabel.setText(R.string.start_clip_record_label);
+                        } else if (e.getRawY() < y && y / e.getRawY() > 2) {
+                            controlLabel.setText(R.string.capture_label);
+                            btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_pressed));
+                        } else {
+                            controlLabel.setText(R.string.capture_label);
+                            btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_pressed));
+                        }
+                    } else if (e.getAction() == MotionEvent.ACTION_UP) {
+                        controlLabelLayout.setVisibility(View.INVISIBLE);
+                        if (e.getRawY() > y && 1.0 * e.getRawY() / y > 1.15) {
+                            btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_record_start));
+                            recordClip(recordingClip = true);
+                        } else {
+                            btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_normal));
+                            snapFrame();
+                        }
+                        v.performClick();
+                        return true;
+                    }
+                }
+                return false;
             }
-            return false;
         });
 
         btnForward.setOnTouchListener(new View.OnTouchListener() {
@@ -272,6 +311,20 @@ public class PlayerActivity extends AppCompatActivity {
         }
 
         return Integer.parseInt(val);
+    }
+
+    // TODO: Adnan's code to capture the video frame
+    private void snapFrame() {
+
+    }
+
+    // TODO: Sohan's code to record video clip
+    /*
+    * If action is `true` then start recording the video
+    * Else if action if `false` then stop recording the video and save the video to phone
+    */
+    private void recordClip(boolean action) {
+
     }
 
     private class CustomTimeBar implements Runnable {

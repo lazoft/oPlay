@@ -44,15 +44,15 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="10dp"
-            android:src="@drawable/ic_baseline_play_circle_outline"
+            android:src="@drawable/ic_baseline_pause_circle_outline"
             android:contentDescription="@string/no_description" />
 
         <com.zulfikar.aaiplayer.ImageViewButton
-            android:id="@+id/exo_pause"
+            android:id="@+id/btnCapture"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="10dp"
-            android:src="@drawable/ic_baseline_pause_circle_outline"
+            android:src="@drawable/button_camera_normal"
             android:contentDescription="@string/no_description" />
 
         <com.zulfikar.aaiplayer.ImageViewButton
