@@ -59,9 +59,6 @@ public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.
     }
 
     private String getDuration(int position) {
-        Log.e("HORNIL", "path: "+folderVideoFiles.get(position).getTitle() +" "+ folderVideoFiles.get(position).getDuration());
-        //if (true) return "";
-        // IF YOU GET NumberFormatNullException: null then uncomment the above line
         MediaMetadataRetriever videoInfo = new MediaMetadataRetriever();
         videoInfo.setDataSource(mContext, Uri.fromFile(new File(folderVideoFiles.get(position).getPath())));
         String dur = videoInfo.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);

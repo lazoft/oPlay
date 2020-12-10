@@ -21,20 +21,20 @@
     <string name="change_theme">Change Theme</string>
     <string name="controller_label">Controller Label</string>
 
-    <string name="defaultThemeText">MEET TASNIA</string>
-    <string name="defaultThemeInfo">Current theme: AAI</string>
+    <string name="defaultThemeText">Love</string>
+    <string name="defaultThemeInfo">Current theme: Dark</string>
 
-    <string name="tasniaThemeText">DICKSHONARIMI</string>
-    <string name="tasniaThemeInfo">Current theme: TASNIA</string>
+    <string name="tasniaThemeText">Noon</string>
+    <string name="tasniaThemeInfo">Current theme: Love</string>
 
-    <string name="rimiThemeText">FIND YOUR SOULMATE</string>
-    <string name="rimiThemeInfo">Current theme: RIMI</string>
+    <string name="rimiThemeText">Sea</string>
+    <string name="rimiThemeInfo">Current theme: Noon</string>
 
-    <string name="soulmateThemeText">NEXT COMES IN LAWS</string>
-    <string name="soulmateThemeInfo">Current theme: SOULMATE</string>
+    <string name="soulmateThemeText">Nature</string>
+    <string name="soulmateThemeInfo">Current theme: Sea</string>
 
-    <string name="inlawsThemeText">ARTIFICIAL ASS IDIOT</string>
-    <string name="inlawsThemeInfo">Current theme: IN LAWS</string>
+    <string name="inlawsThemeText">Dark</string>
+    <string name="inlawsThemeInfo">Current theme: Nature</string>
 
     <string name="button_playlist_text">Open Playlist</string>
     <string name="button_video_snaps_text">View Video Snaps</string>
