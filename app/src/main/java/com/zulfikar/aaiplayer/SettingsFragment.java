@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 
 public class SettingsFragment extends Fragment {
@@ -21,8 +21,10 @@ public class SettingsFragment extends Fragment {
     SharedPreferences sharedPreferences;
     EditText txtForwardPlayback, txtBackwardPlayback;
     TextView btnMyAccount, btnPlaylist, btnChangeTheme, btnWifiShare, btnVideoSnaps, btnVideoRecordedClips, btnResetSettings, btnSendFeedback, btnUpdate, btnAbout, btnExit;
+    SwitchMaterial switchBackgroundPlayback;
 
     private static final String PLAYBACK_JUMPER_PREFERENCE = "playback_jumper_preferences";
+    public static final String BACKGROUND_PLAYBACK_STATE = "background_playback_state";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +44,8 @@ public class SettingsFragment extends Fragment {
         btnExit = view.findViewById(R.id.btnExitFS);
         txtBackwardPlayback = view.findViewById(R.id.txtBackwardPlaybackFS);
         txtForwardPlayback = view.findViewById(R.id.txtForwardPlaybackFS);
+        switchBackgroundPlayback = view.findViewById(R.id.switchBackgroundPlayback);
+        switchBackgroundPlayback.setChecked(sharedPreferences.getBoolean(BACKGROUND_PLAYBACK_STATE,true));
         txtBackwardPlayback.setText(sharedPreferences.getString("backward_jumper_time", "10"));
         txtForwardPlayback.setText(sharedPreferences.getString("forward_jumper_time", "10"));
         btnChangeTheme.setOnClickListener(view1 -> {
@@ -84,6 +88,10 @@ public class SettingsFragment extends Fragment {
             }
         });
         btnAbout.setOnClickListener(v -> startActivity(new Intent(getActivity(), AboutActivity.class)));
+        switchBackgroundPlayback.setOnCheckedChangeListener((compoundButton, b) -> {
+            editor.putBoolean(BACKGROUND_PLAYBACK_STATE, b);
+            editor.apply();
+        });
         setOnClickForUpcomingButtons(btnMyAccount, btnPlaylist, btnWifiShare, btnVideoSnaps, btnVideoRecordedClips, btnResetSettings, btnSendFeedback, btnUpdate, btnExit);
         return view;
     }

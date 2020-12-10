@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
@@ -63,6 +64,18 @@ public class PlayerActivity extends AppCompatActivity {
 
     volatile TextView videoPosition, videoDuration;
     volatile boolean exitPlayer;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(!sharedPreferences.getBoolean(SettingsFragment.BACKGROUND_PLAYBACK_STATE, true)){
+            if(simpleExoPlayer.getPlayWhenReady()) {
+                simpleExoPlayer.setPlayWhenReady(false);
+            }
+        }
+
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override

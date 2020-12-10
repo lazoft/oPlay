@@ -111,6 +111,37 @@
                 tools:ignore="labelFor"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="?settingsItemBackground"
+            android:orientation="horizontal"
+            android:weightSum="9">
+
+            <TextView
+                android:background="?settingsItemBackground"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"
+                android:textColor="#FFFFFF"
+                android:text="@string/background_playback"
+                android:textSize="20sp"
+                android:layout_weight="7"
+                />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchBackgroundPlayback"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:layout_weight="2"
+                android:theme="@style/CheckBox"
+                android:checked="true"
+                />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/btnChangeThemeFS"
             android:layout_width="match_parent"

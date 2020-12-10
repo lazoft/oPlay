@@ -12,4 +12,7 @@
     <attr name="themeInfo" format="reference"/>
     <attr name="buttonBackground" format="color"/>
     <attr name="buttonPressedBackground" format="color"/>
+    <attr name="switchBackgroundPlaybackOn" format="color"/>
+    <attr name="switchBackgroundPlaybackOff" format="color"/>
+
 </resources>

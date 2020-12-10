@@ -91,4 +91,9 @@
         <item name="colorControlHighlight">#FFFFFF</item>
     </style>
 
+    <style name="CheckBox">
+        <item name="colorAccent">@color/tempSwitchColor</item>
+    </style>
+
+
 </resources>

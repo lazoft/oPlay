@@ -12,11 +12,11 @@
     <color name="buttonBackground">@color/tasniaPrimary</color>
     <color name="buttonPressedBackground">@color/tasniaDark</color>
 
-    <color name="tasniaPrimary">#D825FF</color>
-    <color name="tasniaDark">#A500CA</color>
+    <color name="tasniaPrimary">#B000D6</color>
+    <color name="tasniaDark">#9400B5</color>
     <color name="tasniaAccent">#9A46AC</color>
     <color name="tasniaColorText">#FFFFFF</color>
-    <color name="tasniaSettingsBackground">#BE00E8</color>
+    <color name="tasniaSettingsBackground">#A000C3</color>
     <color name="tasniaSettingsItemBackground">#AD00D3</color>
     <color name="tasniaSettingsItemPressedBackground">#4D64007A</color>
     <color name="tasniaBottomNavItemChecked">#FFFFFF</color>
@@ -61,6 +61,7 @@
     <color name="inlawsButtonPressedBackground">@color/colorPrimaryDark</color>
 
     <color name="textPrimary">#FFFFFF</color>
+    <color name="tempSwitchColor">#00DDC9</color>
 
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorTransparent">#00000000</color>
