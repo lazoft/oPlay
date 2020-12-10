@@ -3,6 +3,7 @@ package com.zulfikar.aaiplayer;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 //import android.widget.Switch;
 
@@ -12,7 +13,7 @@ public class ThemeActivity extends AppCompatActivity {
 
     int themeId;
 
-    Button btnChangeTheme;
+    Button tasniaThemeBtn, rimiThemeBtn, soulmateThemeBtn, inlawsThemeBtn, aaiThemeBtn;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
@@ -24,25 +25,28 @@ public class ThemeActivity extends AppCompatActivity {
         ThemeActivity.applyTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme);
-        btnChangeTheme = findViewById(R.id.btnChangeTheme);
-        btnChangeTheme.setOnClickListener(view -> toggleTheme());
+        tasniaThemeBtn = findViewById(R.id.tasniaThemeBtn);
+        rimiThemeBtn = findViewById(R.id.rimiThemeBtn);
+        soulmateThemeBtn = findViewById(R.id.soulmateThemeBtn);
+        inlawsThemeBtn = findViewById(R.id.inlawsThemeBtn);
+        aaiThemeBtn = findViewById(R.id.aaiThemeBtn);
+
+        changeTheme(tasniaThemeBtn, R.style.TasniaTheme);
+        changeTheme(rimiThemeBtn, R.style.RimiTheme);
+        changeTheme(soulmateThemeBtn, R.style.SoulMateTheme);
+        changeTheme(inlawsThemeBtn, R.style.InLawsTheme);
+        changeTheme(aaiThemeBtn, R.style.AppTheme);
     }
 
-    private void toggleTheme() {
+    private void changeTheme(Button themeBtn, int themeId) {
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        themeId = sharedPreferences.getInt(PREFS_THEME_TAS, R.style.AppTheme);
+        themeBtn.setOnClickListener(v -> {
+            editor.putInt(PREFS_THEME_TAS, themeId);
+            editor.apply();
+        });
 
-        if (themeId == R.style.AppTheme) themeId = R.style.TasniaTheme;
-        else if (themeId == R.style.TasniaTheme) themeId = R.style.RimiTheme;
-        else if (themeId == R.style.RimiTheme) themeId = R.style.SoulMateTheme;
-        else if (themeId == R.style.SoulMateTheme) themeId = R.style.InLawsTheme;
-        else if (themeId == R.style.InLawsTheme) themeId = R.style.AppTheme;
-        else themeId = R.style.AppTheme;
-
-        editor.putInt(PREFS_THEME_TAS, themeId);
-        editor.apply();
 
         applyTheme(this);
         recreate();
