@@ -2,6 +2,7 @@ package com.zulfikar.aaiplayer;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,9 @@ public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.
     }
 
     private String getDuration(int position) {
+        Log.e("HORNIL", "path: "+folderVideoFiles.get(position).getTitle() +" "+ folderVideoFiles.get(position).getDuration());
+        //if (true) return "";
+        // IF YOU GET NumberFormatNullException: null then uncomment the above line
         long duration = Long.parseLong(folderVideoFiles.get(position).getDuration()) / 1000;
         long hour = duration / 3600;
         long minute = duration % 3600 / 60;

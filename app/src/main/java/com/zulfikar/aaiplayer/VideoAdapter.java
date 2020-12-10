@@ -58,6 +58,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
     }
 
     private String getDuration(int position) {
+        //if(true)return "";
+        // IF YOU GET NumberFormatNullException: null then uncomment the above line
         long duration = Long.parseLong(videoFiles.get(position).getDuration()) / 1000;
         long hour = duration / 3600;
         long minute = duration % 3600 / 60;

@@ -1,5 +1,6 @@
 package com.zulfikar.aaiplayer;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.MyHolder> 
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
         holder.folder.setText(folderName.get(position));
         holder.itemView.setOnClickListener(v -> {
+            Log.e("SHONAss", "path: "+folderName.get(position));
             folderTitle = folderName.get(position);
             FolderVideoFragment folderVideoFragment = new FolderVideoFragment();
             mContext.getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, folderVideoFragment).commit();
