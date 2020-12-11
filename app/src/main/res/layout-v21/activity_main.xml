@@ -36,7 +36,7 @@
         android:contentDescription="@string/no_description"
         android:focusable="true"
         app:backgroundTint="@color/colorTransparent"
-        app:maxImageSize="70dp"
+        app:maxImageSize="65dp"
         app:srcCompat="@drawable/ic_baseline_floating_button" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

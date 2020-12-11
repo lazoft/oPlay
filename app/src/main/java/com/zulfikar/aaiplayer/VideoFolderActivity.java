@@ -55,7 +55,7 @@ public class VideoFolderActivity extends AppCompatActivity {
                 String dateAdded = cursor.getString(4);
                 String duration = cursor.getString(5);
                 String fileName = cursor.getString(6);
-                VideoFiles videoFiles = new VideoFiles(id, path, title, fileName, size, dateAdded, duration);
+                VideoFiles videoFiles = new VideoFiles(id, path, title, fileName, size, dateAdded, duration, myFolderName);
 
                 tempVideoFiles.add(videoFiles);
             }

@@ -11,9 +11,14 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -27,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNav;
     FolderFragment folderFragment;
     FilesFragment filesFragment;
+
+    int themeId;
 
     static FragmentManager fragmentManager;
 
@@ -42,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ThemeActivity.applyTheme(this);
+        themeId = ThemeActivity.applyTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomNav = findViewById(R.id.bottomNavViewAM);
@@ -117,15 +124,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        ThemeActivity.applyTheme(this);
-        recreate();
+        if (themeId != Theme.currentThemeId) {
+            recreate();
+        }
     }
 
     public ArrayList<VideoFiles> getAllVideos(Context context) {
         ArrayList<VideoFiles> tempVideoFiles = new ArrayList<>();
         Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-        String[] projection = {MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, "duration", MediaStore.Video.Media.DISPLAY_NAME};
+        String[] projection = {MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, MediaStore.Video.Media.DISPLAY_NAME};
         Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         if (cursor != null) {
             while(cursor.moveToNext()) {
                 String id = cursor.getString(0);
@@ -133,9 +142,8 @@ public class MainActivity extends AppCompatActivity {
                 String title = cursor.getString(2);
                 String size = cursor.getString(3);
                 String dateAdded = cursor.getString(4);
-                String duration = cursor.getString(5);
-                String fileName = cursor.getString(6);
-                VideoFiles videoFiles = new VideoFiles(id, path, title, fileName, size, dateAdded, duration);
+                String fileName = cursor.getString(5);
+                retriever.setDataSource(path);
                 int slashFirstIndex = path.lastIndexOf("/");
                 String subString = path.substring(0, slashFirstIndex);
                 int index = subString.lastIndexOf("/");
@@ -143,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!folderList.contains(folderName)) {
                     folderList.add(folderName);
                 }
+                VideoFiles videoFiles = new VideoFiles(id, path, title, fileName, size, dateAdded, retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION), folderName);
                 tempVideoFiles.add(videoFiles);
             }
             cursor.close();

@@ -4,7 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
+
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -14,14 +18,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
+import java.io.Serializable;
+
 
 public class SettingsFragment extends Fragment {
 
     SharedPreferences.Editor editor;
     SharedPreferences sharedPreferences;
     EditText txtForwardPlayback, txtBackwardPlayback;
-    TextView btnMyAccount, btnPlaylist, btnChangeTheme, btnWifiShare, btnVideoSnaps, btnVideoRecordedClips, btnResetSettings, btnSendFeedback, btnUpdate, btnAbout, btnExit;
-    SwitchMaterial switchBackgroundPlayback;
+    TextView btnMyAccount, btnPlaylist, btnChangeTheme, btnChangeLanguage, btnWifiShare, btnVideoSnaps, btnVideoRecordedClips, btnResetSettings, btnSendFeedback, btnUpdate, btnAbout, btnExit;
+    SwitchCompat switchBackgroundPlayback;
 
     private static final String PLAYBACK_JUMPER_PREFERENCE = "playback_jumper_preferences";
     public static final String BACKGROUND_PLAYBACK_STATE = "background_playback_state";
@@ -34,6 +40,7 @@ public class SettingsFragment extends Fragment {
         btnChangeTheme = view.findViewById(R.id.btnChangeThemeFS);
         btnMyAccount = view.findViewById(R.id.btnMyAccountFS);
         btnPlaylist = view.findViewById(R.id.btnPlaylistFS);
+        btnChangeLanguage = view.findViewById(R.id.btnChangeLanguage);
         btnWifiShare = view.findViewById(R.id.btnWifiShareFS);
         btnVideoSnaps = view.findViewById(R.id.btnVideoSnapsFS);
         btnVideoRecordedClips = view.findViewById(R.id.btnVideoRecordedClipsFS);
@@ -92,7 +99,7 @@ public class SettingsFragment extends Fragment {
             editor.putBoolean(BACKGROUND_PLAYBACK_STATE, b);
             editor.apply();
         });
-        setOnClickForUpcomingButtons(btnMyAccount, btnPlaylist, btnWifiShare, btnVideoSnaps, btnVideoRecordedClips, btnResetSettings, btnSendFeedback, btnUpdate, btnExit);
+        setOnClickForUpcomingButtons(btnMyAccount, btnPlaylist, btnChangeLanguage, btnWifiShare, btnVideoSnaps, btnVideoRecordedClips, btnResetSettings, btnSendFeedback, btnUpdate, btnExit);
         return view;
     }
 

@@ -66,4 +66,5 @@
     <string name="start_clip_record_label">Start Clip Record</string>
     <string name="stop_clip_recording_label">Stop Clip Recording</string>
     <string name="background_playback">Background Playback</string>
+    <string name="btn_change_language_text">Change Language</string>
 </resources>

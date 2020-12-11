@@ -17,8 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.io.File;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.MyViewHolder> {
     private final Context mContext;
@@ -50,6 +52,7 @@ public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.
         Intent intent = new Intent(mContext, PlayerActivity.class);
         intent.putExtra("position", position);
         intent.putExtra("sender", "VideoFolder");
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         mContext.startActivity(intent);
     }
 
@@ -59,17 +62,13 @@ public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.
     }
 
     private String getDuration(int position) {
-        MediaMetadataRetriever videoInfo = new MediaMetadataRetriever();
-        videoInfo.setDataSource(mContext, Uri.fromFile(new File(folderVideoFiles.get(position).getPath())));
-        String dur = videoInfo.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-        long duration = Long.parseLong(dur) / 1000;
-//        long duration = Long.parseLong(folderVideoFiles.get(position).getDuration()) / 1000;
-        long hour = duration / 3600;
-        long minute = duration % 3600 / 60;
-        long seconds = duration % 3600 % 60;
-        String durationFormatted = String.format(Locale.US, "%02d:%02d:%02d", hour, minute, seconds);
-        if (hour == 0) durationFormatted = String.format(Locale.ENGLISH, "%02d:%02d", minute, seconds);
-        return durationFormatted;
+        long duration = Long.parseLong(folderVideoFiles.get(position).getDuration());
+        long hour = TimeUnit.MILLISECONDS.toHours(duration);
+        long minute = TimeUnit.MILLISECONDS.toMinutes(duration) % 60;
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(duration) % 60;
+
+        if (hour == 0) return String.format(Locale.ENGLISH, "%02d:%02d", minute, seconds);
+        return String.format(Locale.ENGLISH, "%02d:%02d:%02d", hour, minute, seconds);
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

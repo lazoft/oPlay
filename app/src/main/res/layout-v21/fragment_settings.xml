@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?settingsBackground"
     android:id="@+id/frameLayoutFS"
     tools:context=".SettingsFragment">
@@ -131,12 +132,13 @@
                 android:layout_weight="7"
                 />
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switchBackgroundPlayback"
                 android:layout_width="100dp"
                 android:layout_height="45dp"
                 android:layout_weight="2"
-                android:theme="@style/CheckBox"
+                app:trackTint="@color/settings_switch_track_selector"
+                app:thumbTint="@color/settings_switch_thumb_selector"
                 android:checked="true"
                 />
         </LinearLayout>
@@ -150,6 +152,22 @@
             android:gravity="center_vertical"
             android:textColor="#FFFFFF"
             android:text="@string/change_theme"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textSize="20sp"
+            android:layout_weight="7" />
+
+        <TextView
+            android:id="@+id/btnChangeLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/settings_button_background"
+            android:gravity="center_vertical"
+            android:textColor="#FFFFFF"
+            android:text="@string/btn_change_language_text"
             android:paddingStart="10dp"
             android:paddingLeft="10dp"
             android:paddingEnd="10dp"

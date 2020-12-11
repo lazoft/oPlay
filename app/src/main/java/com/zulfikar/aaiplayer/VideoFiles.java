@@ -1,15 +1,16 @@
 package com.zulfikar.aaiplayer;
 
-public class VideoFiles {
+public class VideoFiles implements Comparable<VideoFiles> {
     private String id;
     private String path;
+    private String folderName;
     private final String title;
 //    private String fileName;
 //    private String size;
 //    private String dateAdded;
     private final String duration;
 
-    public VideoFiles(String id, String path, String title, String fileName, String size, String dateAdded, String duration) {
+    public VideoFiles(String id, String path, String title, String fileName, String size, String dateAdded, String duration, String folderName) {
         this.id = id;
         this.path = path;
         this.title = title;
@@ -17,6 +18,7 @@ public class VideoFiles {
 //        this.size = size;
 //        this.dateAdded = dateAdded;
         this.duration = duration;
+        this.folderName = folderName;
         String suppressWarning = fileName + size + dateAdded;
         if (suppressWarning.equals("")) suppressWarning();
     }
@@ -43,6 +45,10 @@ public class VideoFiles {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getFolderName() {
+        return folderName;
     }
 
     /*
@@ -77,6 +83,11 @@ public class VideoFiles {
 
     public String getDuration() {
         return duration;
+    }
+
+    @Override
+    public int compareTo(VideoFiles o) {
+        return title.compareTo(o.title);
     }
 
     /*

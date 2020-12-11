@@ -9,10 +9,11 @@
     <attr name="bottomNavItemUnchecked" format="reference"/>
     <attr name="themeButtonBg" format="reference"/>
     <attr name="surpriseText" format="reference"/>
-    <attr name="themeInfo" format="reference"/>
     <attr name="buttonBackground" format="color"/>
     <attr name="buttonPressedBackground" format="color"/>
     <attr name="switchBackgroundPlaybackOn" format="color"/>
     <attr name="switchBackgroundPlaybackOff" format="color"/>
+    <attr name="themeText" format="string"/>
+    <attr name="themeInfo" format="reference"/>
 
 </resources>

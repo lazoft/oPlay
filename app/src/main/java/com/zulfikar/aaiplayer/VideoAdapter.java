@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder> {
     private final Context mContext;
@@ -41,9 +42,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
         holder.fileName.setText(videoFiles.get(position).getTitle());
         holder.videoDuration.setText(getDuration(position));
         Glide.with(mContext).load(new File(videoFiles.get(position).getPath())).into(holder.thumbnail);
-        holder.menuMore.setOnClickListener(v -> {
-
-        });
+        holder.menuMore.setOnClickListener(v -> {});
         holder.itemView.setOnClickListener(v -> startPlayerActivity(position));
     }
 
@@ -51,6 +50,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
         Intent intent = new Intent(mContext, PlayerActivity.class);
         intent.putExtra("position", position);
         intent.putExtra("sender", "Video");
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         mContext.startActivity(intent);
     }
 
@@ -60,17 +60,13 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
     }
 
     private String getDuration(int position) {
-        MediaMetadataRetriever videoInfo = new MediaMetadataRetriever();
-        videoInfo.setDataSource(mContext, Uri.fromFile(new File(videoFiles.get(position).getPath())));
-        String dur = videoInfo.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-        long duration = Long.parseLong(dur) / 1000;
-        //long duration = Long.parseLong(videoFiles.get(position).getDuration()) / 1000;
-        long hour = duration / 3600;
-        long minute = duration % 3600 / 60;
-        long seconds = duration % 3600 % 60;
-        String durationFormatted = String.format(Locale.ENGLISH, "%02d:%02d:%02d", hour, minute, seconds);
-        if (hour == 0) durationFormatted = String.format(Locale.ENGLISH, "%02d:%02d", minute, seconds);
-        return durationFormatted;
+        long duration = Long.parseLong(videoFiles.get(position).getDuration());
+        long hour = TimeUnit.MILLISECONDS.toHours(duration);
+        long minute = TimeUnit.MILLISECONDS.toMinutes(duration) % 60;
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(duration) % 60;
+
+        if (hour == 0) return String.format(Locale.ENGLISH, "%02d:%02d", minute, seconds);
+        return String.format(Locale.ENGLISH, "%02d:%02d:%02d", hour, minute, seconds);
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

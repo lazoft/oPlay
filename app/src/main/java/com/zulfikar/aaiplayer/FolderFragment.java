@@ -12,9 +12,6 @@ import android.view.ViewGroup;
 
 import java.io.Serializable;
 
-import static com.zulfikar.aaiplayer.MainActivity.folderList;
-import static com.zulfikar.aaiplayer.MainActivity.videoFiles;
-
 public class FolderFragment extends Fragment implements Serializable {
 
     transient FolderAdapter folderAdapter;
@@ -40,8 +37,8 @@ public class FolderFragment extends Fragment implements Serializable {
         View view = inflater.inflate(R.layout.fragment_folder, container, false);
 
         recyclerView = view.findViewById(R.id.folderRV);
-        if (folderList != null && videoFiles != null && folderList.size() > 0) {
-            folderAdapter = new FolderAdapter(folderList, getActivity());
+        if (MainActivity.folderList != null && MainActivity.folderList.size() > 0) {
+            folderAdapter = new FolderAdapter(MainActivity.folderList, getActivity());
             recyclerView.setAdapter(folderAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         }

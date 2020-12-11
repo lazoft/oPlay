@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 
 import java.io.Serializable;
 
-import static com.zulfikar.aaiplayer.MainActivity.videoFiles;
-
 public class FilesFragment extends Fragment implements Serializable {
 
     transient RecyclerView recyclerView;
@@ -28,8 +26,8 @@ public class FilesFragment extends Fragment implements Serializable {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_files, container, false);
         recyclerView = view.findViewById(R.id.filesRV);
-        if (videoFiles != null && videoFiles.size() > 0) {
-            videoAdapter = new VideoAdapter(getContext(), videoFiles);
+        if (MainActivity.videoFiles != null && MainActivity.videoFiles.size() > 0) {
+            videoAdapter = new VideoAdapter(getContext(), MainActivity.videoFiles);
             recyclerView.setAdapter(videoAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         }

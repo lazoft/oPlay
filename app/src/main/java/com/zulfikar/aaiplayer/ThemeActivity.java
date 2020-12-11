@@ -2,16 +2,16 @@ package com.zulfikar.aaiplayer;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
-//import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ThemeActivity extends AppCompatActivity {
+import org.jetbrains.annotations.NotNull;
 
-    int themeId;
+public class ThemeActivity extends AppCompatActivity {
 
     Button tasniaThemeBtn, rimiThemeBtn, soulmateThemeBtn, inlawsThemeBtn, aaiThemeBtn;
     SharedPreferences sharedPreferences;
@@ -39,25 +39,22 @@ public class ThemeActivity extends AppCompatActivity {
         changeTheme(aaiThemeBtn, R.style.AppTheme);
     }
 
-    private void changeTheme(Button themeBtn, int themeId) {
+    private void changeTheme(@NotNull Button themeBtn, int themeId) {
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         themeBtn.setOnClickListener(v -> {
             editor.putInt(PREFS_THEME_TAS, themeId);
             editor.apply();
-            applyTheme(this);
             recreate();
         });
-
-
-
     }
 
-    public static void applyTheme(Activity activity){
+    public static int applyTheme(@NotNull Activity activity){
         int themeId = activity.getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getInt(PREFS_THEME_TAS, R.style.AppTheme);
 
         activity.setTheme(themeId);
+        return Theme.currentThemeId = themeId;
     }
 
 }

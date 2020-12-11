@@ -57,27 +57,38 @@ public class PlayerActivity extends AppCompatActivity {
 
     boolean recordingClip, controllerVisible = true;
     int forwardJumpTime, backwardJumpTime, position = -1;
+    long pauseTime;
 
     private static final String PLAYBACK_JUMPER_PREFERENCE = "playback_jumper_preferences";
     static HashMap<String, Long> lastPlayed = new HashMap<>();
-    static long duration = 0;
+    static Long duration = 0L;
 
     volatile TextView videoPosition, videoDuration;
     volatile boolean exitPlayer;
 
+    @SuppressLint("UseCompatLoadingForDrawables")
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if (System.currentTimeMillis() - pauseTime < 100) {
+            btnPlayPause.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_pause_circle_outline));
+            simpleExoPlayer.setPlayWhenReady(true);
+        }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onPause() {
-        super.onPause();
+        pauseTime = System.currentTimeMillis();
         if(!sharedPreferences.getBoolean(SettingsFragment.BACKGROUND_PLAYBACK_STATE, true)){
             if(simpleExoPlayer.getPlayWhenReady()) {
+                btnPlayPause.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_play_circle_outline));
                 simpleExoPlayer.setPlayWhenReady(false);
             }
         }
-
+        super.onPause();
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +101,8 @@ public class PlayerActivity extends AppCompatActivity {
         position = getIntent().getIntExtra("position", -1);
         sender = getIntent().getStringExtra("sender");
         path = sender.equals("Video") ? videoFiles.get(position).getPath() : sender.equals("VideoFolder") ? folderVideoFiles.get(position).getPath() : path;
-        duration = Objects.requireNonNull(lastPlayed.getOrDefault(path, 0L));
+        duration = lastPlayed.get(path);
+        if (duration == null) duration = 0L;
         backwardJumpTime = Integer.parseInt(sharedPreferences.getString("backward_jumper_time", "10"));
         forwardJumpTime = Integer.parseInt(sharedPreferences.getString("forward_jumper_time", "10"));
         startVideo(duration);
@@ -293,6 +305,7 @@ public class PlayerActivity extends AppCompatActivity {
             @Override
             public void onScrubStop(@NotNull TimeBar timeBar, long position, boolean canceled) {
                 simpleExoPlayer.seekTo(position);
+                videoPosition.setText(getDurationFormat(position));
                 controlLabelLayout.setVisibility(View.INVISIBLE);
             }
         });
