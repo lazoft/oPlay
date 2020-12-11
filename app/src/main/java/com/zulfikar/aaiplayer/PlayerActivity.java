@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -17,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
@@ -33,6 +37,10 @@ import com.google.android.exoplayer2.util.Util;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Objects;
@@ -54,6 +62,9 @@ public class PlayerActivity extends AppCompatActivity {
     String sender, path;
     TextView controlLabel;
     Thread playbackControllerThread;
+
+//    private String filename = "oloshsnap-";
+    private static final int quality = 100;
 
     boolean recordingClip, controllerVisible = true;
     int forwardJumpTime, backwardJumpTime, position = -1;
@@ -232,6 +243,7 @@ public class PlayerActivity extends AppCompatActivity {
                         controlLabelLayout.setVisibility(View.VISIBLE);
                         controlLabel.setText(R.string.capture_label);
                         btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_pressed));
+//                        snapFrame();
                         return true;
                     } else if (e.getAction() == MotionEvent.ACTION_MOVE) {
                         if (e.getRawY() > y && 1.0 * e.getRawY() / y > 1.15) {
@@ -251,7 +263,8 @@ public class PlayerActivity extends AppCompatActivity {
                             recordClip(recordingClip = true);
                         } else {
                             btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_normal));
-                            snapFrame();
+                            snapFrame(getWindow().getDecorView().getRootView(), "oloshanp-"); // ONLY TAKES SCREENSHOT OF CONTROLLER
+                            Toast.makeText(PlayerActivity.this, "Screenshot Saved", Toast.LENGTH_SHORT).show();
                         }
                         v.performClick();
                         return true;
@@ -340,9 +353,51 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     // TODO: Adnan's code to capture the video frame
-    private void snapFrame() {
+    private void snapFrame(View view, String filename) {
+            Date date = new Date();
+            CharSequence time = android.text.format.DateFormat.format("yy-MM-dd", date);
+            String dirPath = Environment.getExternalStorageDirectory().toString()+"/OloshPlayer";
+            File filedir = new File(dirPath);
+            if (!filedir.exists()) {
+                boolean dir = filedir.mkdir();
+                if (!dir) Toast.makeText(PlayerActivity.this, "Screenshot Feature Will fail", Toast.LENGTH_SHORT).show();
+            }
+            try {
+                String path = dirPath + "/" + filename + "-" + time + ".jpeg";
+
+                view.setDrawingCacheEnabled(true);
+                Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
+                view.setDrawingCacheEnabled(false);
+
+                File imageFile = new File(path);
+
+                FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
+                bitmap.compress(Bitmap.CompressFormat.JPEG,quality, fileOutputStream);
+                fileOutputStream.flush();
+                fileOutputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
     }
+
+//    private void snapFrame(Bitmap bitmap, String filename) {
+//        Date date = new Date();
+//        CharSequence time = android.text.format.DateFormat.format("yy:MM:dd_hh:mm:ss", date);
+//        String dirPath = Environment.getExternalStorageDirectory().toString() + "/OloshPlayer";
+//        File filedir = new File(dirPath);
+//        if (!filedir.exists()) filedir.mkdir();
+//        try {
+//            String path = dirPath + "/" + filename + "-" + time + ".jpeg";
+//            File imageFile = new File(path);
+//            FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, fileOutputStream);
+//            fileOutputStream.flush();
+//            fileOutputStream.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     // TODO: Sohan's code to record video clip
     /*
