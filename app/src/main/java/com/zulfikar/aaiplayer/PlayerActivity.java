@@ -1,20 +1,14 @@
 package com.zulfikar.aaiplayer;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
-import android.app.Notification;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.view.MotionEvent;
+import android.view.TextureView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -46,6 +40,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import static com.zulfikar.aaiplayer.VideoAdapter.videoFiles;
 import static com.zulfikar.aaiplayer.VideoFolderAdapter.folderVideoFiles;
@@ -263,9 +259,9 @@ public class PlayerActivity extends AppCompatActivity {
                             btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_record_start));
                             recordClip(recordingClip = true);
                         } else {
+                            TextureView textureView = (TextureView)playerView.getVideoSurfaceView();
                             btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_normal));
-                            snapFrame(getWindow().getDecorView().getRootView(), "oloshanp-"); // ONLY TAKES SCREENSHOT OF CONTROLLER
-                            Toast.makeText(PlayerActivity.this, "Screenshot Saved", Toast.LENGTH_SHORT).show();
+                            snapFrame(textureView);
                         }
                         v.performClick();
                         return true;
@@ -354,51 +350,30 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     // TODO: Adnan's code to capture the video frame
-    private void snapFrame(View view, String filename) {
-            Date date = new Date();
-            CharSequence time = android.text.format.DateFormat.format("yy-MM-dd", date);
-            String dirPath = Environment.getExternalStorageDirectory().toString()+"/Pictures";
-            File filedir = new File(dirPath);
-            if (!filedir.exists()) {
-                boolean dir = filedir.mkdir();
-                if (!dir) Toast.makeText(PlayerActivity.this, "Screenshot Feature Will fail", Toast.LENGTH_SHORT).show();
-            }
-            try {
-                String path = dirPath + "/" + filename + "-" + time + ".jpeg";
+    private void snapFrame(TextureView textureView) {
+        Date date = new Date();
+        CharSequence time = android.text.format.DateFormat.format("yy-MM-dd_hh:mm:ss", date);
+        String dirPath = Environment.getExternalStorageDirectory().toString()+"/Pictures";
+        File fileDirectory = new File(dirPath);
+        if (!fileDirectory.exists()) {
+            boolean dir = fileDirectory.mkdir();
+            if (!dir) Toast.makeText(PlayerActivity.this, "Screenshot Feature Will fail", Toast.LENGTH_SHORT).show();
+        }
+        try {
 
-                view.setDrawingCacheEnabled(true);
-                Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
-                view.setDrawingCacheEnabled(false);
-
-                File imageFile = new File(path);
-
-                FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
-                bitmap.compress(Bitmap.CompressFormat.JPEG,quality, fileOutputStream);
-                fileOutputStream.flush();
-                fileOutputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            String path = dirPath + "/" + "snapshot-" + "-" + time + ".jpeg";
+            Bitmap bitmap = textureView.getBitmap();
+            File imageFile = new File(path);
+            FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG,quality, fileOutputStream);
+            fileOutputStream.flush();
+            fileOutputStream.close();
+            Toast.makeText(PlayerActivity.this, "Screenshot Saved", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
-
-//    private void snapFrame(Bitmap bitmap, String filename) {
-//        Date date = new Date();
-//        CharSequence time = android.text.format.DateFormat.format("yy:MM:dd_hh:mm:ss", date);
-//        String dirPath = Environment.getExternalStorageDirectory().toString() + "/OloshPlayer";
-//        File filedir = new File(dirPath);
-//        if (!filedir.exists()) filedir.mkdir();
-//        try {
-//            String path = dirPath + "/" + filename + "-" + time + ".jpeg";
-//            File imageFile = new File(path);
-//            FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
-//            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, fileOutputStream);
-//            fileOutputStream.flush();
-//            fileOutputStream.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     // TODO: Sohan's code to record video clip
     /*

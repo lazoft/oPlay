@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PlayerActivity">
+    tools:context=".PlayerActivity"
+    android:id="@+id/activityPlayer">
 
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/exoplayer_movie"
@@ -18,7 +19,8 @@
         app:show_timeout="5000"
         app:shutter_background_color="#000000"
         app:use_controller="false"
-        app:player_layout_id="@layout/exo_simple_player_view"/>
+        app:player_layout_id="@layout/exo_simple_player_view"
+        app:surface_type="texture_view"/>
 
 
     <include
