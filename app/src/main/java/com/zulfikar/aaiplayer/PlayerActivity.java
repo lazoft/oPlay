@@ -349,7 +349,6 @@ public class PlayerActivity extends AppCompatActivity {
         return Integer.parseInt(val);
     }
 
-    // TODO: Adnan's code to capture the video frame
     private void snapFrame(TextureView textureView) {
         Date date = new Date();
         CharSequence time = android.text.format.DateFormat.format("yy-MM-dd_hh:mm:ss", date);
