@@ -325,8 +325,8 @@ public class PlayerActivity extends AppCompatActivity {
 
     private String getDurationFormat(long duration) {
         long hour = TimeUnit.MILLISECONDS.toHours(duration);
-        long minute = TimeUnit.MILLISECONDS.toMinutes(duration - TimeUnit.HOURS.toMillis(hour));
-        long seconds = TimeUnit.MILLISECONDS.toSeconds(duration - TimeUnit.HOURS.toMillis(hour) - TimeUnit.MINUTES.toMillis(minute));
+        long minute = TimeUnit.MILLISECONDS.toMinutes(duration) % 60;
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(duration) % 60;
 
         return String.format(Locale.ENGLISH, "%02d:%02d:%02d", roundValue(String.valueOf(hour)), roundValue(String.valueOf(minute)), roundValue(String.valueOf(seconds)));
     }

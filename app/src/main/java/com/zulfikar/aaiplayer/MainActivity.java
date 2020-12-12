@@ -9,21 +9,22 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,8 +33,10 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNav;
     FolderFragment folderFragment;
     FilesFragment filesFragment;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
-    int themeId;
+    int themeId = 0;
 
     static FragmentManager fragmentManager;
 
@@ -81,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
             item.setChecked(true);
             return false;
         });
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.app_name), MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         permission(savedInstanceState);
     }
 
@@ -88,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION);
         } else {
-            videoFiles = getAllVideos(MainActivity.this);
+            videoFiles = loadLibrary();
             if (savedInstanceState == null) {
                 loadFolderFragment();
             }
@@ -101,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE_PERMISSION) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(MainActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
-                videoFiles = getAllVideos(MainActivity.this);
+                videoFiles = loadLibrary();
                 FragmentTransaction folderFragmentTransaction = getSupportFragmentManager().beginTransaction();
                 folderFragmentTransaction.replace(R.id.mainFragment, new FolderFragment());
                 folderFragmentTransaction.commit();
@@ -129,12 +134,45 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public ArrayList<VideoFiles> getAllVideos(Context context) {
+    public ArrayList<VideoFiles> loadLibrary() {
+        long start = System.currentTimeMillis();
+        ArrayList<VideoFiles> videoFilesArray = new ArrayList<>();
+        HashSet<String> videoPaths = (HashSet<String>) sharedPreferences.getStringSet("videoPaths", null);
+        if (null == null) return refreshLibrary(MainActivity.this);
+        int i = 0;
+        for (String path : videoPaths) {
+            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+            retriever.setDataSource(path);
+            String id = String.valueOf(i);
+            File file = new File(path);
+            String fileName = file.getName();
+            String title = fileName.substring(0, fileName.lastIndexOf("."));
+            Log.e("loadLibraryFileName", fileName + " | " + title);
+            String dateAdded = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DATE);
+            String duration = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+            int slashFirstIndex = path.lastIndexOf("/");
+            String subString = path.substring(0, slashFirstIndex);
+            int index = subString.lastIndexOf("/");
+            String folderName = subString.substring((index + 1));
+            if (!folderList.contains(folderName)) {
+                folderList.add(folderName);
+            }
+            VideoFiles videoFiles = new VideoFiles(id, path, title, fileName, "0", dateAdded, duration, folderName);
+            videoFilesArray.add(videoFiles);
+        }
+        Log.e("loadLibraryTest", "running " + VideoFiles.getDurationFormat(System.currentTimeMillis() - start));
+        return videoFilesArray;
+    }
+
+    public ArrayList<VideoFiles> refreshLibrary(Context context) {
+        long start = System.currentTimeMillis();
         ArrayList<VideoFiles> tempVideoFiles = new ArrayList<>();
         Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
         String[] projection = {MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, MediaStore.Video.Media.DISPLAY_NAME};
         Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        HashSet<String> videoPaths = new HashSet<>();
+        HashSet<String> folderPaths = new HashSet<>();
         if (cursor != null) {
             while(cursor.moveToNext()) {
                 String id = cursor.getString(0);
@@ -153,9 +191,14 @@ public class MainActivity extends AppCompatActivity {
                 }
                 VideoFiles videoFiles = new VideoFiles(id, path, title, fileName, size, dateAdded, retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION), folderName);
                 tempVideoFiles.add(videoFiles);
+                videoPaths.add(path);
             }
             cursor.close();
         }
+
+        Log.e("refreshLibraryTest", "running " + VideoFiles.getDurationFormat(System.currentTimeMillis() - start));
+        editor.putStringSet("videoPaths", videoPaths);
+        editor.apply();
         return tempVideoFiles;
     }
 
