@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -356,7 +357,7 @@ public class PlayerActivity extends AppCompatActivity {
     private void snapFrame(View view, String filename) {
             Date date = new Date();
             CharSequence time = android.text.format.DateFormat.format("yy-MM-dd", date);
-            String dirPath = Environment.getExternalStorageDirectory().toString()+"/OloshPlayer";
+            String dirPath = Environment.getExternalStorageDirectory().toString()+"/Pictures";
             File filedir = new File(dirPath);
             if (!filedir.exists()) {
                 boolean dir = filedir.mkdir();
