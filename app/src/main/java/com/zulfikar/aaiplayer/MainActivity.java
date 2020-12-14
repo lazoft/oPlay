@@ -24,7 +24,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -85,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.app_name), MODE_PRIVATE);
-        editor = sharedPreferences.edit();
         permission(savedInstanceState);
     }
 
@@ -172,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
         Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         HashSet<String> videoPaths = new HashSet<>();
-        HashSet<String> folderPaths = new HashSet<>();
         if (cursor != null) {
             while(cursor.moveToNext()) {
                 String id = cursor.getString(0);
@@ -197,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Log.e("refreshLibraryTest", "running " + VideoFiles.getDurationFormat(System.currentTimeMillis() - start));
+        editor = sharedPreferences.edit();
         editor.putStringSet("videoPaths", videoPaths);
         editor.apply();
         return tempVideoFiles;

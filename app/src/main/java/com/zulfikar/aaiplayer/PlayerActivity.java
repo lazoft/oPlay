@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.TextureView;
 import android.view.View;
@@ -17,6 +17,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler;
+import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
+import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
@@ -27,7 +32,6 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.ui.TimeBar;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.Util;
 
 import org.jetbrains.annotations.NotNull;
@@ -41,38 +45,36 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import static com.zulfikar.aaiplayer.VideoAdapter.videoFiles;
 import static com.zulfikar.aaiplayer.VideoFolderAdapter.folderVideoFiles;
 
 public class PlayerActivity extends AppCompatActivity {
 
+    private static final int QUALITY = 100;
+    private static final String PLAYBACK_JUMPER_PREFERENCE = "playback_jumper_preferences";
+    private static HashMap<String, Long> lastPlayed = new HashMap<>();
+    private static Long duration = 0L;
+
     SharedPreferences sharedPreferences;
     DefaultTimeBar timeBar;
+    FFmpeg ffmpeg;
     Handler playerHandler = new Handler();
     ImageViewButton btnBackward, btnForward, btnPlayPause, btnCamera;
     LinearLayout playbackController, controlLabelLayout;
     PlayerView playerView;
     RelativeLayout customController, timeBarLayout;
     SimpleExoPlayer simpleExoPlayer;
-    String sender, path;
+    String title, sender, path;
     TextView controlLabel;
     Thread playbackControllerThread;
-
-//    private String filename = "oloshsnap-";
-    private static final int quality = 100;
 
     boolean recordingClip, controllerVisible = true;
     int forwardJumpTime, backwardJumpTime, position = -1;
     long pauseTime;
-
-    private static final String PLAYBACK_JUMPER_PREFERENCE = "playback_jumper_preferences";
-    static HashMap<String, Long> lastPlayed = new HashMap<>();
-    static Long duration = 0L;
-
     volatile TextView videoPosition, videoDuration;
     volatile boolean exitPlayer;
+
+    long startRecord;
 
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
@@ -102,22 +104,29 @@ public class PlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setFullScreen();
         setContentView(R.layout.activity_player);
-        sharedPreferences = getSharedPreferences(PLAYBACK_JUMPER_PREFERENCE, MODE_PRIVATE);
         Objects.requireNonNull(getSupportActionBar()).hide();
+
+        sharedPreferences = getSharedPreferences(PLAYBACK_JUMPER_PREFERENCE, MODE_PRIVATE);
         playerView = findViewById(R.id.exoplayer_movie);
         customController = findViewById(R.id.cloneCustomController);
+        ffmpeg = FFmpeg.getInstance(PlayerActivity.this);
+
+        title = getIntent().getStringExtra("title");
         position = getIntent().getIntExtra("position", -1);
         sender = getIntent().getStringExtra("sender");
         path = sender.equals("Video") ? videoFiles.get(position).getPath() : sender.equals("VideoFolder") ? folderVideoFiles.get(position).getPath() : path;
+
         duration = lastPlayed.get(path);
         if (duration == null) duration = 0L;
+
         backwardJumpTime = Integer.parseInt(sharedPreferences.getString("backward_jumper_time", "10"));
         forwardJumpTime = Integer.parseInt(sharedPreferences.getString("forward_jumper_time", "10"));
-        startVideo(duration);
+
+        playVideo(duration);
         functioningCustomController(customController);
     }
 
-    private void startVideo(long duration) {
+    private void playVideo(long duration) {
         if (path != null) {
             Uri uri = Uri.parse(path);
             simpleExoPlayer = new SimpleExoPlayer.Builder(this).build();
@@ -231,7 +240,7 @@ public class PlayerActivity extends AppCompatActivity {
                     } else if (e.getAction() == MotionEvent.ACTION_UP) {
                         controlLabelLayout.setVisibility(View.INVISIBLE);
                         btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_normal));
-                        recordClip(recordingClip = false);
+                        toggleClip(recordingClip = false);
                         return true;
                     }
                 } else {
@@ -257,11 +266,11 @@ public class PlayerActivity extends AppCompatActivity {
                         controlLabelLayout.setVisibility(View.INVISIBLE);
                         if (e.getRawY() > y && 1.0 * e.getRawY() / y > 1.15) {
                             btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_record_start));
-                            recordClip(recordingClip = true);
+                            toggleClip(recordingClip = true);
                         } else {
-                            TextureView textureView = (TextureView)playerView.getVideoSurfaceView();
                             btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_normal));
-                            snapFrame(textureView);
+                            TextureView textureView = (TextureView) playerView.getVideoSurfaceView();
+                            toggleSnap(textureView);
                         }
                         v.performClick();
                         return true;
@@ -323,10 +332,93 @@ public class PlayerActivity extends AppCompatActivity {
         (playbackControllerThread = new Thread(new CustomTimeBar())).start();
     }
 
-    private String getDurationFormat(long duration) {
-        long hour = TimeUnit.MILLISECONDS.toHours(duration);
-        long minute = TimeUnit.MILLISECONDS.toMinutes(duration) % 60;
-        long seconds = TimeUnit.MILLISECONDS.toSeconds(duration) % 60;
+    private void executeCutVideoCommand(long startMs, long endMs, String sourcePath) {
+        String destPath = "/storage/emulated/0/DCIM/Olosh Player/Olosh Clips/";
+        File externalStoragePublicDirectory = new File(destPath);
+        if (externalStoragePublicDirectory.exists() || externalStoragePublicDirectory.mkdirs()) {
+            String title = this.title.length() > 5? this.title.substring(0, 5) : this.title;
+            String destFileName = "Olosh clip (" + title + ")";
+            File destinationPath =  new File(externalStoragePublicDirectory, destFileName + ".mp4");
+            for (int fileNo = 1; destinationPath.exists(); fileNo++) {
+                destinationPath = new File(externalStoragePublicDirectory, destFileName + fileNo + ".mp4");
+            }
+            final String[] complexCommand = {"-i", sourcePath, "-ss", startMs / 1000 + "", "-to", endMs / 1000 + "", "-c", "copy", destinationPath.getAbsolutePath()};
+
+            execFFmpegBinary(complexCommand);
+        }
+    }
+
+    private void toggleSnap(TextureView textureView) {
+        Date date = new Date();
+        CharSequence time = android.text.format.DateFormat.format("yy-MM-dd_hh:mm:ss", date);
+        String dirPath = "/storage/emulated/0/DCIM/Olosh Player/Olosh Snaps/";
+        File fileDirectory = new File(dirPath);
+        if (fileDirectory.exists() || fileDirectory.mkdirs()) {
+            try {
+                String title = this.title.length() > 5? this.title.substring(0, 5) : this.title;
+                String path = dirPath + "/" + "Snapshot (" + title + ") - " + time + ".jpeg";
+                Bitmap bitmap = textureView.getBitmap();
+                File imageFile = new File(path);
+                FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY, fileOutputStream);
+                fileOutputStream.flush();
+                fileOutputStream.close();
+                Toast.makeText(PlayerActivity.this, "Snapshot saved", Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(PlayerActivity.this, "Screenshot feature not supported for your device", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void toggleClip(boolean action) {
+        if (action) startRecord = simpleExoPlayer.getCurrentPosition();
+        else executeCutVideoCommand(startRecord, simpleExoPlayer.getCurrentPosition(), path);
+    }
+
+    private void execFFmpegBinary(final String[] command) {
+        try {
+            ffmpeg.execute(command, new ExecuteBinaryResponseHandler() {
+                @Override
+                public void onFailure(String s) {
+                    Log.d("", "FAILED with output : " + s);
+                }
+
+                @Override
+                public void onSuccess(String s) {
+                    Log.d("", "SUCCESS with output : " + s);
+
+                }
+
+                @Override
+                public void onProgress(String s) {
+                    Log.d("Progress command", "" + s);
+
+                }
+
+                @Override
+                public void onStart() {
+                    Log.d("Started command", "");
+
+                }
+
+                @Override
+                public void onFinish() {
+                    Log.d("Finished command", "");
+
+
+                }
+            });
+        } catch (FFmpegCommandAlreadyRunningException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getDurationFormat(long durationMs) {
+        long hour = TimeUnit.MILLISECONDS.toHours(durationMs);
+        long minute = TimeUnit.MILLISECONDS.toMinutes(durationMs) % 60;
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(durationMs) % 60;
 
         return String.format(Locale.ENGLISH, "%02d:%02d:%02d", roundValue(String.valueOf(hour)), roundValue(String.valueOf(minute)), roundValue(String.valueOf(seconds)));
     }
@@ -349,40 +441,6 @@ public class PlayerActivity extends AppCompatActivity {
         return Integer.parseInt(val);
     }
 
-    private void snapFrame(TextureView textureView) {
-        Date date = new Date();
-        CharSequence time = android.text.format.DateFormat.format("yy-MM-dd_hh:mm:ss", date);
-        String dirPath = Environment.getExternalStorageDirectory().toString()+"/Pictures";
-        File fileDirectory = new File(dirPath);
-        if (!fileDirectory.exists()) {
-            boolean dir = fileDirectory.mkdir();
-            if (!dir) Toast.makeText(PlayerActivity.this, "Screenshot Feature Will fail", Toast.LENGTH_SHORT).show();
-        }
-        try {
-
-            String path = dirPath + "/" + "snapshot-" + "-" + time + ".jpeg";
-            Bitmap bitmap = textureView.getBitmap();
-            File imageFile = new File(path);
-            FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG,quality, fileOutputStream);
-            fileOutputStream.flush();
-            fileOutputStream.close();
-            Toast.makeText(PlayerActivity.this, "Screenshot Saved", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    // TODO: Sohan's code to record video clip
-    /*
-    * If action is `true` then start recording the video
-    * Else if action if `false` then stop recording the video and save the video to phone
-    */
-    private void recordClip(boolean action) {
-
-    }
-
     private class CustomTimeBar implements Runnable {
         long durationEnd = -1;
         long durationCurrent = 0;
@@ -393,7 +451,6 @@ public class PlayerActivity extends AppCompatActivity {
                 while (durationEnd < 0) {
                     TimeUnit.MILLISECONDS.sleep(125);
                     playerHandler.post(() -> durationEnd = simpleExoPlayer.getDuration());
-    //                durationEnd = simpleExoPlayer.getDuration();
                 }
 
                 playerHandler.post(() -> {
@@ -402,13 +459,12 @@ public class PlayerActivity extends AppCompatActivity {
                 });
 
                 while (!exitPlayer) {
-//                    durationCurrent = simpleExoPlayer.getCurrentPosition();
-                    playerHandler.post(() -> durationCurrent = simpleExoPlayer.getCurrentPosition());
                     playerHandler.post(() -> {
+                        durationCurrent = simpleExoPlayer.getCurrentPosition();
                         videoPosition.setText(getDurationFormat(durationCurrent));
                         timeBar.setPosition(durationCurrent);
                     });
-                    TimeUnit.SECONDS.sleep(1);
+                    TimeUnit.MILLISECONDS.sleep(20);
                 }
             } catch (InterruptedException e) {
                 Log.e("threadMessage", Objects.requireNonNull(e.getMessage()));

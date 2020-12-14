@@ -50,6 +50,7 @@ public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.
 
     public void startPlayerActivity(int position) {
         Intent intent = new Intent(mContext, PlayerActivity.class);
+        intent.putExtra("title", folderVideoFiles.get(position).getTitle());
         intent.putExtra("position", position);
         intent.putExtra("sender", "VideoFolder");
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

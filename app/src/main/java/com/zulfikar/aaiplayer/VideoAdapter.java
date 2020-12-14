@@ -46,6 +46,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
 
     public void startPlayerActivity(int position) {
         Intent intent = new Intent(mContext, PlayerActivity.class);
+        intent.putExtra("title", videoFiles.get(position).getTitle());
         intent.putExtra("position", position);
         intent.putExtra("sender", "Video");
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
