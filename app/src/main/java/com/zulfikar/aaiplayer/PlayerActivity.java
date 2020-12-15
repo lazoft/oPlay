@@ -21,7 +21,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler;
 import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
+import com.github.hiteshsondhi88.libffmpeg.FFmpegLoadBinaryResponseHandler;
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
+import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
@@ -110,6 +112,32 @@ public class PlayerActivity extends AppCompatActivity {
         playerView = findViewById(R.id.exoplayer_movie);
         customController = findViewById(R.id.cloneCustomController);
         ffmpeg = FFmpeg.getInstance(PlayerActivity.this);
+
+        try {
+            ffmpeg.loadBinary(new FFmpegLoadBinaryResponseHandler() {
+                @Override
+                public void onFailure() {
+
+                }
+
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onStart() {
+
+                }
+
+                @Override
+                public void onFinish() {
+
+                }
+            });
+        } catch (FFmpegNotSupportedException e) {
+            e.printStackTrace();
+        }
 
         title = getIntent().getStringExtra("title");
         position = getIntent().getIntExtra("position", -1);

@@ -39,33 +39,39 @@
                 android:id="@+id/tasniaThemeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/tasniaPrimary"
+                android:background="@drawable/theme_button"
+                android:theme="@style/TasniaTheme"
+                style="?android:attr/borderlessButtonStyle"
                 android:padding="10dp"
                 android:layout_margin="10dp"
                 android:text="@string/defaultThemeText"
-                android:textColor="#FFFFFF"
+                android:textColor="?colorText"
                 android:textStyle="bold"/>
 
             <Button
                 android:id="@+id/rimiThemeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/rimiPrimary"
+                android:background="@drawable/theme_button"
+                android:theme="@style/RimiTheme"
+                style="?android:attr/borderlessButtonStyle"
                 android:padding="10dp"
                 android:layout_margin="10dp"
                 android:text="@string/tasniaThemeText"
-                android:textColor="#FFFFFF"
+                android:textColor="?colorText"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/soulmateThemeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/soulmatePrimary"
+                android:background="@drawable/theme_button"
+                android:theme="@style/SoulMateTheme"
+                style="?android:attr/borderlessButtonStyle"
                 android:padding="10dp"
                 android:layout_margin="10dp"
                 android:text="@string/rimiThemeText"
-                android:textColor="#FFFFFF"
+                android:textColor="?colorText"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -83,22 +89,26 @@
                 android:id="@+id/inlawsThemeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/inlawsPrimary"
+                android:background="@drawable/theme_button"
+                android:theme="@style/InLawsTheme"
+                style="?android:attr/borderlessButtonStyle"
                 android:padding="10dp"
                 android:layout_margin="10dp"
                 android:text="@string/soulmateThemeText"
-                android:textColor="#FFFFFF"
+                android:textColor="?colorText"
                 android:textStyle="bold"/>
 
             <Button
                 android:id="@+id/aaiThemeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/theme_button"
+                android:theme="@style/AppTheme"
+                style="?android:attr/borderlessButtonStyle"
                 android:padding="10dp"
                 android:layout_margin="10dp"
                 android:text="@string/inlawsThemeText"
-                android:textColor="#FFFFFF"
+                android:textColor="?colorText"
                 android:textStyle="bold"/>
 
         </LinearLayout>
