@@ -19,11 +19,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler;
-import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
-import com.github.hiteshsondhi88.libffmpeg.FFmpegLoadBinaryResponseHandler;
-import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
-import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
+import com.arthenica.mobileffmpeg.FFmpeg;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
@@ -111,33 +107,7 @@ public class PlayerActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(PLAYBACK_JUMPER_PREFERENCE, MODE_PRIVATE);
         playerView = findViewById(R.id.exoplayer_movie);
         customController = findViewById(R.id.cloneCustomController);
-        ffmpeg = FFmpeg.getInstance(PlayerActivity.this);
 
-        try {
-            ffmpeg.loadBinary(new FFmpegLoadBinaryResponseHandler() {
-                @Override
-                public void onFailure() {
-
-                }
-
-                @Override
-                public void onSuccess() {
-
-                }
-
-                @Override
-                public void onStart() {
-
-                }
-
-                @Override
-                public void onFinish() {
-
-                }
-            });
-        } catch (FFmpegNotSupportedException e) {
-            e.printStackTrace();
-        }
 
         title = getIntent().getStringExtra("title");
         position = getIntent().getIntExtra("position", -1);
@@ -373,8 +343,14 @@ public class PlayerActivity extends AppCompatActivity {
             }
             final String[] complexCommand = {"-i", sourcePath, "-ss", startMs / 1000 + "", "-to", endMs / 1000 + "", "-c", "copy", destinationPath.getAbsolutePath()};
 
-            execFFmpegBinary(complexCommand);
+//            execFFmpegBinary(complexCommand);
+            test(complexCommand);
+
         }
+    }
+
+    private void test(String[] args){
+        FFmpeg.execute(args);
     }
 
     private void toggleSnap(TextureView textureView) {
@@ -407,43 +383,7 @@ public class PlayerActivity extends AppCompatActivity {
         else executeCutVideoCommand(startRecord, simpleExoPlayer.getCurrentPosition(), path);
     }
 
-    private void execFFmpegBinary(final String[] command) {
-        try {
-            ffmpeg.execute(command, new ExecuteBinaryResponseHandler() {
-                @Override
-                public void onFailure(String s) {
-                    Toast.makeText(PlayerActivity.this, "Failed due to storage access", Toast.LENGTH_SHORT).show();
-                    Log.d("", "FAILED with output : " + s);
-                }
 
-                @Override
-                public void onSuccess(String s) {
-                    Toast.makeText(PlayerActivity.this, "Clip Saved", Toast.LENGTH_SHORT).show();
-                    Log.d("", "SUCCESS with output : " + s);
-
-                }
-
-                @Override
-                public void onProgress(String s) {
-                    Log.d("Progress command", "" + s);
-
-                }
-
-                @Override
-                public void onStart() {
-                    Log.d("Started command", "");
-
-                }
-
-                @Override
-                public void onFinish() {
-                    Log.d("Finished command", "");
-                }
-            });
-        } catch (FFmpegCommandAlreadyRunningException e) {
-            e.printStackTrace();
-        }
-    }
 
     private String getDurationFormat(long durationMs) {
         long hour = TimeUnit.MILLISECONDS.toHours(durationMs);
@@ -502,3 +442,72 @@ public class PlayerActivity extends AppCompatActivity {
         }
     }
 }
+
+/*
+ffmpeg = FFmpeg.getInstance(PlayerActivity.this);
+
+        try {
+            ffmpeg.loadBinary(new FFmpegLoadBinaryResponseHandler() {
+                @Override
+                public void onFailure() {
+
+                }
+
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onStart() {
+
+                }
+
+                @Override
+                public void onFinish() {
+
+                }
+            });
+        } catch (FFmpegNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+        private void execFFmpegBinary(final String[] command) {
+        try {
+            ffmpeg.execute(command, new ExecuteBinaryResponseHandler() {
+                @Override
+                public void onFailure(String s) {
+                    Toast.makeText(PlayerActivity.this, "Failed due to storage access", Toast.LENGTH_SHORT).show();
+                    Log.d("", "FAILED with output : " + s);
+                }
+
+                @Override
+                public void onSuccess(String s) {
+                    Toast.makeText(PlayerActivity.this, "Clip Saved", Toast.LENGTH_SHORT).show();
+                    Log.d("", "SUCCESS with output : " + s);
+
+                }
+
+                @Override
+                public void onProgress(String s) {
+                    Log.d("Progress command", "" + s);
+
+                }
+
+                @Override
+                public void onStart() {
+                    Log.d("Started command", "");
+
+                }
+
+                @Override
+                public void onFinish() {
+                    Log.d("Finished command", "");
+                }
+            });
+        } catch (FFmpegCommandAlreadyRunningException e) {
+            e.printStackTrace();
+        }
+    }
+
+ */
