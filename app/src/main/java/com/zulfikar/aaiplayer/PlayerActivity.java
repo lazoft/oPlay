@@ -269,8 +269,9 @@ public class PlayerActivity extends AppCompatActivity {
                             toggleClip(recordingClip = true);
                         } else {
                             btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_normal));
-                            TextureView textureView = (TextureView) playerView.getVideoSurfaceView();
-                            toggleSnap(textureView);
+//                            TextureView textureView = (TextureView) playerView.getVideoSurfaceView();
+//                            toggleSnap(textureView);
+                            toggleSnap((TextureView)playerView.getVideoSurfaceView());
                         }
                         v.performClick();
                         return true;
@@ -365,10 +366,11 @@ public class PlayerActivity extends AppCompatActivity {
                 fileOutputStream.close();
                 Toast.makeText(PlayerActivity.this, "Snapshot saved", Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
+                Toast.makeText(PlayerActivity.this, "Failed due to storage access", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
         } else {
-            Toast.makeText(PlayerActivity.this, "Screenshot feature not supported for your device", Toast.LENGTH_SHORT).show();
+            Toast.makeText(PlayerActivity.this, "Failed due to storage access", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -382,11 +384,13 @@ public class PlayerActivity extends AppCompatActivity {
             ffmpeg.execute(command, new ExecuteBinaryResponseHandler() {
                 @Override
                 public void onFailure(String s) {
+                    Toast.makeText(PlayerActivity.this, "Failed due to storage access", Toast.LENGTH_SHORT).show();
                     Log.d("", "FAILED with output : " + s);
                 }
 
                 @Override
                 public void onSuccess(String s) {
+                    Toast.makeText(PlayerActivity.this, "Clip Saved", Toast.LENGTH_SHORT).show();
                     Log.d("", "SUCCESS with output : " + s);
 
                 }
@@ -406,8 +410,6 @@ public class PlayerActivity extends AppCompatActivity {
                 @Override
                 public void onFinish() {
                     Log.d("Finished command", "");
-
-
                 }
             });
         } catch (FFmpegCommandAlreadyRunningException e) {
