@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.arthenica.mobileffmpeg.Config;
+import com.arthenica.mobileffmpeg.ExecuteCallback;
 import com.arthenica.mobileffmpeg.FFmpeg;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
@@ -43,6 +45,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+import static com.arthenica.mobileffmpeg.Config.RETURN_CODE_CANCEL;
+import static com.arthenica.mobileffmpeg.Config.RETURN_CODE_SUCCESS;
 import static com.zulfikar.aaiplayer.VideoAdapter.videoFiles;
 import static com.zulfikar.aaiplayer.VideoFolderAdapter.folderVideoFiles;
 
@@ -50,6 +54,7 @@ public class PlayerActivity extends AppCompatActivity {
 
     private static final int QUALITY = 100;
     private static final String PLAYBACK_JUMPER_PREFERENCE = "playback_jumper_preferences";
+//    private static final int RETURN_CODE_SUCCESS = ;
     private static HashMap<String, Long> lastPlayed = new HashMap<>();
     private static Long duration = 0L;
 
@@ -341,17 +346,53 @@ public class PlayerActivity extends AppCompatActivity {
             for (int fileNo = 1; destinationPath.exists(); fileNo++) {
                 destinationPath = new File(externalStoragePublicDirectory, destFileName + fileNo + ".mp4");
             }
-            final String[] complexCommand = {"-i", sourcePath, "-ss", startMs / 1000 + "", "-to", endMs / 1000 + "", "-c", "copy", destinationPath.getAbsolutePath()};
+            Log.e("clipTime: ", startMs+", "+endMs);
+            long clipDuration = endMs - startMs;
+            final String[] complexCommand = {"-i", sourcePath, "-ss","00:00:00.0" + "","-c:v","copy", "-t", "7" + "", destinationPath.getAbsolutePath()};
+            //final String[] s = {"ffmpeg","-ss", "0" ,"-i", sourcePath, startMs / 1000 + "", "-to", endMs / 1000 + "", "-c:v",destinationPath.getAbsolutePath()};
 
 //            execFFmpegBinary(complexCommand);
-            test(complexCommand);
+            int rc = FFmpeg.execute(complexCommand);
+//            Toast.makeText(PlayerActivity.this, "Cilpping Started", Toast.LENGTH_SHORT).show();
+            if (rc == RETURN_CODE_SUCCESS) {
+                Log.i(Config.TAG, "Command execution completed successfully.");
+                Log.e("msg1", "Command execution completed successfully.");
+                Toast.makeText(PlayerActivity.this, "Clip Saved", Toast.LENGTH_SHORT).show();
+            } else if (rc == RETURN_CODE_CANCEL) {
+//                Log.i(Config.TAG, "Command execution cancelled by user.");
+                Log.e("msg2", "Command execution cancelled by user.");
+            } else {
+                Log.e("msg3", String.format("Command execution failed with rc=%d and the output below.", rc));
+                Config.printLastCommandOutput(Log.INFO);
+            }
+
+//            long executionid = FFmpeg.executeAsync(complexCommand, new ExecuteCallback() {
+//                @Override
+//                public void apply(long executionId, int rc) {
+//                    Toast.makeText(PlayerActivity.this, "Cilpping Started", Toast.LENGTH_SHORT).show();
+//                    if (rc == RETURN_CODE_SUCCESS) {
+////                Log.i(Config.TAG, "Command execution completed successfully.");
+//                        Log.e("msg1", "Command execution completed successfully.");
+//                        Toast.makeText(PlayerActivity.this, "Clip Saved", Toast.LENGTH_SHORT).show();
+//                    } else if (rc == RETURN_CODE_CANCEL) {
+////                Log.i(Config.TAG, "Command execution cancelled by user.");
+//                        Log.e("msg2", "Command execution cancelled by user.");
+//                        Toast.makeText(PlayerActivity.this, "Cilpping Cancelled", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        Log.e("msg3", String.format("Command execution failed with rc=%d and the output below.", rc));
+//                        Toast.makeText(PlayerActivity.this, "Clipping failed", Toast.LENGTH_SHORT).show();
+//                        Config.printLastCommandOutput(Log.INFO);
+//                    }
+//
+//                }
+//            });
 
         }
     }
 
-    private void test(String[] args){
-        FFmpeg.execute(args);
-    }
+//    private int test(String[] args){
+//        return FFmpeg.execute(args);
+//    }
 
     private void toggleSnap(TextureView textureView) {
         Date date = new Date();
