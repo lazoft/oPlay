@@ -14,7 +14,7 @@ import android.provider.MediaStore;
 
 import java.util.ArrayList;
 
-public class VideoFolderActivity extends AppCompatActivity {
+public class VideoFolderActivity extends AppCompatActivity implements ActivityUtility {
 
     RecyclerView recyclerView;
     VideoFolderAdapter videoFolderAdapter;
@@ -23,7 +23,8 @@ public class VideoFolderActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ThemeActivity.applyTheme(this);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        Theme.applyTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_folder);
         recyclerView = findViewById(R.id.FolderVideoRV);
@@ -67,8 +68,12 @@ public class VideoFolderActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        ThemeActivity.applyTheme(this);
 
-        recreate();
+        Theme.recreate(this, this);
+    }
+
+    @Override
+    public void saveInstanceState(Bundle bundle) {
+        onSaveInstanceState(bundle);
     }
 }

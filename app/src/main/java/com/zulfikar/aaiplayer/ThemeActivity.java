@@ -1,30 +1,35 @@
 package com.zulfikar.aaiplayer;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.transition.Explode;
 import android.util.Log;
+import android.view.Window;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.jetbrains.annotations.NotNull;
 
-public class ThemeActivity extends AppCompatActivity {
+public class ThemeActivity extends AppCompatActivity implements ActivityUtility {
 
     Button tasniaThemeBtn, rimiThemeBtn, soulmateThemeBtn, inlawsThemeBtn, aaiThemeBtn;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
-    private static final String PREFS_NAME = "prefs";
-    private static final String PREFS_THEME_TAS = "testTheme";
-
     @Override
     protected void onCreate(Bundle savedInstanceState){
-        ThemeActivity.applyTheme(this);
-        super.onCreate(savedInstanceState);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        Theme.applyTheme(this);
+        super.onCreate(savedInstanceState != null ? savedInstanceState : getIntent().getBundleExtra("saved_state"));
         setContentView(R.layout.activity_theme);
+
 
         tasniaThemeBtn = findViewById(R.id.tasniaThemeBtn);
         rimiThemeBtn = findViewById(R.id.rimiThemeBtn);
@@ -40,21 +45,19 @@ public class ThemeActivity extends AppCompatActivity {
     }
 
     private void changeTheme(@NotNull Button themeBtn, int themeId) {
-        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(Theme.PREFS_NAME, MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         themeBtn.setOnClickListener(v -> {
-            editor.putInt(PREFS_THEME_TAS, themeId);
+            editor.putInt(Theme.PREFS_THEME_TAS, themeId);
             editor.apply();
-            recreate();
+
+            Theme.recreate(this, this);
         });
     }
 
-    public static int applyTheme(@NotNull Activity activity){
-        int themeId = activity.getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getInt(PREFS_THEME_TAS, R.style.AppTheme);
-
-        activity.setTheme(themeId);
-        return Theme.currentThemeId = themeId;
+    @Override
+    public void saveInstanceState(Bundle bundle) {
+        onSaveInstanceState(bundle);
     }
-
 }

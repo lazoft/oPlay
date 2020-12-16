@@ -1,5 +1,6 @@
 package com.zulfikar.aaiplayer;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -99,7 +100,13 @@ public class SettingsFragment extends Fragment {
             editor.putBoolean(BACKGROUND_PLAYBACK_STATE, b);
             editor.apply();
         });
-        setOnClickForUpcomingButtons(btnMyAccount, btnPlaylist, btnChangeLanguage, btnWifiShare, btnVideoSnaps, btnVideoRecordedClips, btnResetSettings, btnSendFeedback, btnUpdate, btnExit);
+
+        btnPlaylist.setOnClickListener(v -> {
+            Intent playlistChooserIntent = new Intent(getActivity(), PlaylistChooserActivity.class);
+            playlistChooserIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(playlistChooserIntent);
+        });
+        setOnClickForUpcomingButtons(btnMyAccount, btnChangeLanguage, btnWifiShare, btnVideoSnaps, btnVideoRecordedClips, btnResetSettings, btnSendFeedback, btnUpdate, btnExit);
         return view;
     }
 

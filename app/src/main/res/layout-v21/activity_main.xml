@@ -20,7 +20,7 @@
     </FrameLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/btnRefresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/bottomNavViewAM"
@@ -35,9 +35,10 @@
         android:clickable="true"
         android:contentDescription="@string/no_description"
         android:focusable="true"
-        app:backgroundTint="@color/colorTransparent"
-        app:maxImageSize="65dp"
-        app:srcCompat="@drawable/ic_baseline_floating_button" />
+        app:maxImageSize="50dp"
+        app:srcCompat="@drawable/ic_refresh"
+        android:tint="?bottomNavItemChecked"/>
+<!--    app:backgroundTint="@color/colorTransparent"-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavViewAM"

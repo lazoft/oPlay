@@ -103,6 +103,8 @@ public class PlayerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        Theme.applyTheme(this);
         super.onCreate(savedInstanceState);
         setFullScreen();
         setContentView(R.layout.activity_player);

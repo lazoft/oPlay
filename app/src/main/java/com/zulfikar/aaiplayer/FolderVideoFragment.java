@@ -2,20 +2,16 @@ package com.zulfikar.aaiplayer;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.media.MediaMetadataRetriever;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -26,15 +22,31 @@ public class FolderVideoFragment extends Fragment {
     String myFolderName;
     ArrayList<VideoFiles> videoFilesArrayList = new ArrayList<>();
 
-    public static int what;
-
-    public static boolean loaded;
-    public static FolderVideoFragment me;
+    private static boolean loaded;
+    private static FolderVideoFragment me;
 
     public FolderVideoFragment() {
         this.myFolderName = FolderAdapter.folderTitle;
         loaded = true;
         me = this;
+    }
+
+    public static boolean isLoaded() {
+        return loaded;
+    }
+
+    public static void requestUnload() {
+        loaded = false;
+        me = null;
+    }
+
+    public static FolderVideoFragment requestLoad() {
+        return new FolderVideoFragment();
+    }
+
+    public static FolderVideoFragment getInstance() {
+        if (me == null) me = new FolderVideoFragment();
+        return me;
     }
 
     @Override

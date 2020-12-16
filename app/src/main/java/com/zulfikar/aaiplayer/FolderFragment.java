@@ -17,19 +17,25 @@ public class FolderFragment extends Fragment implements Serializable {
     transient FolderAdapter folderAdapter;
     transient RecyclerView recyclerView;
 
-    static boolean loaded;
-    static FolderFragment me;
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        me = null;
-        loaded = false;
-    }
+    private static boolean loaded;
+    private static FolderFragment me;
 
     public FolderFragment() {
         me = this;
         loaded = true;
+    }
+
+    public static FolderFragment requestLoad() {
+        return new FolderFragment();
+    }
+
+    public static boolean isLoaded() {
+        return loaded;
+    }
+
+    public static FolderFragment getInstance() {
+        if (me == null) me = new FolderFragment();
+        return me;
     }
 
     @Override

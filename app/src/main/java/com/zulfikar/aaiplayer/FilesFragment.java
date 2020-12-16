@@ -18,8 +18,34 @@ public class FilesFragment extends Fragment implements Serializable {
     transient View view;
     transient VideoAdapter videoAdapter;
 
+    private static boolean loaded;
+    private static FilesFragment me;
+
     public FilesFragment() {
-        // Required empty public constructor
+        me = this;
+        loaded = true;
+    }
+
+    public static void reload() {
+        requestLoad();
+    }
+
+    public static void requestLoad() {
+        me = new FilesFragment();
+    }
+
+    public static void requestUnload() {
+        me = null;
+        loaded = false;
+    }
+
+    public static boolean isLoaded() {
+        return loaded;
+    }
+
+    public static FilesFragment getInstance() {
+        if (me == null) requestLoad();
+        return me;
     }
 
     @Override

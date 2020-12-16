@@ -9,31 +9,39 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ActivityUtility {
 
     private static final int REQUEST_CODE_PERMISSION = 123;
 
     BottomNavigationView bottomNav;
     FolderFragment folderFragment;
     FilesFragment filesFragment;
+    FloatingActionButton btnRefresh;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+
+    Handler mainActivityHandler = new Handler();;
 
     int themeId = 0;
 
@@ -41,9 +49,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
+//        outState.putSerializable("folderFragment", folderFragment);
+//        outState.putSerializable("filesFragment", filesFragment);
+        outState.putInt("bottomNavSelectedItem", bottomNav.getSelectedItemId());
         super.onSaveInstanceState(outState);
-        outState.putSerializable("folderFragment", folderFragment);
-        outState.putSerializable("filesFragment", filesFragment);
     }
 
     static ArrayList<VideoFiles> videoFiles = new ArrayList<>();
@@ -51,40 +60,48 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        themeId = ThemeActivity.applyTheme(this);
+        if (savedInstanceState == null) savedInstanceState = getIntent().getBundleExtra("saved_state");
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        themeId = Theme.applyTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        bottomNav = findViewById(R.id.bottomNavViewAM);
+        int selectedBottomNaveItemId = -1;
         if (savedInstanceState != null) {
-            folderFragment = (FolderFragment) savedInstanceState.getSerializable("folderFragment");
-            filesFragment = (FilesFragment) savedInstanceState.getSerializable("filesFragment");
+            selectedBottomNaveItemId = savedInstanceState.getInt("bottomNavSelectedItem");
         }
+        bottomNav = findViewById(R.id.bottomNavViewAM);
+        btnRefresh = findViewById(R.id.btnRefresh);
         if (fragmentManager == null) fragmentManager = getSupportFragmentManager();
         bottomNav.setOnNavigationItemSelectedListener(item -> {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             if (item.getItemId() == R.id.folderList) {
-                FragmentTransaction folderFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                if (FolderVideoFragment.loaded) {
-                    folderFragmentTransaction.replace(R.id.mainFragment, FolderVideoFragment.me);
+                if (FolderVideoFragment.isLoaded() && !item.isChecked()) {
+                    fragmentTransaction.replace(R.id.mainFragment, FolderVideoFragment.getInstance());
                 } else {
-                    if (folderFragment == null) folderFragment = new FolderFragment();
-                    folderFragmentTransaction.replace(R.id.mainFragment, folderFragment);
+                    fragmentTransaction.replace(R.id.mainFragment, FolderFragment.getInstance());
                 }
-                folderFragmentTransaction.commit();
+                fragmentTransaction.commit();
             } else if (item.getItemId() == R.id.filesList) {
-                FragmentTransaction fileFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                if (filesFragment == null) filesFragment = new FilesFragment();
-                fileFragmentTransaction.replace(R.id.mainFragment, filesFragment);
-                fileFragmentTransaction.commit();
+                fragmentTransaction.replace(R.id.mainFragment, FilesFragment.getInstance());
+                fragmentTransaction.commit();
             } else if (item.getItemId() == R.id.btnNavSettings) {
-                FragmentTransaction settingsFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                settingsFragmentTransaction.replace(R.id.mainFragment, new SettingsFragment());
-                settingsFragmentTransaction.commit();
+                fragmentTransaction.replace(R.id.mainFragment, new SettingsFragment());
+                fragmentTransaction.commit();
             }
             item.setChecked(true);
             return false;
         });
+        btnRefresh.setOnClickListener(v -> {
+            videoFiles = loadLibrary();
+            FilesFragment.reload();
+            FolderFragment.requestLoad();
+            FolderVideoFragment.requestLoad();
+            bottomNav.setSelectedItemId(bottomNav.getSelectedItemId());
+        });
+        if (selectedBottomNaveItemId >= 0) bottomNav.setSelectedItemId(selectedBottomNaveItemId);
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.app_name), MODE_PRIVATE);
         permission(savedInstanceState);
+
     }
 
     private void permission(Bundle savedInstanceState) {
@@ -103,10 +120,9 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE_PERMISSION) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(MainActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
                 videoFiles = loadLibrary();
                 FragmentTransaction folderFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                folderFragmentTransaction.replace(R.id.mainFragment, new FolderFragment());
+                folderFragmentTransaction.replace(R.id.mainFragment, FolderFragment.getInstance());
                 folderFragmentTransaction.commit();
             } else {
                 ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION);
@@ -116,8 +132,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (FolderVideoFragment.loaded && bottomNav.getSelectedItemId() == R.id.folderList) {
-            FolderVideoFragment.loaded = false;
+        if (FolderVideoFragment.isLoaded() && bottomNav.getSelectedItemId() == R.id.folderList) {
+            FolderVideoFragment.requestUnload();
             loadFolderFragment();
         } else {
             super.onBackPressed();
@@ -128,7 +144,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         if (themeId != Theme.currentThemeId) {
-            recreate();
+            new Thread(() -> {
+                Snackbar.make(MainActivity.this.bottomNav, "Applying theme. Please wait...", Snackbar.LENGTH_SHORT).show();
+                mainActivityHandler.postDelayed(() -> Theme.recreate(MainActivity.this, MainActivity.this), 300);
+            }).start();
+
         }
     }
 
@@ -202,8 +222,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadFolderFragment() {
         FragmentTransaction folderFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if (folderFragment == null) folderFragment = new FolderFragment();
-        folderFragmentTransaction.replace(R.id.mainFragment, folderFragment);
+        folderFragmentTransaction.replace(R.id.mainFragment, FolderFragment.getInstance());
         folderFragmentTransaction.commit();
+    }
+
+    @Override
+    public void saveInstanceState(Bundle bundle) {
+        onSaveInstanceState(bundle);
     }
 }
