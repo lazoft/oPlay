@@ -436,7 +436,7 @@ public class PlayerActivity extends AppCompatActivity {
                 recordingProcessStatus = String.format(Locale.ENGLISH, "Clipping in progress %-5s", "(" + percentage + "%)");
 
                     playerHandler.post(() -> {
-                        if (controlLabelLayout.getVisibility() == View.INVISIBLE) controlLabelLayout.setVisibility(View.VISIBLE);
+//                        if (controlLabelLayout.getVisibility() == View.INVISIBLE) controlLabelLayout.setVisibility(View.VISIBLE);
                         controlLabel.setText(recordingProcessStatus);
                     });
             }
