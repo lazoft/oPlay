@@ -62,6 +62,12 @@
             android:layout_margin="10dp"
             android:src="@drawable/ic_baseline_forward"
             android:contentDescription="@string/no_description" />
+        <com.zulfikar.aaiplayer.ImageViewButton
+            android:id="@+id/pipmode"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_baseline_picture_in_picture"/>
 
     </LinearLayout>
 

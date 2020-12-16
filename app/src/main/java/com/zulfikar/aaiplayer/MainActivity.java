@@ -1,6 +1,7 @@
 package com.zulfikar.aaiplayer;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -8,17 +9,23 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.app.PictureInPictureParams;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Point;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.Rational;
+import android.view.Display;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -60,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         if (savedInstanceState == null) savedInstanceState = getIntent().getBundleExtra("saved_state");
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         themeId = Theme.applyTheme(this);
@@ -101,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
         if (selectedBottomNaveItemId >= 0) bottomNav.setSelectedItemId(selectedBottomNaveItemId);
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.app_name), MODE_PRIVATE);
         permission(savedInstanceState);
+
 
     }
 

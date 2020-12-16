@@ -319,7 +319,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/refresh/baseline_refresh_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../../../Android/android-sdk/icons/material/materialicons/picture_in_picture_alt/baseline_picture_in_picture_alt_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -329,7 +329,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_refresh" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_baseline_picture_in_picture" />
                             <entry key="sourceFile" value="C:\Users\Zulfikar\Desktop\circleBorder.psd" />
                           </map>
                         </option>

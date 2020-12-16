@@ -20,10 +20,17 @@
         android:roundIcon="@mipmap/app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".pipActivity"
+            android:supportsPictureInPicture="true"
+            android:configChanges=
+                "screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTask"
+            android:resizeableActivity="true"
+            />
         <activity
             android:name=".PlaylistChooserActivity"
             android:label="@string/title_activity_playlist_chooser"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".UnderMaintenanceActivity" />
         <activity android:name=".ThemeActivity" />
