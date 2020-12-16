@@ -1,10 +1,8 @@
 package com.zulfikar.aaiplayer;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,7 +17,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -31,6 +28,8 @@ import androidx.core.content.ContextCompat;
 import com.arthenica.mobileffmpeg.Config;
 import com.arthenica.mobileffmpeg.ExecuteCallback;
 import com.arthenica.mobileffmpeg.FFmpeg;
+import com.arthenica.mobileffmpeg.Statistics;
+import com.arthenica.mobileffmpeg.StatisticsCallback;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
@@ -401,163 +400,47 @@ public class PlayerActivity extends AppCompatActivity {
             String[] trimCommand = {"-ss", String.valueOf(startMs / 1000), "-y", "-i", sourcePath, "-t", String.valueOf((endMs - startMs) / 1000), "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", destinationPath.getAbsolutePath()};
 
 //            executeTrimCommand(trimCommand, endMs - startMs);
-            testVideoTrimming(trimCommand);
+            executeTrimCommand(trimCommand, endMs - startMs);
 
         }
     }
 
-    private void testVideoTrimming(String[] complexCommand) {
-        //            execFFmpegBinary(complexCommand);
-//        int rc = FFmpeg.execute(complexCommand);
-
-//            Toast.makeText(PlayerActivity.this, "Cilpping Started", Toast.LENGTH_SHORT).show();
-//        if (rc == RETURN_CODE_SUCCESS) {
-//            Log.i(Config.TAG, "Command execution completed successfully.");
-//            Log.e("msg1", "Command execution completed successfully.");
-//            Toast.makeText(PlayerActivity.this, "Clip Saved", Toast.LENGTH_SHORT).show();
-//        } else if (rc == RETURN_CODE_CANCEL) {
-////                Log.i(Config.TAG, "Command execution cancelled by user.");
-//            Log.e("msg2", "Command execution cancelled by user.");
-//        } else {
-//            Log.e("msg3", String.format("Command execution failed with rc=%d and the output below.", rc));
-//            Config.printLastCommandOutput(Log.INFO);
-//        }
-
-
-            long executionid = FFmpeg.executeAsync(complexCommand, new ExecuteCallback() {
-                @Override
-                public void apply(long executionId, int rc) {
-//                    Toast.makeText(PlayerActivity.this, "Cilpping Started", Toast.LENGTH_SHORT).show();
-                    if (rc == RETURN_CODE_SUCCESS) {
-//                Log.i(Config.TAG, "Command execution completed successfully.");
-                        Log.e("msg1", "Command execution completed successfully.");
-                        Toast.makeText(PlayerActivity.this, "Clip Saved", Toast.LENGTH_SHORT).show();
-                    } else if (rc == RETURN_CODE_CANCEL) {
-//                Log.i(Config.TAG, "Command execution cancelled by user.");
-                        Log.e("msg2", "Command execution cancelled by user.");
-                        Toast.makeText(PlayerActivity.this, "Cilpping Cancelled", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Log.e("msg3", String.format("Command execution failed with rc=%d and the output below.", rc));
-                        Toast.makeText(PlayerActivity.this, "Clipping failed", Toast.LENGTH_SHORT).show();
-                        Config.printLastCommandOutput(Log.INFO);
-                    }
-
+    private void executeTrimCommand(String[] trimCommand, long trimDuration) {
+        recordingClipProcessing = true;
+        controlLabelLayout.setVisibility(View.VISIBLE);
+        FFmpeg.executeAsync(trimCommand, new ExecuteCallback() {
+            @Override
+            public void apply(long executionId, int rc) {
+                if (rc == RETURN_CODE_SUCCESS) {
+                    Log.e("msg1", "Command execution completed successfully.");
+                    Toast.makeText(PlayerActivity.this, "Clip Saved", Toast.LENGTH_SHORT).show();
+                } else if (rc == RETURN_CODE_CANCEL) {
+                    Log.e("msg2", "Command execution cancelled by user.");
+                    Toast.makeText(PlayerActivity.this, "Clipping Cancelled", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.e("msg3", String.format("Command execution failed with rc=%d and the output below.", rc));
+                    Toast.makeText(PlayerActivity.this, "Clipping failed", Toast.LENGTH_SHORT).show();
+                    Config.printLastCommandOutput(Log.INFO);
                 }
-            });
-    }
+                recordingClipProcessing = false;
+                controlLabelLayout.setVisibility(View.INVISIBLE);
+            }
+        });
 
+        Config.enableStatisticsCallback(new StatisticsCallback() {
+            public void apply(Statistics newStatistics) {
+                int position = newStatistics.getTime();
+                String dot = "";
+                int percentage = (int) (position * 100 / trimDuration);
 
-//    private void executeTrimCommand(String[] trimCommand, long trimDuration) {
-//        try {
-//            ffmpeg.execute(trimCommand, new FFmpegExecuteResponseHandler() {
-//                int colorRed = Color.parseColor("#7CC30808");
-//                int colorWhite = Color.parseColor("#FFFFFF");
-//                int[] color = {colorRed, colorWhite};
-//                int flag;
-//                int i = 0;
-//                @Override
-//                public void onSuccess(String message) {
-//                    Log.e("Clip saved", message);
-//                    Toast.makeText(PlayerActivity.this, "Clip saved", Toast.LENGTH_LONG).show();
-//                }
-//
-//                @Override
-//                public void onProgress(String message) {
-//                    Log.e("Clip progress", message);
-//                    String dot = "";
-//                    long position = getDurationMs(message);
-//                    int percentage = (int) (position * 100 / trimDuration);
-////                    if (controlLabelLayout.getVisibility() == View.INVISIBLE) controlLabelLayout.setVisibility(View.VISIBLE);
-////                    controlLabel.setTextColor(color[(flag = ++flag % 2)]);
-////                    controlLabel.setBackgroundColor(color[(flag = ++flag % 2)]);
-//                    recordingProcessStatus = String.format(Locale.ENGLISH, "Clipping in progress %-5s", "(" + percentage + "%)");
-//                    controlLabel.setText(recordingProcessStatus);
-////                    i = ++i % 4;
-//                }
-//
-//                @Override
-//                public void onFailure(String message) {
-//                    Log.e("Clip failed to save", message);
-//                    Toast.makeText(PlayerActivity.this, "Clip failed: " + message, Toast.LENGTH_LONG).show();
-//                }
-//
-//                @Override
-//                public void onStart() {
-//                    //noinspection ImplicitArrayToString
-//                    Log.e("Clip started", "" + trimCommand);
-//                    recordingClipProcessing = true;
-//                    controlLabelLayout.setVisibility(View.VISIBLE);
-//                }
-//
-//                @Override
-//                public void onFinish() {
-//                    //noinspection ImplicitArrayToString
-//                    Log.e("Clip trim finished", trimCommand + "");
-//                    recordingClipProcessing = false;
-//                    controlLabelLayout.setVisibility(View.INVISIBLE);
-//                }
-//
-//                private long getDurationMs(String msg) {
-//                    int indexOfTime = msg.indexOf("time");
-//                    int indexOfBitrate = msg.indexOf("bitrate");
-//                    if (indexOfBitrate <= 0 || indexOfTime <= 0) return 0;
-//                    String timeStr = msg.substring(indexOfTime + 5, indexOfBitrate - 1);
-//                    String[] timeSplit = timeStr.split(":|\\.");
-//                    int hours = Integer.parseInt(timeSplit[0]);
-//                    int minutes = Integer.parseInt(timeSplit[1]);
-//                    int seconds = Integer.parseInt(timeSplit[2]);
-//                    int milliseconds = Integer.parseInt(timeSplit[3]);
-//                    long time = TimeUnit.HOURS.toMillis(hours) + TimeUnit.MINUTES.toMillis(minutes) + TimeUnit.SECONDS.toMillis(seconds) + milliseconds;
-//
-//                    return time;
-//                }
-//            });
-//        } catch (FFmpegCommandAlreadyRunningException e) {
-//            e.printStackTrace();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+                recordingProcessStatus = String.format(Locale.ENGLISH, "Clipping in progress %-5s", "(" + percentage + "%)");
 
-//    private void loadFFMpegBinary() {
-//        try {
-//            if (ffmpeg == null) {
-////                Log.d(TAG, "ffmpeg : era nulo");
-//                ffmpeg = FFmpeg.getInstance(this);
-//            }
-//            ffmpeg.loadBinary(new LoadBinaryResponseHandler() {
-//                @Override
-//                public void onFailure() {
-//                    showUnsupportedExceptionDialog();
-//                }
-//
-//                @Override
-//                public void onSuccess() {
-//                    //////////Log.d(TAG, "ffmpeg : correct Loaded");
-//                }
-//            });
-//        } catch (FFmpegNotSupportedException e) {
-//            showUnsupportedExceptionDialog();
-//        } catch (Exception e) {
-////            Log.d(TAG, "EXception no controlada : " + e);
-//        }
-//    }
-
-    private void showUnsupportedExceptionDialog() {
-        new AlertDialog.Builder(PlayerActivity.this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Not Supported")
-                .setMessage("Device Not Supported")
-                .setCancelable(false)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        PlayerActivity.this.finish();
-                    }
-                })
-                .create()
-                .show();
-
+                    playerHandler.post(() -> {
+                        if (controlLabelLayout.getVisibility() == View.INVISIBLE) controlLabelLayout.setVisibility(View.VISIBLE);
+                        controlLabel.setText(recordingProcessStatus);
+                    });
+            }
+        });
     }
 
     private String getDurationFormat(long durationMs) {
@@ -732,3 +615,124 @@ ffmpeg = FFmpeg.getInstance(PlayerActivity.this);
 
 
 //</editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc=" DEPRECATED V3.0 ">
+/*
+
+//    private void executeTrimCommand(String[] trimCommand, long trimDuration) {
+//        try {
+//            ffmpeg.execute(trimCommand, new FFmpegExecuteResponseHandler() {
+//                int colorRed = Color.parseColor("#7CC30808");
+//                int colorWhite = Color.parseColor("#FFFFFF");
+//                int[] color = {colorRed, colorWhite};
+//                int flag;
+//                int i = 0;
+//                @Override
+//                public void onSuccess(String message) {
+//                    Log.e("Clip saved", message);
+//                    Toast.makeText(PlayerActivity.this, "Clip saved", Toast.LENGTH_LONG).show();
+//                }
+//
+//                @Override
+//                public void onProgress(String message) {
+//                    Log.e("Clip progress", message);
+//                    String dot = "";
+//                    long position = getDurationMs(message);
+//                    int percentage = (int) (position * 100 / trimDuration);
+////                    if (controlLabelLayout.getVisibility() == View.INVISIBLE) controlLabelLayout.setVisibility(View.VISIBLE);
+////                    controlLabel.setTextColor(color[(flag = ++flag % 2)]);
+////                    controlLabel.setBackgroundColor(color[(flag = ++flag % 2)]);
+//                    recordingProcessStatus = String.format(Locale.ENGLISH, "Clipping in progress %-5s", "(" + percentage + "%)");
+//                    controlLabel.setText(recordingProcessStatus);
+////                    i = ++i % 4;
+//                }
+//
+//                @Override
+//                public void onFailure(String message) {
+//                    Log.e("Clip failed to save", message);
+//                    Toast.makeText(PlayerActivity.this, "Clip failed: " + message, Toast.LENGTH_LONG).show();
+//                }
+//
+//                @Override
+//                public void onStart() {
+//                    //noinspection ImplicitArrayToString
+//                    Log.e("Clip started", "" + trimCommand);
+//                    recordingClipProcessing = true;
+//                    controlLabelLayout.setVisibility(View.VISIBLE);
+//                }
+//
+//                @Override
+//                public void onFinish() {
+//                    //noinspection ImplicitArrayToString
+//                    Log.e("Clip trim finished", trimCommand + "");
+//                    recordingClipProcessing = false;
+//                    controlLabelLayout.setVisibility(View.INVISIBLE);
+//                }
+//
+//                private long getDurationMs(String msg) {
+//                    int indexOfTime = msg.indexOf("time");
+//                    int indexOfBitrate = msg.indexOf("bitrate");
+//                    if (indexOfBitrate <= 0 || indexOfTime <= 0) return 0;
+//                    String timeStr = msg.substring(indexOfTime + 5, indexOfBitrate - 1);
+//                    String[] timeSplit = timeStr.split(":|\\.");
+//                    int hours = Integer.parseInt(timeSplit[0]);
+//                    int minutes = Integer.parseInt(timeSplit[1]);
+//                    int seconds = Integer.parseInt(timeSplit[2]);
+//                    int milliseconds = Integer.parseInt(timeSplit[3]);
+//                    long time = TimeUnit.HOURS.toMillis(hours) + TimeUnit.MINUTES.toMillis(minutes) + TimeUnit.SECONDS.toMillis(seconds) + milliseconds;
+//
+//                    return time;
+//                }
+//            });
+//        } catch (FFmpegCommandAlreadyRunningException e) {
+//            e.printStackTrace();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+//    private void loadFFMpegBinary() {
+//        try {
+//            if (ffmpeg == null) {
+////                Log.d(TAG, "ffmpeg : era nulo");
+//                ffmpeg = FFmpeg.getInstance(this);
+//            }
+//            ffmpeg.loadBinary(new LoadBinaryResponseHandler() {
+//                @Override
+//                public void onFailure() {
+//                    showUnsupportedExceptionDialog();
+//                }
+//
+//                @Override
+//                public void onSuccess() {
+//                    //////////Log.d(TAG, "ffmpeg : correct Loaded");
+//                }
+//            });
+//        } catch (FFmpegNotSupportedException e) {
+//            showUnsupportedExceptionDialog();
+//        } catch (Exception e) {
+////            Log.d(TAG, "EXception no controlada : " + e);
+//        }
+//    }
+
+
+    private void showUnsupportedExceptionDialog() {
+        new AlertDialog.Builder(PlayerActivity.this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Not Supported")
+                .setMessage("Device Not Supported")
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        PlayerActivity.this.finish();
+                    }
+                })
+                .create()
+                .show();
+
+    }
+
+ */
+
+// </editor-fold>
