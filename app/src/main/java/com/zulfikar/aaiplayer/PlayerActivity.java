@@ -396,10 +396,11 @@ public class PlayerActivity extends AppCompatActivity {
                 destinationPath = new File(externalStoragePublicDirectory, destFileName + fileNo + ".mp4");
             }
 
+            if (endMs < startMs) startMs += endMs - (endMs = startMs);
+
 //            final String[] complexCommand = {"-i", sourcePath, "-ss",startMs/1000 + "","-c:v","copy", "-t", ((endMs-startMs)/1000) + "", destinationPath.getAbsolutePath()};
             String[] trimCommand = {"-ss", String.valueOf(startMs / 1000), "-y", "-i", sourcePath, "-t", String.valueOf((endMs - startMs) / 1000), "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", destinationPath.getAbsolutePath()};
 
-//            executeTrimCommand(trimCommand, endMs - startMs);
             executeTrimCommand(trimCommand, endMs - startMs);
 
         }

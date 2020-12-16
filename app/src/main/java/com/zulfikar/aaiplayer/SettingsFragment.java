@@ -107,6 +107,9 @@ public class SettingsFragment extends Fragment {
             startActivity(playlistChooserIntent);
         });
         setOnClickForUpcomingButtons(btnMyAccount, btnChangeLanguage, btnWifiShare, btnVideoSnaps, btnVideoRecordedClips, btnResetSettings, btnSendFeedback, btnUpdate, btnExit);
+        btnExit.setOnClickListener(v -> {
+            System.exit(0);
+        });
         return view;
     }
 

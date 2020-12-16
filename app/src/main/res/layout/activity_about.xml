@@ -83,6 +83,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="?colorText"
                         android:textSize="16sp"
+                        android:textStyle="bold"
                         android:text="@string/name_zulfikar"/>
 
                     <TextView
@@ -124,6 +125,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="?colorText"
                         android:textSize="16sp"
+                        android:textStyle="bold"
                         android:text="@string/name_shahriyar"/>
 
                     <TextView
@@ -165,88 +167,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="?colorText"
                         android:textSize="16sp"
-                        android:text="@string/name_ornil"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="?colorText"
-                        android:text="@string/role_ornil"/>
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="251dp"
-                    android:layout_height="100dp"
-                    android:layout_weight="3"
-                    android:background="@drawable/ornil"
-                    android:src="@drawable/circle_border"
-                    app:tint="?colorPrimary"
-                    android:contentDescription="@string/no_description" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp"
-                android:weightSum="5"
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="?colorText"
-                        android:textSize="16sp"
-                        android:text="@string/name_sohan"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="?colorText"
-                        android:text="@string/role_sohan"/>
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="251dp"
-                    android:layout_height="100dp"
-                    android:layout_weight="3"
-                    android:background="@drawable/sohan"
-                    android:src="@drawable/circle_border"
-                    app:tint="?colorPrimary"
-                    android:contentDescription="@string/no_description" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp"
-                android:weightSum="5"
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="?colorText"
-                        android:textSize="16sp"
+                        android:textStyle="bold"
                         android:text="@string/name_afsan"/>
 
                     <TextView
@@ -288,6 +209,91 @@
                         android:layout_height="wrap_content"
                         android:textColor="?colorText"
                         android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:text="@string/name_sohan"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="?colorText"
+                        android:text="@string/role_sohan"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="251dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="3"
+                    android:background="@drawable/sohan"
+                    android:src="@drawable/circle_border"
+                    app:tint="?colorPrimary"
+                    android:contentDescription="@string/no_description" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:weightSum="5"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="?colorText"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:text="@string/name_ornil"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="?colorText"
+                        android:text="@string/role_ornil"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="251dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="3"
+                    android:background="@drawable/ornil"
+                    android:src="@drawable/circle_border"
+                    app:tint="?colorPrimary"
+                    android:contentDescription="@string/no_description" />
+
+
+            </LinearLayout>            
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:weightSum="5"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="?colorText"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
                         android:text="@string/name_adnan"/>
 
                     <TextView
@@ -329,6 +335,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="?colorText"
                         android:textSize="16sp"
+                        android:textStyle="bold"
                         android:text="@string/name_sohan_rockStar"/>
 
                     <TextView
