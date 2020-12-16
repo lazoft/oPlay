@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
         Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
         String[] projection = {MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, MediaStore.Video.Media.DISPLAY_NAME};
         Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
-        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+//        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         HashSet<String> videoPaths = new HashSet<>();
         if (cursor != null) {
             while(cursor.moveToNext()) {
@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
                 String size = cursor.getString(3);
                 String dateAdded = cursor.getString(4);
                 String fileName = cursor.getString(5);
-                retriever.setDataSource(path);
+//                retriever.setDataSource(path);
                 int slashFirstIndex = path.lastIndexOf("/");
                 String subString = path.substring(0, slashFirstIndex);
                 int index = subString.lastIndexOf("/");
@@ -206,7 +206,8 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
                 if (!folderList.contains(folderName)) {
                     folderList.add(folderName);
                 }
-                VideoFiles videoFiles = new VideoFiles(id, path, title, fileName, size, dateAdded, retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION), folderName);
+//                VideoFiles videoFiles = new VideoFiles(id, path, title, fileName, size, dateAdded, retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION), folderName);
+                VideoFiles videoFiles = new VideoFiles(id, path, title, fileName, size, dateAdded, "00", folderName);
                 tempVideoFiles.add(videoFiles);
                 videoPaths.add(path);
             }
