@@ -3,6 +3,7 @@ package com.zulfikar.aaiplayer;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,10 +19,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
-import com.arthenica.mobileffmpeg.Config;
-import com.arthenica.mobileffmpeg.ExecuteCallback;
-import com.arthenica.mobileffmpeg.FFmpeg;
+import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
+import com.github.hiteshsondhi88.libffmpeg.FFmpegExecuteResponseHandler;
+import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
@@ -45,8 +47,6 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-import static com.arthenica.mobileffmpeg.Config.RETURN_CODE_CANCEL;
-import static com.arthenica.mobileffmpeg.Config.RETURN_CODE_SUCCESS;
 import static com.zulfikar.aaiplayer.VideoAdapter.videoFiles;
 import static com.zulfikar.aaiplayer.VideoFolderAdapter.folderVideoFiles;
 
@@ -55,8 +55,7 @@ public class PlayerActivity extends AppCompatActivity {
     private static final int QUALITY = 100;
     private static final String PLAYBACK_JUMPER_PREFERENCE = "playback_jumper_preferences";
 //    private static final int RETURN_CODE_SUCCESS = ;
-    private static HashMap<String, Long> lastPlayed = new HashMap<>();
-    private static Long duration = 0L;
+    private static final HashMap<String, Long> lastPlayed = new HashMap<>();
 
     SharedPreferences sharedPreferences;
     DefaultTimeBar timeBar;
@@ -67,11 +66,11 @@ public class PlayerActivity extends AppCompatActivity {
     PlayerView playerView;
     RelativeLayout customController, timeBarLayout;
     SimpleExoPlayer simpleExoPlayer;
-    String title, sender, path;
+    String title, sender, path, recordingProcessStatus;
     TextView controlLabel;
     Thread playbackControllerThread;
 
-    boolean recordingClip, controllerVisible = true;
+    boolean recordingClip, recordingClipProcessing, controllerVisible = true;
     int forwardJumpTime, backwardJumpTime, position = -1;
     long pauseTime;
     volatile TextView videoPosition, videoDuration;
@@ -84,7 +83,7 @@ public class PlayerActivity extends AppCompatActivity {
     protected void onPostResume() {
         super.onPostResume();
         if (System.currentTimeMillis() - pauseTime < 100) {
-            btnPlayPause.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_pause_circle_outline));
+            btnPlayPause.setImageDrawable(ContextCompat.getDrawable(PlayerActivity.this, R.drawable.ic_baseline_pause_circle_outline));
             simpleExoPlayer.setPlayWhenReady(true);
         }
     }
@@ -95,7 +94,7 @@ public class PlayerActivity extends AppCompatActivity {
         pauseTime = System.currentTimeMillis();
         if(!sharedPreferences.getBoolean(SettingsFragment.BACKGROUND_PLAYBACK_STATE, true)){
             if(simpleExoPlayer.getPlayWhenReady()) {
-                btnPlayPause.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_play_circle_outline));
+                btnPlayPause.setImageDrawable(ContextCompat.getDrawable(PlayerActivity.this, R.drawable.ic_baseline_play_circle_outline));
                 simpleExoPlayer.setPlayWhenReady(false);
             }
         }
@@ -113,13 +112,14 @@ public class PlayerActivity extends AppCompatActivity {
         playerView = findViewById(R.id.exoplayer_movie);
         customController = findViewById(R.id.cloneCustomController);
 
+        ffmpeg = FFmpeg.getInstance(this);
 
         title = getIntent().getStringExtra("title");
         position = getIntent().getIntExtra("position", -1);
         sender = getIntent().getStringExtra("sender");
         path = sender.equals("Video") ? videoFiles.get(position).getPath() : sender.equals("VideoFolder") ? folderVideoFiles.get(position).getPath() : path;
 
-        duration = lastPlayed.get(path);
+        Long duration = lastPlayed.get(path);
         if (duration == null) duration = 0L;
 
         backwardJumpTime = Integer.parseInt(sharedPreferences.getString("backward_jumper_time", "10"));
@@ -174,14 +174,16 @@ public class PlayerActivity extends AppCompatActivity {
         customController.setOnClickListener(v -> {
 
             if (controllerVisible) {
-                v.setBackgroundColor(getResources().getColor(R.color.colorTransparent));
+                v.setBackgroundColor(ContextCompat.getColor(PlayerActivity.this, R.color.colorTransparent));
                 playbackController.setVisibility(View.INVISIBLE);
                 timeBarLayout.setVisibility(View.INVISIBLE);
+                controlLabelLayout.setVisibility(View.INVISIBLE);
                 controllerVisible = false;
             } else {
-                v.setBackgroundColor(getResources().getColor(R.color.customControllerBackground));
+                v.setBackgroundColor(ContextCompat.getColor(PlayerActivity.this, R.color.customControllerBackground));
                 playbackController.setVisibility(View.VISIBLE);
                 timeBarLayout.setVisibility(View.VISIBLE);
+                if (recordingClipProcessing) controlLabelLayout.setVisibility(View.VISIBLE);
                 controllerVisible = true;
             }
         });
@@ -202,7 +204,8 @@ public class PlayerActivity extends AppCompatActivity {
 
                     controlLabel.setText(String.format(Locale.US,"Backward %d Sec", seek));
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    controlLabelLayout.setVisibility(View.INVISIBLE);
+                    if (!recordingClipProcessing) controlLabelLayout.setVisibility(View.INVISIBLE);
+                    else controlLabel.setText(recordingProcessStatus);
                     long seekPosition = simpleExoPlayer.getCurrentPosition() - TimeUnit.SECONDS.toMillis(seek);
                     if (seekPosition < 0) seekPosition = 0;
                     simpleExoPlayer.seekTo(seekPosition);
@@ -221,10 +224,13 @@ public class PlayerActivity extends AppCompatActivity {
                 controlLabelLayout.setVisibility(View.VISIBLE);
                 controlLabel.setText(simpleExoPlayer.getPlayWhenReady()? R.string.text_pause : R.string.text_play);
                 return true;
+            } else if (e.getAction() == MotionEvent.ACTION_MOVE) {
+                controlLabel.setText(simpleExoPlayer.getPlayWhenReady()? R.string.text_pause : R.string.text_play);
             } else if (e.getAction() == MotionEvent.ACTION_UP) {
-                controlLabelLayout.setVisibility(View.INVISIBLE);
+                if (!recordingClipProcessing) controlLabelLayout.setVisibility(View.INVISIBLE);
+                else controlLabel.setText(recordingProcessStatus);
                 simpleExoPlayer.setPlayWhenReady(!simpleExoPlayer.getPlayWhenReady());
-                btnPlayPause.setImageDrawable(simpleExoPlayer.getPlayWhenReady()? getResources().getDrawable(R.drawable.ic_baseline_pause_circle_outline) : getResources().getDrawable(R.drawable.ic_baseline_play_circle_outline));
+                btnPlayPause.setImageDrawable(simpleExoPlayer.getPlayWhenReady()? ContextCompat.getDrawable(PlayerActivity.this, R.drawable.ic_baseline_pause_circle_outline) : ContextCompat.getDrawable(PlayerActivity.this, R.drawable.ic_baseline_play_circle_outline));
                 v.performClick();
                 return true;
             }
@@ -242,7 +248,7 @@ public class PlayerActivity extends AppCompatActivity {
                         return true;
                     } else if (e.getAction() == MotionEvent.ACTION_UP) {
                         controlLabelLayout.setVisibility(View.INVISIBLE);
-                        btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_normal));
+                        btnCamera.setImageDrawable(ContextCompat.getDrawable(PlayerActivity.this, R.drawable.button_camera_normal));
                         toggleClip(recordingClip = false);
                         return true;
                     }
@@ -251,27 +257,28 @@ public class PlayerActivity extends AppCompatActivity {
                         y = e.getRawY();
                         controlLabelLayout.setVisibility(View.VISIBLE);
                         controlLabel.setText(R.string.capture_label);
-                        btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_pressed));
+                        btnCamera.setImageDrawable(ContextCompat.getDrawable(PlayerActivity.this, R.drawable.button_camera_pressed));
 //                        snapFrame();
                         return true;
                     } else if (e.getAction() == MotionEvent.ACTION_MOVE) {
                         if (e.getRawY() > y && 1.0 * e.getRawY() / y > 1.15) {
-                            btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_record_start));
+                            btnCamera.setImageDrawable(ContextCompat.getDrawable(PlayerActivity.this, R.drawable.button_camera_record_start));
                             controlLabel.setText(R.string.start_clip_record_label);
                         } else if (e.getRawY() < y && y / e.getRawY() > 2) {
                             controlLabel.setText(R.string.capture_label);
-                            btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_pressed));
+                            btnCamera.setImageDrawable(ContextCompat.getDrawable(PlayerActivity.this, R.drawable.button_camera_pressed));
                         } else {
                             controlLabel.setText(R.string.capture_label);
-                            btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_pressed));
+                            btnCamera.setImageDrawable(ContextCompat.getDrawable(PlayerActivity.this, R.drawable.button_camera_pressed));
                         }
                     } else if (e.getAction() == MotionEvent.ACTION_UP) {
-                        controlLabelLayout.setVisibility(View.INVISIBLE);
+                        if (!recordingClipProcessing) controlLabelLayout.setVisibility(View.INVISIBLE);
+                        else controlLabel.setText(recordingProcessStatus);
                         if (e.getRawY() > y && 1.0 * e.getRawY() / y > 1.15) {
-                            btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_record_start));
+                            btnCamera.setImageDrawable(ContextCompat.getDrawable(PlayerActivity.this, R.drawable.button_camera_record_start));
                             toggleClip(recordingClip = true);
                         } else {
-                            btnCamera.setImageDrawable(getResources().getDrawable(R.drawable.button_camera_normal));
+                            btnCamera.setImageDrawable(ContextCompat.getDrawable(PlayerActivity.this, R.drawable.button_camera_normal));
 //                            TextureView textureView = (TextureView) playerView.getVideoSurfaceView();
 //                            toggleSnap(textureView);
                             toggleSnap((TextureView)playerView.getVideoSurfaceView());
@@ -299,7 +306,8 @@ public class PlayerActivity extends AppCompatActivity {
                     else if (event.getRawY() > y) seek = (int) (backwardJumpTime * (11 - 11 / y * (event.getRawY() - y)) / 10);
                     controlLabel.setText(String.format(Locale.US, "Forward %d Sec", seek));
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    controlLabelLayout.setVisibility(View.INVISIBLE);
+                    if (!recordingClipProcessing) controlLabelLayout.setVisibility(View.INVISIBLE);
+                    else controlLabel.setText(recordingProcessStatus);
                     long seekPosition = simpleExoPlayer.getCurrentPosition() + TimeUnit.SECONDS.toMillis(seek);
                     if (seekPosition > simpleExoPlayer.getDuration()) seekPosition = simpleExoPlayer.getDuration();
                     simpleExoPlayer.seekTo(seekPosition);
@@ -329,70 +337,12 @@ public class PlayerActivity extends AppCompatActivity {
             public void onScrubStop(@NotNull TimeBar timeBar, long position, boolean canceled) {
                 simpleExoPlayer.seekTo(position);
                 videoPosition.setText(getDurationFormat(position));
-                controlLabelLayout.setVisibility(View.INVISIBLE);
+                if (!recordingClipProcessing) controlLabelLayout.setVisibility(View.INVISIBLE);
             }
         });
 
         (playbackControllerThread = new Thread(new CustomTimeBar())).start();
     }
-
-    private void executeCutVideoCommand(long startMs, long endMs, String sourcePath) {
-        String destPath = "/storage/emulated/0/DCIM/Olosh Player/Olosh Clips/";
-        File externalStoragePublicDirectory = new File(destPath);
-        if (externalStoragePublicDirectory.exists() || externalStoragePublicDirectory.mkdirs()) {
-            String title = this.title.length() > 5? this.title.substring(0, 5) : this.title;
-            String destFileName = "Olosh clip (" + title + ")";
-            File destinationPath =  new File(externalStoragePublicDirectory, destFileName + ".mp4");
-            for (int fileNo = 1; destinationPath.exists(); fileNo++) {
-                destinationPath = new File(externalStoragePublicDirectory, destFileName + fileNo + ".mp4");
-            }
-            Log.e("clipTime: ", startMs+", "+endMs);
-            long clipDuration = endMs - startMs;
-            final String[] complexCommand = {"-i", sourcePath, "-ss","00:00:00.0" + "","-c:v","copy", "-t", "7" + "", destinationPath.getAbsolutePath()};
-            //final String[] s = {"ffmpeg","-ss", "0" ,"-i", sourcePath, startMs / 1000 + "", "-to", endMs / 1000 + "", "-c:v",destinationPath.getAbsolutePath()};
-
-//            execFFmpegBinary(complexCommand);
-            int rc = FFmpeg.execute(complexCommand);
-//            Toast.makeText(PlayerActivity.this, "Cilpping Started", Toast.LENGTH_SHORT).show();
-            if (rc == RETURN_CODE_SUCCESS) {
-                Log.i(Config.TAG, "Command execution completed successfully.");
-                Log.e("msg1", "Command execution completed successfully.");
-                Toast.makeText(PlayerActivity.this, "Clip Saved", Toast.LENGTH_SHORT).show();
-            } else if (rc == RETURN_CODE_CANCEL) {
-//                Log.i(Config.TAG, "Command execution cancelled by user.");
-                Log.e("msg2", "Command execution cancelled by user.");
-            } else {
-                Log.e("msg3", String.format("Command execution failed with rc=%d and the output below.", rc));
-                Config.printLastCommandOutput(Log.INFO);
-            }
-
-//            long executionid = FFmpeg.executeAsync(complexCommand, new ExecuteCallback() {
-//                @Override
-//                public void apply(long executionId, int rc) {
-//                    Toast.makeText(PlayerActivity.this, "Cilpping Started", Toast.LENGTH_SHORT).show();
-//                    if (rc == RETURN_CODE_SUCCESS) {
-////                Log.i(Config.TAG, "Command execution completed successfully.");
-//                        Log.e("msg1", "Command execution completed successfully.");
-//                        Toast.makeText(PlayerActivity.this, "Clip Saved", Toast.LENGTH_SHORT).show();
-//                    } else if (rc == RETURN_CODE_CANCEL) {
-////                Log.i(Config.TAG, "Command execution cancelled by user.");
-//                        Log.e("msg2", "Command execution cancelled by user.");
-//                        Toast.makeText(PlayerActivity.this, "Cilpping Cancelled", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        Log.e("msg3", String.format("Command execution failed with rc=%d and the output below.", rc));
-//                        Toast.makeText(PlayerActivity.this, "Clipping failed", Toast.LENGTH_SHORT).show();
-//                        Config.printLastCommandOutput(Log.INFO);
-//                    }
-//
-//                }
-//            });
-
-        }
-    }
-
-//    private int test(String[] args){
-//        return FFmpeg.execute(args);
-//    }
 
     private void toggleSnap(TextureView textureView) {
         Date date = new Date();
@@ -424,7 +374,95 @@ public class PlayerActivity extends AppCompatActivity {
         else executeCutVideoCommand(startRecord, simpleExoPlayer.getCurrentPosition(), path);
     }
 
+    private void executeCutVideoCommand(long startMs, long endMs, String sourcePath) {
+        String destPath = "/storage/emulated/0/DCIM/Olosh Player/Olosh Clips/";
+        File externalStoragePublicDirectory = new File(destPath);
+        if (externalStoragePublicDirectory.exists() || externalStoragePublicDirectory.mkdirs()) {
+            String title = this.title.length() > 5? this.title.substring(0, 5) : this.title;
+            String destFileName = "Olosh clip (" + title + ")";
+            File destinationPath =  new File(externalStoragePublicDirectory, destFileName + ".mp4");
+            for (int fileNo = 1; destinationPath.exists(); fileNo++) {
+                destinationPath = new File(externalStoragePublicDirectory, destFileName + fileNo + ".mp4");
+            }
 
+//            final String[] complexCommand = {"-i", sourcePath, "-ss","00:00:00.0" + "","-c:v","copy", "-t", "7" + "", destinationPath.getAbsolutePath()};
+            String[] trimCommand = {"-ss", String.valueOf(startMs / 1000), "-y", "-i", sourcePath, "-t", String.valueOf((endMs - startMs) / 1000), "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", destinationPath.getAbsolutePath()};
+
+            executeTrimCommand(trimCommand, endMs - startMs);
+        }
+    }
+
+    private void executeTrimCommand(String[] trimCommand, long trimDuration) {
+        try {
+            ffmpeg.execute(trimCommand, new FFmpegExecuteResponseHandler() {
+                int colorRed = Color.parseColor("#7CC30808");
+                int colorWhite = Color.parseColor("#FFFFFF");
+                int[] color = {colorRed, colorWhite};
+                int flag;
+                int i = 0;
+                @Override
+                public void onSuccess(String message) {
+                    Log.e("Clip saved", message);
+                    Toast.makeText(PlayerActivity.this, "Clip saved", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onProgress(String message) {
+                    Log.e("Clip progress", message);
+                    String dot = "";
+                    long position = getDurationMs(message);
+                    int percentage = (int) (position * 100 / trimDuration);
+//                    if (controlLabelLayout.getVisibility() == View.INVISIBLE) controlLabelLayout.setVisibility(View.VISIBLE);
+//                    controlLabel.setTextColor(color[(flag = ++flag % 2)]);
+//                    controlLabel.setBackgroundColor(color[(flag = ++flag % 2)]);
+                    recordingProcessStatus = String.format(Locale.ENGLISH, "Clipping in progress %-5s", "(" + percentage + "%)");
+                    controlLabel.setText(recordingProcessStatus);
+//                    i = ++i % 4;
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    Log.e("Clip failed to save", message);
+                    Toast.makeText(PlayerActivity.this, "Clip failed: " + message, Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onStart() {
+                    //noinspection ImplicitArrayToString
+                    Log.e("Clip started", "" + trimCommand);
+                    recordingClipProcessing = true;
+                    controlLabelLayout.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onFinish() {
+                    //noinspection ImplicitArrayToString
+                    Log.e("Clip trim finished", trimCommand + "");
+                    recordingClipProcessing = false;
+                    controlLabelLayout.setVisibility(View.INVISIBLE);
+                }
+
+                private long getDurationMs(String msg) {
+                    int indexOfTime = msg.indexOf("time");
+                    int indexOfBitrate = msg.indexOf("bitrate");
+                    if (indexOfBitrate <= 0 || indexOfTime <= 0) return 0;
+                    String timeStr = msg.substring(indexOfTime + 5, indexOfBitrate - 1);
+                    String[] timeSplit = timeStr.split(":|\\.");
+                    int hours = Integer.parseInt(timeSplit[0]);
+                    int minutes = Integer.parseInt(timeSplit[1]);
+                    int seconds = Integer.parseInt(timeSplit[2]);
+                    int milliseconds = Integer.parseInt(timeSplit[3]);
+                    long time = TimeUnit.HOURS.toMillis(hours) + TimeUnit.MINUTES.toMillis(minutes) + TimeUnit.SECONDS.toMillis(seconds) + milliseconds;
+
+                    return time;
+                }
+            });
+        } catch (FFmpegCommandAlreadyRunningException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private String getDurationFormat(long durationMs) {
         long hour = TimeUnit.MILLISECONDS.toHours(durationMs);
@@ -484,6 +522,7 @@ public class PlayerActivity extends AppCompatActivity {
     }
 }
 
+// <editor-fold defaultstate="collapsed" desc="DEPRECIATED V1.0">
 /*
 ffmpeg = FFmpeg.getInstance(PlayerActivity.this);
 
@@ -552,3 +591,48 @@ ffmpeg = FFmpeg.getInstance(PlayerActivity.this);
     }
 
  */
+// </editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="DEPRECATED V2.0">
+/*
+/final String[] s = {"ffmpeg","-ss", "0" ,"-i", sourcePath, startMs / 1000 + "", "-to", endMs / 1000 + "", "-c:v",destinationPath.getAbsolutePath()};
+
+//            execFFmpegBinary(complexCommand);
+            int rc = FFmpeg.execute(complexCommand);
+//            Toast.makeText(PlayerActivity.this, "Cilpping Started", Toast.LENGTH_SHORT).show();
+            if (rc == RETURN_CODE_SUCCESS) {
+                Log.i(Config.TAG, "Command execution completed successfully.");
+                Log.e("msg1", "Command execution completed successfully.");
+                Toast.makeText(PlayerActivity.this, "Clip Saved", Toast.LENGTH_SHORT).show();
+            } else if (rc == RETURN_CODE_CANCEL) {
+//                Log.i(Config.TAG, "Command execution cancelled by user.");
+                Log.e("msg2", "Command execution cancelled by user.");
+            } else {
+                Log.e("msg3", String.format("Command execution failed with rc=%d and the output below.", rc));
+                Config.printLastCommandOutput(Log.INFO);
+            }
+
+//            long executionid = FFmpeg.executeAsync(complexCommand, new ExecuteCallback() {
+//                @Override
+//                public void apply(long executionId, int rc) {
+//                    Toast.makeText(PlayerActivity.this, "Cilpping Started", Toast.LENGTH_SHORT).show();
+//                    if (rc == RETURN_CODE_SUCCESS) {
+////                Log.i(Config.TAG, "Command execution completed successfully.");
+//                        Log.e("msg1", "Command execution completed successfully.");
+//                        Toast.makeText(PlayerActivity.this, "Clip Saved", Toast.LENGTH_SHORT).show();
+//                    } else if (rc == RETURN_CODE_CANCEL) {
+////                Log.i(Config.TAG, "Command execution cancelled by user.");
+//                        Log.e("msg2", "Command execution cancelled by user.");
+//                        Toast.makeText(PlayerActivity.this, "Cilpping Cancelled", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        Log.e("msg3", String.format("Command execution failed with rc=%d and the output below.", rc));
+//                        Toast.makeText(PlayerActivity.this, "Clipping failed", Toast.LENGTH_SHORT).show();
+//                        Config.printLastCommandOutput(Log.INFO);
+//                    }
+//
+//                }
+//            });
+ */
+
+
+//</editor-fold>
