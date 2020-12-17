@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:actionBarNavMode="list"
     android:background="?colorPrimary"
 
@@ -22,7 +23,7 @@
     <ScrollView
         android:id="@+id/themeButtonOuterLayoutTA"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:layout_below="@+id/textViewTA"
         android:layout_above="@id/txtCurrentThemeAT"
@@ -32,129 +33,378 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:weightSum="6">
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/tasniaThemeBtn"
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:background="@drawable/theme_button"
-                android:theme="@style/TasniaTheme"
-                android:padding="10dp"
-                android:text="@string/defaultThemeText"
-                android:textColor="?colorText"
-                android:textStyle="bold"
-                android:textSize="30sp"
-                style="?android:attr/borderlessButtonStyle"/>
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:rowCount="4"
+                android:columnCount="2"
+                >
 
-            <Button
-                android:id="@+id/rimiThemeBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/theme_button"
-                android:theme="@style/RimiTheme"
-                style="?android:attr/borderlessButtonStyle"
-                android:padding="10dp"
-                android:layout_margin="10dp"
-                android:text="@string/tasniaThemeText"
-                android:textColor="?colorText"
-                android:textStyle="bold"
-                android:textSize="30sp"/>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btnDefaultTheme"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardCornerRadius="25dp"
+                    >
 
-            <Button
-                android:id="@+id/soulmateThemeBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/theme_button"
-                android:theme="@style/SoulMateTheme"
-                style="?android:attr/borderlessButtonStyle"
-                android:padding="10dp"
-                android:layout_margin="10dp"
-                android:text="@string/rimiThemeText"
-                android:textColor="?colorText"
-                android:textStyle="bold"
-                android:textSize="30sp" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:background="@color/colorPrimary">
 
-            <Button
-                android:id="@+id/inlawsThemeBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/theme_button"
-                android:theme="@style/InLawsTheme"
-                style="?android:attr/borderlessButtonStyle"
-                android:padding="10dp"
-                android:layout_margin="10dp"
-                android:text="@string/soulmateThemeText"
-                android:textColor="?colorText"
-                android:textStyle="bold"
-                android:textSize="30sp"/>
+                        <ImageView
+                            android:id="@+id/imgDefaultAT"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:src="@drawable/ic_color_lens"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            app:tint="@color/colorText" />
 
-            <Button
-                android:id="@+id/aaiThemeBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/theme_button"
-                android:theme="@style/AppTheme"
-                style="?android:attr/borderlessButtonStyle"
-                android:padding="10dp"
-                android:layout_margin="10dp"
-                android:text="@string/inlawsThemeText"
-                android:textColor="?colorText"
-                android:textStyle="bold"
-                android:textSize="30sp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="@string/defaultThemeText"
+                            android:layout_below="@+id/imgDefaultAT"
+                            android:layout_alignParentBottom="true"
+                            android:textSize="28sp"
+                            android:textColor="@color/colorText"
+                            android:layout_gravity="center"                        android:gravity="center"
+                            android:textStyle="bold"/>
+                    </RelativeLayout>
 
-            <Button
-                android:id="@+id/bangladeshThemeBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/theme_button"
-                android:theme="@style/BangladeshTheme"
-                style="?android:attr/borderlessButtonStyle"
-                android:padding="10dp"
-                android:layout_margin="10dp"
-                android:text="@string/bangladeshThemeText"
-                android:textColor="?colorText"
-                android:textStyle="bold"
-                android:textSize="30sp"/>
+                </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/saudiArabiaThemeBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:background="@drawable/theme_button"
-                android:theme="@style/SaudiArabiaTheme"
-                android:padding="10dp"
-                android:text="@string/saudiArabiaThemeText"
-                android:textColor="?colorText"
-                android:textStyle="bold"
-                android:textSize="30sp"
-                style="?android:attr/borderlessButtonStyle"/>
 
-            <Button
-                android:id="@+id/japanThemeBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:background="@drawable/theme_button"
-                android:theme="@style/JapanTheme"
-                android:padding="10dp"
-                android:text="@string/japanThemeText"
-                android:textColor="?colorText"
-                android:textStyle="bold"
-                android:textSize="30sp"
-                style="?android:attr/borderlessButtonStyle"/>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btnTasniaTheme"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    app:cardCornerRadius="25dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    >
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:background="@color/tasniaPrimary">
+
+                        <ImageView
+                            android:id="@+id/imgTasniaAT"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:src="@drawable/ic_color_lens"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            app:tint="@color/tasniaColorText" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="@string/tasniaThemeText"
+                            android:layout_below="@+id/imgTasniaAT"
+                            android:layout_alignParentBottom="true"
+                            android:textSize="28sp"
+                            android:textColor="@color/tasniaColorText"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:textStyle="bold"/>
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btnRimiTheme"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardCornerRadius="25dp"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:background="@color/rimiPrimary">
+
+                        <ImageView
+                            android:id="@+id/imgRimiAT"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:src="@drawable/ic_color_lens"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            app:tint="@color/rimiColorText"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="@string/rimiThemeText"
+                            android:layout_below="@+id/imgRimiAT"
+                            android:layout_alignParentBottom="true"
+                            android:textSize="28sp"
+                            android:textColor="@color/rimiColorText"
+                            android:layout_gravity="center"                        android:gravity="center"
+                            android:textStyle="bold"/>
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btnSoulmateTheme"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardCornerRadius="25dp"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:background="@color/soulmatePrimary">
+
+                        <ImageView
+                            android:id="@+id/imgSoulmateAT"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:src="@drawable/ic_color_lens"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            app:tint="@color/soulmateColorText"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="@string/soulmateThemeText"
+                            android:layout_below="@+id/imgSoulmateAT"
+                            android:layout_alignParentBottom="true"
+                            android:textSize="28sp"
+                            android:textColor="@color/soulmateColorText"
+                            android:layout_gravity="center"                        android:gravity="center"
+                            android:textStyle="bold"/>
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btnInlawsTheme"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardCornerRadius="25dp"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:background="@color/inlawsPrimary">
+
+                        <ImageView
+                            android:id="@+id/imgInlawsAT"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:src="@drawable/ic_color_lens"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            app:tint="@color/inlawsBottomNavItemChecked"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="@string/inlawsThemeText"
+                            android:layout_below="@+id/imgInlawsAT"
+                            android:layout_alignParentBottom="true"
+                            android:textSize="28sp"
+                            android:textColor="@color/inlawsBottomNavItemChecked"
+                            android:layout_gravity="center"                        android:gravity="center"
+                            android:textStyle="bold"/>
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btnBangladeshTheme"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardCornerRadius="25dp"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:background="@color/bangladeshPrimary">
+
+                        <ImageView
+                            android:id="@+id/imgBangladeshAT"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:src="@drawable/ic_color_lens"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            app:tint="@color/bangladeshColorText"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="@string/bangladeshThemeText"
+                            android:layout_below="@+id/imgBangladeshAT"
+                            android:layout_alignParentBottom="true"
+                            android:textSize="28sp"
+                            android:textColor="@color/bangladeshColorText"
+                            android:layout_gravity="center"                        android:gravity="center"
+                            android:textStyle="bold"/>
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btnSaudiTheme"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardCornerRadius="25dp"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:background="@color/saudiArabiaPrimary">
+
+                        <ImageView
+                            android:id="@+id/imgSaudiAT"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:src="@drawable/ic_color_lens"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            app:tint="@color/saudiArabiaColorText"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="@string/saudiArabiaThemeText"
+                            android:layout_below="@+id/imgSaudiAT"
+                            android:layout_alignParentBottom="true"
+                            android:textSize="28sp"
+                            android:textColor="@color/saudiArabiaColorText"
+                            android:layout_gravity="center"                        android:gravity="center"
+                            android:textStyle="bold"/>
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btnJapanTheme"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardCornerRadius="25dp"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:background="@color/japanPrimary"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/imgJapanAT"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:src="@drawable/ic_color_lens"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            app:tint="@color/japanColorText"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="@string/japanThemeText"
+                            android:layout_below="@+id/imgJapanAT"
+                            android:layout_alignParentBottom="true"
+                            android:textSize="28sp"
+                            android:textColor="@color/japanColorText"
+                            android:layout_gravity="center"                        android:gravity="center"
+                            android:textStyle="bold"/>
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </GridLayout>
+            
+            
         </LinearLayout>
 
     </ScrollView>
@@ -280,3 +530,135 @@
 <!--</LinearLayout>-->
 
 <!--</LinearLayout>-->
+
+
+
+
+
+
+
+
+
+<!--<Button-->
+<!--android:id="@+id/tasniaThemeBtn"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_weight="1"-->
+<!--android:layout_margin="10dp"-->
+<!--android:background="@drawable/theme_button"-->
+<!--android:theme="@style/TasniaTheme"-->
+<!--android:padding="10dp"-->
+<!--android:text="@string/defaultThemeText"-->
+<!--android:textColor="?colorText"-->
+<!--android:textStyle="bold"-->
+<!--android:textSize="30sp"-->
+<!--style="?android:attr/borderlessButtonStyle"/>-->
+
+<!--<Button-->
+<!--android:id="@+id/rimiThemeBtn"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_weight="1"-->
+<!--android:background="@drawable/theme_button"-->
+<!--android:theme="@style/RimiTheme"-->
+<!--style="?android:attr/borderlessButtonStyle"-->
+<!--android:padding="10dp"-->
+<!--android:layout_margin="10dp"-->
+<!--android:text="@string/tasniaThemeText"-->
+<!--android:textColor="?colorText"-->
+<!--android:textStyle="bold"-->
+<!--android:textSize="30sp"/>-->
+
+<!--<Button-->
+<!--android:id="@+id/soulmateThemeBtn"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_weight="1"-->
+<!--android:background="@drawable/theme_button"-->
+<!--android:theme="@style/SoulMateTheme"-->
+<!--style="?android:attr/borderlessButtonStyle"-->
+<!--android:padding="10dp"-->
+<!--android:layout_margin="10dp"-->
+<!--android:text="@string/rimiThemeText"-->
+<!--android:textColor="?colorText"-->
+<!--android:textStyle="bold"-->
+<!--android:textSize="30sp" />-->
+
+<!--<Button-->
+<!--android:id="@+id/inlawsThemeBtn"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_weight="1"-->
+<!--android:background="@drawable/theme_button"-->
+<!--android:theme="@style/InLawsTheme"-->
+<!--style="?android:attr/borderlessButtonStyle"-->
+<!--android:padding="10dp"-->
+<!--android:layout_margin="10dp"-->
+<!--android:text="@string/soulmateThemeText"-->
+<!--android:textColor="?colorText"-->
+<!--android:textStyle="bold"-->
+<!--android:textSize="30sp"/>-->
+
+<!--<Button-->
+<!--android:id="@+id/aaiThemeBtn"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_weight="1"-->
+<!--android:background="@drawable/theme_button"-->
+<!--android:theme="@style/AppTheme"-->
+<!--style="?android:attr/borderlessButtonStyle"-->
+<!--android:padding="10dp"-->
+<!--android:layout_margin="10dp"-->
+<!--android:text="@string/inlawsThemeText"-->
+<!--android:textColor="?colorText"-->
+<!--android:textStyle="bold"-->
+<!--android:textSize="30sp"/>-->
+
+<!--<Button-->
+<!--android:id="@+id/bangladeshThemeBtn"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_weight="1"-->
+<!--android:background="@drawable/theme_button"-->
+<!--android:theme="@style/BangladeshTheme"-->
+<!--style="?android:attr/borderlessButtonStyle"-->
+<!--android:padding="10dp"-->
+<!--android:layout_margin="10dp"-->
+<!--android:text="@string/bangladeshThemeText"-->
+<!--android:textColor="?colorText"-->
+<!--android:textStyle="bold"-->
+<!--android:textSize="30sp"/>-->
+
+<!--<Button-->
+<!--android:id="@+id/saudiArabiaThemeBtn"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_weight="1"-->
+<!--android:layout_margin="10dp"-->
+<!--android:background="@drawable/theme_button"-->
+<!--android:theme="@style/SaudiArabiaTheme"-->
+<!--android:padding="10dp"-->
+<!--android:text="@string/saudiArabiaThemeText"-->
+<!--android:textColor="?colorText"-->
+<!--android:textStyle="bold"-->
+<!--android:textSize="30sp"-->
+<!--style="?android:attr/borderlessButtonStyle"/>-->
+
+<!--<Button-->
+<!--android:id="@+id/japanThemeBtn"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_weight="1"-->
+<!--android:layout_margin="10dp"-->
+<!--android:background="@drawable/theme_button"-->
+<!--android:theme="@style/JapanTheme"-->
+<!--android:padding="10dp"-->
+<!--android:text="@string/japanThemeText"-->
+<!--android:textColor="?colorText"-->
+<!--android:textStyle="bold"-->
+<!--android:textSize="30sp"-->
+<!--style="?android:attr/borderlessButtonStyle"/>-->
+
+
+
+

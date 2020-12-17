@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
         btnRefresh = findViewById(R.id.btnRefresh);
         if (fragmentManager == null) fragmentManager = getSupportFragmentManager();
         bottomNav.setOnNavigationItemSelectedListener(item -> {
-            Log.e(TAG, "onCreate:S " + item.getItemId() + " " + onPause);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             if (item.getItemId() == R.id.folderList) {
                 if (FolderVideoFragment.isLoaded() && !item.isChecked()) {
@@ -183,8 +182,9 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
                     FolderFragment.requestLoad();
                     FilesFragment.requestLoad();
                     if (FolderVideoFragment.isLoaded()) FolderVideoFragment.requestLoad();
-                    Fragment refreshedFragment = fragment instanceof  FolderFragment? FolderFragment.getInstance() : fragment instanceof FilesFragment? FilesFragment.getInstance() : fragment instanceof FolderVideoFragment? FolderVideoFragment.getInstance() : fragment;
-                    loadFragment(fragmentTransaction, refreshedFragment);
+//                    Fragment refreshedFragment = fragment instanceof  FolderFragment? FolderFragment.getInstance() : fragment instanceof FilesFragment? FilesFragment.getInstance() : fragment instanceof FolderVideoFragment? FolderVideoFragment.getInstance() : fragment;
+//                    loadFragment(fragmentTransaction, refreshedFragment);
+                    bottomNav.setSelectedItemId(bottomNav.getSelectedItemId());
                 });
             }
         }).start();
@@ -228,7 +228,6 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
         (videoLoadingSnackBar = Snackbar.make(bottomNav, "Loading videos. Please wait...", BaseTransientBottomBar.LENGTH_INDEFINITE)).show();
         HashSet<String> folderNames = (HashSet<String>) sharedPreferences.getStringSet("folderNames", null);
         if (folderNames != null) {
-            Log.e(TAG, "loadFolders: " + folderNames);
             folderList = new ArrayList<>(folderNames);
             new Thread(new Runnable() {
                 @Override

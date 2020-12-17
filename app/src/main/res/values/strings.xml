@@ -21,19 +21,19 @@
     <string name="change_theme">Change Theme</string>
     <string name="controller_label">Controller Label</string>
 
-    <string name="defaultThemeText">Love</string>
+    <string name="defaultThemeText">Dark</string>
     <string name="defaultThemeInfo">Current theme: Dark</string>
 
-    <string name="tasniaThemeText">Noon</string>
+    <string name="tasniaThemeText">Love</string>
     <string name="tasniaThemeInfo">Current theme: Love</string>
 
-    <string name="rimiThemeText">Sea</string>
+    <string name="rimiThemeText">Noon</string>
     <string name="rimiThemeInfo">Current theme: Noon</string>
 
-    <string name="soulmateThemeText">Nature</string>
+    <string name="soulmateThemeText">Sea</string>
     <string name="soulmateThemeInfo">Current theme: Sea</string>
 
-    <string name="inlawsThemeText">Dark</string>
+    <string name="inlawsThemeText">Nature</string>
     <string name="inlawsThemeInfo">Current theme: Nature</string>
 
     <string name="bangladeshThemeText">Bangladesh</string>

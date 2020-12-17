@@ -17,12 +17,14 @@ import android.widget.ScrollView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import org.jetbrains.annotations.NotNull;
 
 public class ThemeActivity extends AppCompatActivity implements ActivityUtility {
 
-    Button tasniaThemeBtn, rimiThemeBtn, soulmateThemeBtn, inlawsThemeBtn, aaiThemeBtn, bangladeshBtn, saudiArabiaTheme, japanTheme;
+//    Button tasniaThemeBtn, rimiThemeBtn, soulmateThemeBtn, inlawsThemeBtn, aaiThemeBtn, bangladeshBtn, saudiArabiaTheme, japanTheme;
+    CardView btnDefaultTheme, btnTasniaTheme, btnRimiTheme, btnSoulmateTheme, btnInlawsTheme, btnBangladeshTheme, btnSaudiTheme, btnJapanTheme;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ScrollView layoutButton;
@@ -46,7 +48,8 @@ public class ThemeActivity extends AppCompatActivity implements ActivityUtility 
         setContentView(R.layout.activity_theme);
 
         themeHandler = new Handler();
-
+    
+        /*
         tasniaThemeBtn = findViewById(R.id.tasniaThemeBtn);
         rimiThemeBtn = findViewById(R.id.rimiThemeBtn);
         soulmateThemeBtn = findViewById(R.id.soulmateThemeBtn);
@@ -65,7 +68,26 @@ public class ThemeActivity extends AppCompatActivity implements ActivityUtility 
         changeTheme(bangladeshBtn, R.style.BangladeshTheme);
         changeTheme(saudiArabiaTheme, R.style.SaudiArabiaTheme);
         changeTheme(japanTheme, R.style.JapanTheme);
+        */
 
+        btnDefaultTheme = findViewById(R.id.btnDefaultTheme);
+        btnTasniaTheme = findViewById(R.id.btnTasniaTheme);
+        btnRimiTheme = findViewById(R.id.btnRimiTheme);
+        btnSoulmateTheme = findViewById(R.id.btnSoulmateTheme);
+        btnInlawsTheme = findViewById(R.id.btnInlawsTheme);
+        btnBangladeshTheme = findViewById(R.id.btnBangladeshTheme);
+        btnSaudiTheme = findViewById(R.id.btnSaudiTheme);
+        btnJapanTheme = findViewById(R.id.btnJapanTheme);
+        layoutButton = findViewById(R.id.themeButtonOuterLayoutTA);
+
+        changeTheme(btnDefaultTheme, R.style.AppTheme);
+        changeTheme(btnTasniaTheme, R.style.TasniaTheme);
+        changeTheme(btnRimiTheme, R.style.RimiTheme);
+        changeTheme(btnSoulmateTheme, R.style.SoulMateTheme);
+        changeTheme(btnInlawsTheme, R.style.InLawsTheme);
+        changeTheme(btnBangladeshTheme, R.style.BangladeshTheme);
+        changeTheme(btnSaudiTheme, R.style.SaudiArabiaTheme);
+        changeTheme(btnJapanTheme, R.style.JapanTheme);
 
         if (savedInstanceState != null) {
             int y = savedInstanceState.getInt("scroll_y");
@@ -77,6 +99,17 @@ public class ThemeActivity extends AppCompatActivity implements ActivityUtility 
         sharedPreferences = getSharedPreferences(Theme.PREFS_NAME, MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+        themeBtn.setOnClickListener(v -> {
+            editor.putInt(Theme.PREFS_THEME_TAS, themeId);
+            editor.apply();
+
+            Theme.recreate(this, this);
+        });
+    }
+
+    private void changeTheme(@NotNull CardView themeBtn, int themeId) {
+        sharedPreferences = getSharedPreferences(Theme.PREFS_NAME, MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         themeBtn.setOnClickListener(v -> {
             editor.putInt(Theme.PREFS_THEME_TAS, themeId);
             editor.apply();
