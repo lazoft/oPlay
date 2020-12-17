@@ -9,8 +9,13 @@
     <color name="settingsItemPressedBackground">#4D252525</color>
     <color name="bottomNavItemChecked">#C30808</color>
     <color name="bottomNavItemUnchecked">#FFFFFF</color>
+    <color name="settingItemTextColor">#FFFFFF</color>
     <color name="buttonBackground">@color/tasniaPrimary</color>
     <color name="buttonPressedBackground">@color/tasniaDark</color>
+    <color name="settingsSwitchThumbOn">#8C8C8C</color>
+    <color name="settingsSwitchThumbOff">#8C8C8C</color>
+    <color name="settingsSwitchTrackOn">#27782A</color>
+    <color name="settingsSwitchTrackOff">#C3C3C3</color>
 
     <color name="tasniaPrimary">#B000D6</color>
     <color name="tasniaDark">#9400B5</color>
@@ -19,10 +24,15 @@
     <color name="tasniaSettingsBackground">#A000C3</color>
     <color name="tasniaSettingsItemBackground">#AD00D3</color>
     <color name="tasniaSettingsItemPressedBackground">#4D64007A</color>
+    <color name="tasniaSettingItemTextColor">#FFFFFF</color>
     <color name="tasniaBottomNavItemChecked">#FFFFFF</color>
     <color name="tasniaBottomNavItemUnchecked">#A574AE</color>
     <color name="tasniaButtonBackground">@color/rimiPrimary</color>
     <color name="tasniaButtonPressedBackground">@color/rimiDark</color>
+    <color name="tasniaSettingsSwitchThumbOn">#8C8C8C</color>
+    <color name="tasniaSettingsSwitchThumbOff">#8C8C8C</color>
+    <color name="tasniaSettingsSwitchTrackOn">#15FF21</color>
+    <color name="tasniaSettingsSwitchTrackOff">#CDCDCD</color>
 
     <color name="rimiPrimary">#E4AC00</color>
     <color name="rimiDark">#BA8C00</color>
@@ -31,10 +41,15 @@
     <color name="rimiSettingsBackground">#D5A000</color>
     <color name="rimiSettingsItemBackground">#C89600</color>
     <color name="rimiSettingsItemPressedBackground">#4D705400</color>
+    <color name="rimiSettingItemTextColor">#000000</color>
     <color name="rimiBottomNavItemChecked">#9E0707</color>
     <color name="rimiBottomNavItemUnchecked">#DDDDDD</color>
     <color name="rimiButtonBackground">@color/soulmatePrimary</color>
     <color name="rimiButtonPressedBackground">@color/soulmatePrimaryDark</color>
+    <color name="rimiSettingsSwitchThumbOn">#A6A6A6</color>
+    <color name="rimiSettingsSwitchThumbOff">#A6A6A6</color>
+    <color name="rimiSettingsSwitchTrackOn">#AA0A0A</color>
+    <color name="rimiSettingsSwitchTrackOff">#FFFFFF</color>
 
     <color name="soulmatePrimary">#0063BA</color>
     <color name="soulmatePrimaryDark">#0057A3</color>
@@ -43,10 +58,15 @@
     <color name="soulmateSettingsBackground">#005CAE</color>
     <color name="soulmateSettingsItemBackground">#0057A5</color>
     <color name="soulmateSettingsItemPressedBackground">#4D005097</color>
+    <color name="soulmateSettingItemTextColor">#FFFFFF</color>
     <color name="soulmateBottomNavItemChecked">#A0D5FF</color>
     <color name="soulmateBottomNavItemUnchecked">#000000</color>
     <color name="soulmateButtonBackground">@color/inlawsPrimary</color>
     <color name="soulmateButtonPressedBackground">@color/inlawsPrimaryDark</color>
+    <color name="soulmateSettingsSwitchThumbOn">#6A6A6A</color>
+    <color name="soulmateSettingsSwitchThumbOff">#6A6A6A</color>
+    <color name="soulmateSettingsSwitchTrackOn">#88FF00</color>
+    <color name="soulmateSettingsSwitchTrackOff">#CDCDCD</color>
 
     <color name="inlawsPrimary">#3A8C3D</color>
     <color name="inlawsPrimaryDark">#006C04</color>
@@ -55,10 +75,66 @@
     <color name="inlawsSettingsBackground">#289A2D</color>
     <color name="inlawsSettingsItemBackground">#258F2A</color>
     <color name="inlawsSettingsItemPressedBackground">#4D06F30F</color>
-    <color name="inlawsBottomNavItemChecked">#25DEFF</color>
-    <color name="inlawsBottomNavItemUnchecked">#009F9F</color>
-    <color name="inlawsButtonBackground">@color/colorPrimary</color>
-    <color name="inlawsButtonPressedBackground">@color/colorPrimaryDark</color>
+    <color name="inlawsSettingItemTextColor">#FFFFFF</color>
+    <color name="inlawsBottomNavItemChecked">#FF9800</color>
+    <color name="inlawsBottomNavItemUnchecked">#629164</color>
+    <color name="inlawsButtonBackground">@color/bangladeshPrimary</color>
+    <color name="inlawsButtonPressedBackground">@color/bangladeshPrimaryDark</color>
+    <color name="inlawsSettingsSwitchThumbOn">#939393</color>
+    <color name="inlawsSettingsSwitchThumbOff">#939393</color>
+    <color name="inlawsSettingsSwitchTrackOn">#FFC107</color>
+    <color name="inlawsSettingsSwitchTrackOff">#D1D1D1</color>
+
+    <color name="bangladeshPrimary">#1C501E</color>
+    <color name="bangladeshPrimaryDark">#003302</color>
+    <color name="bangladeshAccent">#66A366</color>
+    <color name="bangladeshColorText">#FF5C5C</color>
+    <color name="bangladeshSettingsBackground">#174219</color>
+    <color name="bangladeshSettingsItemBackground">#1DF44336</color>
+    <color name="bangladeshSettingsItemPressedBackground">#4D174219</color>
+    <color name="bangladeshSettingItemTextColor">#FF5C5C</color>
+    <color name="bangladeshBottomNavItemChecked">#EF4141</color>
+    <color name="bangladeshBottomNavItemUnchecked">#FFABAB</color>
+    <color name="bangladeshButtonBackground">@color/colorPrimary</color>
+    <color name="bangladeshButtonPressedBackground">@color/colorPrimaryDark</color>
+    <color name="bangladeshSettingsSwitchThumbOn">#939393</color>
+    <color name="bangladeshSettingsSwitchThumbOff">#939393</color>
+    <color name="bangladeshSettingsSwitchTrackOn">#D12F2F</color>
+    <color name="bangladeshSettingsSwitchTrackOff">#D1D1D1</color>
+
+    <color name="saudiArabiaPrimary">#3C9C40</color>
+    <color name="saudiArabiaPrimaryDark">#003302</color>
+    <color name="saudiArabiaAccent">#66A366</color>
+    <color name="saudiArabiaColorText">#FFFFFF</color>
+    <color name="saudiArabiaSettingsBackground">#289A2D</color>
+    <color name="saudiArabiaSettingsItemBackground">#258F2A</color>
+    <color name="saudiArabiaSettingsItemPressedBackground">#4D06F30F</color>
+    <color name="saudiArabiaSettingItemTextColor">#FFFFFF</color>
+    <color name="saudiArabiaBottomNavItemChecked">#FFFFFF</color>
+    <color name="saudiArabiaBottomNavItemUnchecked">#9A9A9A</color>
+    <color name="saudiArabiaButtonBackground">@color/colorPrimary</color>
+    <color name="saudiArabiaButtonPressedBackground">@color/colorPrimaryDark</color>
+    <color name="saudiArabiaSettingsSwitchThumbOn">#939393</color>
+    <color name="saudiArabiaSettingsSwitchThumbOff">#939393</color>
+    <color name="saudiArabiaSettingsSwitchTrackOn">#D12F2F</color>
+    <color name="saudiArabiaSettingsSwitchTrackOff">#D1D1D1</color>
+
+    <color name="japanPrimary">#FFFFFF</color>
+    <color name="japanPrimaryDark">#EFEFEF</color>
+    <color name="japanAccent">#BCBCBC</color>
+    <color name="japanColorText">#ED1515</color>
+    <color name="japanSettingsBackground">#FFFFFF</color>
+    <color name="japanSettingsItemBackground">#32D5D5D5</color>
+    <color name="japanSettingsItemPressedBackground">#00D6D6D6</color>
+    <color name="japanSettingItemTextColor">#CC0505</color>
+    <color name="japanBottomNavItemChecked">#EF4141</color>
+    <color name="japanBottomNavItemUnchecked">#505050</color>
+    <color name="japanButtonBackground">@color/colorPrimary</color>
+    <color name="japanButtonPressedBackground">@color/colorPrimaryDark</color>
+    <color name="japanSettingsSwitchThumbOn">#939393</color>
+    <color name="japanSettingsSwitchThumbOff">#939393</color>
+    <color name="japanSettingsSwitchTrackOn">#D12F2F</color>
+    <color name="japanSettingsSwitchTrackOff">#D1D1D1</color>
 
     <color name="textPrimary">#FFFFFF</color>
     <color name="tempSwitchColor">#00DDC9</color>

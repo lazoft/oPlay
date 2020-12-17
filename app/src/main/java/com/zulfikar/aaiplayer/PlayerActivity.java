@@ -20,17 +20,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-//import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
-//import com.github.hiteshsondhi88.libffmpeg.FFmpegExecuteResponseHandler;
-//import com.github.hiteshsondhi88.libffmpeg.LoadBinaryResponseHandler;
-//import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
-//import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
 import com.arthenica.mobileffmpeg.Config;
 import com.arthenica.mobileffmpeg.ExecuteCallback;
 import com.arthenica.mobileffmpeg.FFmpeg;
 import com.arthenica.mobileffmpeg.Statistics;
 import com.arthenica.mobileffmpeg.StatisticsCallback;
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.analytics.AnalyticsListener;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
 import com.google.android.exoplayer2.source.MediaSource;
@@ -41,6 +37,8 @@ import com.google.android.exoplayer2.ui.TimeBar;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -62,12 +60,11 @@ public class PlayerActivity extends AppCompatActivity {
 
     private static final int QUALITY = 100;
     private static final String PLAYBACK_JUMPER_PREFERENCE = "playback_jumper_preferences";
-//    private static final int RETURN_CODE_SUCCESS = ;
     private static final HashMap<String, Long> lastPlayed = new HashMap<>();
+//    private static final String TAG = "PLAYER ACTIVITY DEBUG";
 
     SharedPreferences sharedPreferences;
     DefaultTimeBar timeBar;
-//    FFmpeg ffmpeg;
     Handler playerHandler = new Handler();
     ImageViewButton btnBackward, btnForward, btnPlayPause, btnCamera;
     LinearLayout playbackController, controlLabelLayout;
@@ -76,7 +73,6 @@ public class PlayerActivity extends AppCompatActivity {
     SimpleExoPlayer simpleExoPlayer;
     String title, sender, path, recordingProcessStatus;
     TextView controlLabel;
-    Thread playbackControllerThread;
 
     boolean recordingClip, recordingClipProcessing, controllerVisible = true;
     int forwardJumpTime, backwardJumpTime, position = -1;
@@ -85,8 +81,11 @@ public class PlayerActivity extends AppCompatActivity {
     volatile boolean exitPlayer;
 
     long startRecord;
+    Long duration;
 
-    @SuppressLint("UseCompatLoadingForDrawables")
+    volatile long durationEnd = -1;
+    volatile long durationCurrent = 0;
+
     @Override
     protected void onPostResume() {
         super.onPostResume();
@@ -96,7 +95,6 @@ public class PlayerActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onPause() {
         pauseTime = System.currentTimeMillis();
@@ -122,14 +120,12 @@ public class PlayerActivity extends AppCompatActivity {
         playerView = findViewById(R.id.exoplayer_movie);
         customController = findViewById(R.id.cloneCustomController);
 
-//        ffmpeg = FFmpeg.getInstance(this);
-
         title = getIntent().getStringExtra("title");
         position = getIntent().getIntExtra("position", -1);
         sender = getIntent().getStringExtra("sender");
         path = sender.equals("Video") ? videoFiles.get(position).getPath() : sender.equals("VideoFolder") ? folderVideoFiles.get(position).getPath() : path;
 
-        Long duration = lastPlayed.get(path);
+        duration = lastPlayed.get(path);
         if (duration == null) duration = 0L;
 
         backwardJumpTime = Integer.parseInt(sharedPreferences.getString("backward_jumper_time", "10"));
@@ -137,7 +133,6 @@ public class PlayerActivity extends AppCompatActivity {
 
         playVideo(duration);
         functioningCustomController(customController);
-//        loadFFMpegBinary();
     }
 
     private void playVideo(long duration) {
@@ -158,6 +153,8 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+//        if (simpleExoPlayer.getCurrentPosition() >= durationEnd) lastPlayed.put(path, 0L);
+//        else lastPlayed.put(path, simpleExoPlayer.getContentPosition());
         lastPlayed.put(path, simpleExoPlayer.getContentPosition());
         simpleExoPlayer.stop();
         exitPlayer = true;
@@ -182,8 +179,24 @@ public class PlayerActivity extends AppCompatActivity {
         videoPosition = customController.findViewById(R.id.exo_position);
         videoDuration = customController.findViewById(R.id.exo_duration);
 
-        customController.setOnClickListener(v -> {
+        simpleExoPlayer.addAnalyticsListener(new AnalyticsListener() {
+            @Override
+            public void onTimelineChanged(@NotNull EventTime eventTime, int reason) {
+                if (simpleExoPlayer.getDuration() > 0) {
+                    durationEnd = simpleExoPlayer.getDuration();
+                    videoDuration.setText(getDurationFormat(durationEnd));
+                    timeBar.setDuration(durationEnd);
+                    if (duration >= durationEnd) simpleExoPlayer.seekTo(0);
+                }
+            }
 
+            @Override
+            public void onIsPlayingChanged(@NotNull EventTime eventTime, boolean isPlaying) {
+                btnPlayPause.setImageDrawable(ContextCompat.getDrawable(PlayerActivity.this, isPlaying? R.drawable.ic_baseline_pause_circle_outline : R.drawable.ic_baseline_play_circle_outline));
+            }
+        });
+
+        customController.setOnClickListener(v -> {
             if (controllerVisible) {
                 v.setBackgroundColor(ContextCompat.getColor(PlayerActivity.this, R.color.colorTransparent));
                 playbackController.setVisibility(View.INVISIBLE);
@@ -240,8 +253,12 @@ public class PlayerActivity extends AppCompatActivity {
             } else if (e.getAction() == MotionEvent.ACTION_UP) {
                 if (!recordingClipProcessing) controlLabelLayout.setVisibility(View.INVISIBLE);
                 else controlLabel.setText(recordingProcessStatus);
-                simpleExoPlayer.setPlayWhenReady(!simpleExoPlayer.getPlayWhenReady());
-                btnPlayPause.setImageDrawable(simpleExoPlayer.getPlayWhenReady()? ContextCompat.getDrawable(PlayerActivity.this, R.drawable.ic_baseline_pause_circle_outline) : ContextCompat.getDrawable(PlayerActivity.this, R.drawable.ic_baseline_play_circle_outline));
+                if (durationCurrent >= durationEnd) {
+                    if (simpleExoPlayer.getPlayWhenReady()) simpleExoPlayer.seekTo(0);
+                } else {
+                    simpleExoPlayer.setPlayWhenReady(!simpleExoPlayer.getPlayWhenReady());
+                }
+//                btnPlayPause.setImageDrawable(simpleExoPlayer.getPlayWhenReady()? ContextCompat.getDrawable(PlayerActivity.this, R.drawable.ic_baseline_pause_circle_outline) : ContextCompat.getDrawable(PlayerActivity.this, R.drawable.ic_baseline_play_circle_outline));
                 v.performClick();
                 return true;
             }
@@ -257,8 +274,12 @@ public class PlayerActivity extends AppCompatActivity {
                         controlLabelLayout.setVisibility(View.VISIBLE);
                         controlLabel.setText(R.string.stop_clip_recording_label);
                         return true;
+                    } else if (e.getAction() == MotionEvent.ACTION_MOVE) {
+                        controlLabel.setText(R.string.stop_clip_recording_label);
                     } else if (e.getAction() == MotionEvent.ACTION_UP) {
-                        controlLabelLayout.setVisibility(View.INVISIBLE);
+                        if (!recordingClipProcessing) controlLabelLayout.setVisibility(View.INVISIBLE);
+                        recordingProcessStatus = "Clipping in progress 0%";
+                        controlLabel.setText(recordingProcessStatus);
                         btnCamera.setImageDrawable(ContextCompat.getDrawable(PlayerActivity.this, R.drawable.button_camera_normal));
                         toggleClip(recordingClip = false);
                         return true;
@@ -352,7 +373,7 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
 
-        (playbackControllerThread = new Thread(new CustomTimeBar())).start();
+        (new Thread(new CustomTimeBar())).start();
     }
 
     private void toggleSnap(TextureView textureView) {
@@ -370,7 +391,7 @@ public class PlayerActivity extends AppCompatActivity {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY, fileOutputStream);
                 fileOutputStream.flush();
                 fileOutputStream.close();
-                Toast.makeText(PlayerActivity.this, "Snapshot saved", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PlayerActivity.this, "Snapshot saved", Toast.LENGTH_LONG).show();
             } catch (IOException e) {
                 Toast.makeText(PlayerActivity.this, "Failed due to storage access", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
@@ -386,6 +407,10 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     private void executeCutVideoCommand(long startMs, long endMs, String sourcePath) {
+        if (recordingClipProcessing) {
+            Snackbar.make(timeBar, "Another clipping is in process. Please wait...", BaseTransientBottomBar.LENGTH_SHORT).show();
+            return;
+        }
         String destPath = "/storage/emulated/0/DCIM/Olosh Player/Olosh Clips/";
         File externalStoragePublicDirectory = new File(destPath);
         if (externalStoragePublicDirectory.exists() || externalStoragePublicDirectory.mkdirs()) {
@@ -402,7 +427,6 @@ public class PlayerActivity extends AppCompatActivity {
             String[] trimCommand = {"-ss", String.valueOf(startMs / 1000), "-y", "-i", sourcePath, "-t", String.valueOf((endMs - startMs) / 1000), "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", destinationPath.getAbsolutePath()};
 
             executeTrimCommand(trimCommand, endMs - startMs);
-
         }
     }
 
@@ -429,17 +453,15 @@ public class PlayerActivity extends AppCompatActivity {
         });
 
         Config.enableStatisticsCallback(new StatisticsCallback() {
+            boolean firstRun = true;
             public void apply(Statistics newStatistics) {
+                if (firstRun && !(firstRun = false)) return;
                 int position = newStatistics.getTime();
-                String dot = "";
                 int percentage = (int) (position * 100 / trimDuration);
 
                 recordingProcessStatus = String.format(Locale.ENGLISH, "Clipping in progress %-5s", "(" + percentage + "%)");
 
-                    playerHandler.post(() -> {
-//                        if (controlLabelLayout.getVisibility() == View.INVISIBLE) controlLabelLayout.setVisibility(View.VISIBLE);
-                        controlLabel.setText(recordingProcessStatus);
-                    });
+                playerHandler.post(() -> controlLabel.setText(recordingProcessStatus));
             }
         });
     }
@@ -471,29 +493,18 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     private class CustomTimeBar implements Runnable {
-        long durationEnd = -1;
-        long durationCurrent = 0;
-
         @Override
         public void run() {
             try {
-                while (durationEnd < 0) {
-                    TimeUnit.MILLISECONDS.sleep(125);
-                    playerHandler.post(() -> durationEnd = simpleExoPlayer.getDuration());
-                }
-
-                playerHandler.post(() -> {
-                    videoDuration.setText(getDurationFormat(durationEnd));
-                    timeBar.setDuration(durationEnd);
-                });
-
                 while (!exitPlayer) {
-                    playerHandler.post(() -> {
-                        durationCurrent = simpleExoPlayer.getCurrentPosition();
-                        videoPosition.setText(getDurationFormat(durationCurrent));
-                        timeBar.setPosition(durationCurrent);
+                    playerView.post(() -> {
+                        if (simpleExoPlayer.isPlaying()) {
+                            durationCurrent = simpleExoPlayer.getCurrentPosition();
+                            videoPosition.setText(getDurationFormat(durationCurrent));
+                            timeBar.setPosition(durationCurrent);
+                        }
                     });
-                    TimeUnit.MILLISECONDS.sleep(20);
+                    TimeUnit.MILLISECONDS.sleep(50);
                 }
             } catch (InterruptedException e) {
                 Log.e("threadMessage", Objects.requireNonNull(e.getMessage()));

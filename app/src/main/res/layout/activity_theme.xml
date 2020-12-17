@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:actionBarNavMode="list"
     android:background="?colorPrimary"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,46 +13,48 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
         android:text="@string/themeCaption"
-        android:textColor="@color/textPrimary"
+        android:textColor="?colorText"
         android:textSize="20sp"
         android:layout_marginTop="10dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/themeButtonOuterLayoutTA"/>
+        android:layout_centerHorizontal="true"/>
 
-    <LinearLayout
+    <ScrollView
         android:id="@+id/themeButtonOuterLayoutTA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical"
-        android:weightSum="2">
+        android:layout_below="@+id/textViewTA"
+        android:layout_above="@id/txtCurrentThemeAT"
+        android:layout_marginBottom="20sp"
+        android:layout_marginTop="20sp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            android:gravity="center"
-            android:layout_weight="1">
+            android:orientation="vertical"
+            android:weightSum="6">
 
             <Button
                 android:id="@+id/tasniaThemeBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
                 android:background="@drawable/theme_button"
                 android:theme="@style/TasniaTheme"
-                style="?android:attr/borderlessButtonStyle"
                 android:padding="10dp"
-                android:layout_margin="10dp"
                 android:text="@string/defaultThemeText"
                 android:textColor="?colorText"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textSize="30sp"
+                style="?android:attr/borderlessButtonStyle"/>
 
             <Button
                 android:id="@+id/rimiThemeBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/theme_button"
                 android:theme="@style/RimiTheme"
                 style="?android:attr/borderlessButtonStyle"
@@ -59,12 +62,14 @@
                 android:layout_margin="10dp"
                 android:text="@string/tasniaThemeText"
                 android:textColor="?colorText"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="30sp"/>
 
             <Button
                 android:id="@+id/soulmateThemeBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/theme_button"
                 android:theme="@style/SoulMateTheme"
                 style="?android:attr/borderlessButtonStyle"
@@ -72,23 +77,14 @@
                 android:layout_margin="10dp"
                 android:text="@string/rimiThemeText"
                 android:textColor="?colorText"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:weightSum="3">
+                android:textStyle="bold"
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/inlawsThemeBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/theme_button"
                 android:theme="@style/InLawsTheme"
                 style="?android:attr/borderlessButtonStyle"
@@ -96,12 +92,14 @@
                 android:layout_margin="10dp"
                 android:text="@string/soulmateThemeText"
                 android:textColor="?colorText"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textSize="30sp"/>
 
             <Button
                 android:id="@+id/aaiThemeBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/theme_button"
                 android:theme="@style/AppTheme"
                 style="?android:attr/borderlessButtonStyle"
@@ -109,18 +107,176 @@
                 android:layout_margin="10dp"
                 android:text="@string/inlawsThemeText"
                 android:textColor="?colorText"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textSize="30sp"/>
+
+            <Button
+                android:id="@+id/bangladeshThemeBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/theme_button"
+                android:theme="@style/BangladeshTheme"
+                style="?android:attr/borderlessButtonStyle"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:text="@string/bangladeshThemeText"
+                android:textColor="?colorText"
+                android:textStyle="bold"
+                android:textSize="30sp"/>
+
+            <Button
+                android:id="@+id/saudiArabiaThemeBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:background="@drawable/theme_button"
+                android:theme="@style/SaudiArabiaTheme"
+                android:padding="10dp"
+                android:text="@string/saudiArabiaThemeText"
+                android:textColor="?colorText"
+                android:textStyle="bold"
+                android:textSize="30sp"
+                style="?android:attr/borderlessButtonStyle"/>
+
+            <Button
+                android:id="@+id/japanThemeBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:background="@drawable/theme_button"
+                android:theme="@style/JapanTheme"
+                android:padding="10dp"
+                android:text="@string/japanThemeText"
+                android:textColor="?colorText"
+                android:textStyle="bold"
+                android:textSize="30sp"
+                style="?android:attr/borderlessButtonStyle"/>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
     <TextView
+        android:id="@+id/txtCurrentThemeAT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:text="?themeInfo"
-        android:textColor="@color/colorWhite"
+        android:textColor="?colorText"
+        android:textSize="18sp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"/>
 </RelativeLayout>
+
+
+<!--<LinearLayout-->
+<!--android:id="@+id/themeButtonOuterLayoutTA"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_centerInParent="true"-->
+<!--android:orientation="vertical"-->
+<!--android:weightSum="2">-->
+
+<!--<LinearLayout-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:orientation="horizontal"-->
+<!--    android:padding="10dp"-->
+<!--    android:gravity="center"-->
+<!--    android:layout_weight="1">-->
+
+<!--    <Button-->
+<!--        android:id="@+id/tasniaThemeBtn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/theme_button"-->
+<!--        android:theme="@style/TasniaTheme"-->
+<!--        style="?android:attr/borderlessButtonStyle"-->
+<!--        android:padding="10dp"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:text="@string/defaultThemeText"-->
+<!--        android:textColor="?colorText"-->
+<!--        android:textStyle="bold"/>-->
+
+<!--    <Button-->
+<!--        android:id="@+id/rimiThemeBtn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/theme_button"-->
+<!--        android:theme="@style/RimiTheme"-->
+<!--        style="?android:attr/borderlessButtonStyle"-->
+<!--        android:padding="10dp"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:text="@string/tasniaThemeText"-->
+<!--        android:textColor="?colorText"-->
+<!--        android:textStyle="bold" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/soulmateThemeBtn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/theme_button"-->
+<!--        android:theme="@style/SoulMateTheme"-->
+<!--        style="?android:attr/borderlessButtonStyle"-->
+<!--        android:padding="10dp"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:text="@string/rimiThemeText"-->
+<!--        android:textColor="?colorText"-->
+<!--        android:textStyle="bold" />-->
+
+<!--</LinearLayout>-->
+
+<!--<LinearLayout-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:orientation="horizontal"-->
+<!--    android:padding="10dp"-->
+<!--    android:gravity="center"-->
+<!--    android:layout_weight="1"-->
+<!--    android:weightSum="3">-->
+
+<!--    <Button-->
+<!--        android:id="@+id/inlawsThemeBtn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/theme_button"-->
+<!--        android:theme="@style/InLawsTheme"-->
+<!--        style="?android:attr/borderlessButtonStyle"-->
+<!--        android:padding="10dp"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:text="@string/soulmateThemeText"-->
+<!--        android:textColor="?colorText"-->
+<!--        android:textStyle="bold"/>-->
+
+<!--    <Button-->
+<!--        android:id="@+id/aaiThemeBtn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/theme_button"-->
+<!--        android:theme="@style/AppTheme"-->
+<!--        style="?android:attr/borderlessButtonStyle"-->
+<!--        android:padding="10dp"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:text="@string/inlawsThemeText"-->
+<!--        android:textColor="?colorText"-->
+<!--        android:textStyle="bold"/>-->
+
+<!--    <Button-->
+<!--        android:id="@+id/bangladeshThemeBtn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/theme_button"-->
+<!--        android:theme="@style/BangladeshTheme"-->
+<!--        style="?android:attr/borderlessButtonStyle"-->
+<!--        android:padding="10dp"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:text="@string/bangladeshThemeText"-->
+<!--        android:textColor="?colorText"-->
+<!--        android:textStyle="bold"/>-->
+
+<!--</LinearLayout>-->
+
+<!--</LinearLayout>-->

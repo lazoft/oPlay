@@ -43,7 +43,7 @@ public class FilesFragment extends Fragment implements Serializable {
         return loaded;
     }
 
-    public static FilesFragment getInstance() {
+    public static Fragment getInstance() {
         if (me == null) requestLoad();
         return me;
     }

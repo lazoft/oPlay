@@ -36,6 +36,15 @@
     <string name="inlawsThemeText">Dark</string>
     <string name="inlawsThemeInfo">Current theme: Nature</string>
 
+    <string name="bangladeshThemeText">Bangladesh</string>
+    <string name="bangladeshThemeInfo">Current theme: Bangladesh</string>
+
+    <string name="saudiArabiaThemeText">Saudi Arabia</string>
+    <string name="saudiArabiaThemeInfo">Current theme: Saudi Arabia</string>
+
+    <string name="japanThemeText">Japan</string>
+    <string name="japanThemeInfo">Current theme: Japan</string>
+
     <string name="button_playlist_text">Open Playlist</string>
     <string name="button_video_snaps_text">View Video Snaps</string>
     <string name="button_video_recorded_clips_text">View Video Recorded Clips</string>

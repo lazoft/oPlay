@@ -2,8 +2,13 @@
 <resources>
     <attr name="colorText" format="color"/>
     <attr name="settingsBackground" format="reference"/>
+    <attr name="settingsItemTextColor" format="color"/>
     <attr name="settingsItemPressedBackground" format="color"/>
     <attr name="settingsItemBackground" format="color"/>
+    <attr name="settingsSwitchThumbOn" format="color"/>
+    <attr name="settingsSwitchThumbOff" format="color"/>
+    <attr name="settingsSwitchTrackOn" format="color"/>
+    <attr name="settingsSwitchTrackOff" format="color"/>
     <attr name="bottomNavBackground" format="reference"/>
     <attr name="bottomNavItemChecked" format="reference"/>
     <attr name="bottomNavItemUnchecked" format="reference"/>

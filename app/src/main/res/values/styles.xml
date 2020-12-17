@@ -4,10 +4,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="titleTextColor">@color/colorText</item>
         <item name="colorText">@color/colorText</item>
         <item name="settingsBackground">@color/settingsBackground</item>
         <item name="settingsItemBackground">@color/settingsItemBackground</item>
         <item name="settingsItemPressedBackground">@color/settingsItemPressedBackground</item>
+        <item name="settingsItemTextColor">@color/settingItemTextColor</item>
         <item name="bottomNavBackground">@color/colorPrimaryDark</item>
         <item name="bottomNavItemChecked">@color/bottomNavItemChecked</item>
         <item name="bottomNavItemUnchecked">@color/bottomNavItemUnchecked</item>
@@ -17,16 +19,23 @@
         <item name="themeText">@string/defaultThemeText</item>
         <item name="themeInfo">@string/defaultThemeInfo</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="settingsSwitchThumbOn">@color/settingsSwitchThumbOn</item>
+        <item name="settingsSwitchThumbOff">@color/settingsSwitchThumbOff</item>
+        <item name="settingsSwitchTrackOn">@color/settingsSwitchTrackOn</item>
+        <item name="settingsSwitchTrackOff">@color/settingsSwitchTrackOff</item>
+        
     </style>
 
     <style name="TasniaTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/tasniaPrimary</item>
         <item name="colorPrimaryDark">@color/tasniaDark</item>
         <item name="colorAccent">@color/tasniaAccent</item>
+        <item name="titleTextColor">@color/tasniaColorText</item>
         <item name="colorText">@color/tasniaColorText</item>
         <item name="settingsBackground">@color/tasniaSettingsBackground</item>
         <item name="settingsItemBackground">@color/tasniaSettingsItemBackground</item>
         <item name="settingsItemPressedBackground">@color/tasniaSettingsItemPressedBackground</item>
+        <item name="settingsItemTextColor">@color/tasniaSettingItemTextColor</item>
         <item name="bottomNavBackground">@color/tasniaDark</item>
         <item name="bottomNavItemChecked">@color/tasniaBottomNavItemChecked</item>
         <item name="bottomNavItemUnchecked">@color/tasniaBottomNavItemUnchecked</item>
@@ -36,16 +45,22 @@
         <item name="themeText">@string/tasniaThemeText</item>
         <item name="themeInfo">@string/tasniaThemeInfo</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="settingsSwitchThumbOn">@color/tasniaSettingsSwitchThumbOn</item>
+        <item name="settingsSwitchThumbOff">@color/tasniaSettingsSwitchThumbOff</item>
+        <item name="settingsSwitchTrackOn">@color/tasniaSettingsSwitchTrackOn</item>
+        <item name="settingsSwitchTrackOff">@color/tasniaSettingsSwitchTrackOff</item>
     </style>
 
     <style name="RimiTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/rimiPrimary</item>
         <item name="colorPrimaryDark">@color/rimiDark</item>
         <item name="colorAccent">@color/rimiAccent</item>
+        <item name="titleTextColor">@color/rimiColorText</item>
         <item name="colorText">@color/rimiColorText</item>
         <item name="settingsBackground">@color/rimiSettingsBackground</item>
         <item name="settingsItemBackground">@color/rimiSettingsItemBackground</item>
         <item name="settingsItemPressedBackground">@color/rimiSettingsItemPressedBackground</item>
+        <item name="settingsItemTextColor">@color/rimiSettingItemTextColor</item>
         <item name="bottomNavBackground">@color/rimiDark</item>
         <item name="bottomNavItemChecked">@color/rimiBottomNavItemChecked</item>
         <item name="bottomNavItemUnchecked">@color/rimiBottomNavItemUnchecked</item>
@@ -55,16 +70,22 @@
         <item name="themeText">@string/rimiThemeText</item>
         <item name="themeInfo">@string/rimiThemeInfo</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="settingsSwitchThumbOn">@color/rimiSettingsSwitchThumbOn</item>
+        <item name="settingsSwitchThumbOff">@color/rimiSettingsSwitchThumbOff</item>
+        <item name="settingsSwitchTrackOn">@color/rimiSettingsSwitchTrackOn</item>
+        <item name="settingsSwitchTrackOff">@color/rimiSettingsSwitchTrackOff</item>
     </style>
 
     <style name="SoulMateTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/soulmatePrimary</item>
         <item name="colorPrimaryDark">@color/soulmatePrimaryDark</item>
         <item name="colorAccent">@color/soulmateAccent</item>
+        <item name="titleTextColor">@color/soulmateColorText</item>
         <item name="colorText">@color/soulmateColorText</item>
         <item name="settingsBackground">@color/soulmateSettingsBackground</item>
         <item name="settingsItemBackground">@color/soulmateSettingsItemBackground</item>
         <item name="settingsItemPressedBackground">@color/soulmateSettingsItemPressedBackground</item>
+        <item name="settingsItemTextColor">@color/soulmateSettingItemTextColor</item>
         <item name="bottomNavBackground">@color/soulmatePrimaryDark</item>
         <item name="bottomNavItemChecked">@color/soulmateBottomNavItemChecked</item>
         <item name="bottomNavItemUnchecked">@color/soulmateBottomNavItemUnchecked</item>
@@ -74,16 +95,22 @@
         <item name="themeText">@string/soulmateThemeText</item>
         <item name="themeInfo">@string/soulmateThemeInfo</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="settingsSwitchThumbOn">@color/soulmateSettingsSwitchThumbOn</item>
+        <item name="settingsSwitchThumbOff">@color/soulmateSettingsSwitchThumbOff</item>
+        <item name="settingsSwitchTrackOn">@color/soulmateSettingsSwitchTrackOn</item>
+        <item name="settingsSwitchTrackOff">@color/soulmateSettingsSwitchTrackOff</item>
     </style>
 
     <style name="InLawsTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/inlawsPrimary</item>
         <item name="colorPrimaryDark">@color/inlawsPrimaryDark</item>
         <item name="colorAccent">@color/inlawsAccent</item>
+        <item name="titleTextColor">@color/inlawsColorText</item>
         <item name="colorText">@color/inlawsColorText</item>
         <item name="settingsBackground">@color/inlawsSettingsBackground</item>
         <item name="settingsItemBackground">@color/inlawsSettingsItemBackground</item>
         <item name="settingsItemPressedBackground">@color/inlawsSettingsItemPressedBackground</item>
+        <item name="settingsItemTextColor">@color/inlawsSettingItemTextColor</item>
         <item name="bottomNavBackground">@color/inlawsPrimaryDark</item>
         <item name="bottomNavItemChecked">@color/inlawsBottomNavItemChecked</item>
         <item name="bottomNavItemUnchecked">@color/inlawsBottomNavItemUnchecked</item>
@@ -93,6 +120,85 @@
         <item name="themeText">@string/inlawsThemeText</item>
         <item name="themeInfo">@string/inlawsThemeInfo</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="settingsSwitchThumbOn">@color/inlawsSettingsSwitchThumbOn</item>
+        <item name="settingsSwitchThumbOff">@color/inlawsSettingsSwitchThumbOff</item>
+        <item name="settingsSwitchTrackOn">@color/inlawsSettingsSwitchTrackOn</item>
+        <item name="settingsSwitchTrackOff">@color/inlawsSettingsSwitchTrackOff</item>
+    </style>
+
+    <style name="BangladeshTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/bangladeshPrimary</item>
+        <item name="colorPrimaryDark">@color/bangladeshPrimaryDark</item>
+        <item name="colorAccent">@color/bangladeshAccent</item>
+        <item name="titleTextColor">@color/bangladeshColorText</item>
+        <item name="colorText">@color/bangladeshColorText</item>
+        <item name="settingsBackground">@color/bangladeshSettingsBackground</item>
+        <item name="settingsItemBackground">@color/bangladeshSettingsItemBackground</item>
+        <item name="settingsItemPressedBackground">@color/bangladeshSettingsItemPressedBackground</item>
+        <item name="settingsItemTextColor">@color/bangladeshSettingItemTextColor</item>
+        <item name="bottomNavBackground">@color/bangladeshPrimaryDark</item>
+        <item name="bottomNavItemChecked">@color/bangladeshBottomNavItemChecked</item>
+        <item name="bottomNavItemUnchecked">@color/bangladeshBottomNavItemUnchecked</item>
+        <item name="buttonBackground">@color/bangladeshButtonBackground</item>
+        <item name="buttonPressedBackground">@color/bangladeshButtonPressedBackground</item>
+        <item name="surpriseText">@string/bangladeshThemeText</item>
+        <item name="themeText">@string/bangladeshThemeText</item>
+        <item name="themeInfo">@string/bangladeshThemeInfo</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="settingsSwitchThumbOn">@color/bangladeshSettingsSwitchThumbOn</item>
+        <item name="settingsSwitchThumbOff">@color/bangladeshSettingsSwitchThumbOff</item>
+        <item name="settingsSwitchTrackOn">@color/bangladeshSettingsSwitchTrackOn</item>
+        <item name="settingsSwitchTrackOff">@color/bangladeshSettingsSwitchTrackOff</item>
+    </style>
+
+    <style name="SaudiArabiaTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/saudiArabiaPrimary</item>
+        <item name="colorPrimaryDark">@color/saudiArabiaPrimaryDark</item>
+        <item name="colorAccent">@color/saudiArabiaAccent</item>
+        <item name="titleTextColor">@color/saudiArabiaColorText</item>
+        <item name="colorText">@color/saudiArabiaColorText</item>
+        <item name="settingsBackground">@color/saudiArabiaSettingsBackground</item>
+        <item name="settingsItemBackground">@color/saudiArabiaSettingsItemBackground</item>
+        <item name="settingsItemPressedBackground">@color/saudiArabiaSettingsItemPressedBackground</item>
+        <item name="settingsItemTextColor">@color/saudiArabiaSettingItemTextColor</item>
+        <item name="bottomNavBackground">@color/saudiArabiaPrimaryDark</item>
+        <item name="bottomNavItemChecked">@color/saudiArabiaBottomNavItemChecked</item>
+        <item name="bottomNavItemUnchecked">@color/saudiArabiaBottomNavItemUnchecked</item>
+        <item name="buttonBackground">@color/saudiArabiaButtonBackground</item>
+        <item name="buttonPressedBackground">@color/saudiArabiaButtonPressedBackground</item>
+        <item name="surpriseText">@string/saudiArabiaThemeText</item>
+        <item name="themeText">@string/saudiArabiaThemeText</item>
+        <item name="themeInfo">@string/saudiArabiaThemeInfo</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="settingsSwitchThumbOn">@color/saudiArabiaSettingsSwitchThumbOn</item>
+        <item name="settingsSwitchThumbOff">@color/saudiArabiaSettingsSwitchThumbOff</item>
+        <item name="settingsSwitchTrackOn">@color/saudiArabiaSettingsSwitchTrackOn</item>
+        <item name="settingsSwitchTrackOff">@color/saudiArabiaSettingsSwitchTrackOff</item>
+    </style>
+
+    <style name="JapanTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/japanPrimary</item>
+        <item name="colorPrimaryDark">@color/japanPrimaryDark</item>
+        <item name="colorAccent">@color/japanAccent</item>
+        <item name="titleTextColor">@color/japanColorText</item>
+        <item name="colorText">@color/japanColorText</item>
+        <item name="settingsBackground">@color/japanSettingsBackground</item>
+        <item name="settingsItemBackground">@color/japanSettingsItemBackground</item>
+        <item name="settingsItemPressedBackground">@color/japanSettingsItemPressedBackground</item>
+        <item name="settingsItemTextColor">@color/japanSettingItemTextColor</item>
+        <item name="bottomNavBackground">@color/japanPrimaryDark</item>
+        <item name="bottomNavItemChecked">@color/japanBottomNavItemChecked</item>
+        <item name="bottomNavItemUnchecked">@color/japanBottomNavItemUnchecked</item>
+        <item name="buttonBackground">@color/japanButtonBackground</item>
+        <item name="buttonPressedBackground">@color/japanButtonPressedBackground</item>
+        <item name="surpriseText">@string/japanThemeText</item>
+        <item name="themeText">@string/japanThemeText</item>
+        <item name="themeInfo">@string/japanThemeInfo</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="settingsSwitchThumbOn">@color/japanSettingsSwitchThumbOn</item>
+        <item name="settingsSwitchThumbOff">@color/japanSettingsSwitchThumbOff</item>
+        <item name="settingsSwitchTrackOn">@color/japanSettingsSwitchTrackOn</item>
+        <item name="settingsSwitchTrackOff">@color/japanSettingsSwitchTrackOff</item>
     </style>
 
     <style name="EditTextTheme">
