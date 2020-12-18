@@ -23,7 +23,7 @@
         <activity
             android:name=".PlaylistChooserActivity"
             android:label="@string/title_activity_playlist_chooser"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".AboutActivity" />
         <activity android:name=".UnderMaintenanceActivity" />
         <activity android:name=".ThemeActivity" />
@@ -35,7 +35,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
     </application>

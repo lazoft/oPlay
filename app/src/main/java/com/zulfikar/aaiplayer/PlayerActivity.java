@@ -114,7 +114,7 @@ public class PlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setFullScreen();
         setContentView(R.layout.activity_player);
-        Objects.requireNonNull(getSupportActionBar()).hide();
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
 
         sharedPreferences = getSharedPreferences(PLAYBACK_JUMPER_PREFERENCE, MODE_PRIVATE);
         playerView = findViewById(R.id.exoplayer_movie);

@@ -29,8 +29,6 @@ public class ThemeActivity extends AppCompatActivity implements ActivityUtility 
     SharedPreferences.Editor editor;
     ScrollView layoutButton;
 
-    Handler themeHandler;
-
     private final String TAG = "THEME_ACTIVITY_DEBUG";
 
     @Override
@@ -47,8 +45,6 @@ public class ThemeActivity extends AppCompatActivity implements ActivityUtility 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme);
 
-        themeHandler = new Handler();
-    
         /*
         tasniaThemeBtn = findViewById(R.id.tasniaThemeBtn);
         rimiThemeBtn = findViewById(R.id.rimiThemeBtn);
@@ -96,11 +92,13 @@ public class ThemeActivity extends AppCompatActivity implements ActivityUtility 
     }
 
     private void changeTheme(@NotNull Button themeBtn, int themeId) {
+        if (themeId == Theme.currentThemeId) return;
+
         sharedPreferences = getSharedPreferences(Theme.PREFS_NAME, MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         themeBtn.setOnClickListener(v -> {
-            editor.putInt(Theme.PREFS_THEME_TAS, themeId);
+            editor.putInt(Theme.PREFS_THEME_TAS, Theme.currentThemeId = themeId);
             editor.apply();
 
             Theme.recreate(this, this);
@@ -111,7 +109,9 @@ public class ThemeActivity extends AppCompatActivity implements ActivityUtility 
         sharedPreferences = getSharedPreferences(Theme.PREFS_NAME, MODE_PRIVATE);
         editor = sharedPreferences.edit();
         themeBtn.setOnClickListener(v -> {
-            editor.putInt(Theme.PREFS_THEME_TAS, themeId);
+            if (themeId == Theme.currentThemeId) return;
+
+            editor.putInt(Theme.PREFS_THEME_TAS, Theme.currentThemeId = themeId);
             editor.apply();
 
             Theme.recreate(this, this);

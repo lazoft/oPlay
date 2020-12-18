@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -26,7 +26,7 @@
         
     </style>
 
-    <style name="TasniaTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="TasniaTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/tasniaPrimary</item>
         <item name="colorPrimaryDark">@color/tasniaDark</item>
         <item name="colorAccent">@color/tasniaAccent</item>
@@ -51,7 +51,7 @@
         <item name="settingsSwitchTrackOff">@color/tasniaSettingsSwitchTrackOff</item>
     </style>
 
-    <style name="RimiTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="RimiTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/rimiPrimary</item>
         <item name="colorPrimaryDark">@color/rimiDark</item>
         <item name="colorAccent">@color/rimiAccent</item>
@@ -76,7 +76,7 @@
         <item name="settingsSwitchTrackOff">@color/rimiSettingsSwitchTrackOff</item>
     </style>
 
-    <style name="SoulMateTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="SoulMateTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/soulmatePrimary</item>
         <item name="colorPrimaryDark">@color/soulmatePrimaryDark</item>
         <item name="colorAccent">@color/soulmateAccent</item>
@@ -101,7 +101,7 @@
         <item name="settingsSwitchTrackOff">@color/soulmateSettingsSwitchTrackOff</item>
     </style>
 
-    <style name="InLawsTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="InLawsTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/inlawsPrimary</item>
         <item name="colorPrimaryDark">@color/inlawsPrimaryDark</item>
         <item name="colorAccent">@color/inlawsAccent</item>
@@ -126,7 +126,7 @@
         <item name="settingsSwitchTrackOff">@color/inlawsSettingsSwitchTrackOff</item>
     </style>
 
-    <style name="BangladeshTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="BangladeshTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/bangladeshPrimary</item>
         <item name="colorPrimaryDark">@color/bangladeshPrimaryDark</item>
         <item name="colorAccent">@color/bangladeshAccent</item>
@@ -151,7 +151,7 @@
         <item name="settingsSwitchTrackOff">@color/bangladeshSettingsSwitchTrackOff</item>
     </style>
 
-    <style name="SaudiArabiaTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="SaudiArabiaTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/saudiArabiaPrimary</item>
         <item name="colorPrimaryDark">@color/saudiArabiaPrimaryDark</item>
         <item name="colorAccent">@color/saudiArabiaAccent</item>
@@ -176,7 +176,7 @@
         <item name="settingsSwitchTrackOff">@color/saudiArabiaSettingsSwitchTrackOff</item>
     </style>
 
-    <style name="JapanTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="JapanTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/japanPrimary</item>
         <item name="colorPrimaryDark">@color/japanPrimaryDark</item>
         <item name="colorAccent">@color/japanAccent</item>
@@ -199,6 +199,7 @@
         <item name="settingsSwitchThumbOff">@color/japanSettingsSwitchThumbOff</item>
         <item name="settingsSwitchTrackOn">@color/japanSettingsSwitchTrackOn</item>
         <item name="settingsSwitchTrackOff">@color/japanSettingsSwitchTrackOff</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="EditTextTheme">

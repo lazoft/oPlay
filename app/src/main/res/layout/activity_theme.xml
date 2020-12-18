@@ -40,8 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center"
-                android:rowCount="4"
-                android:columnCount="2"
+                android:columnCount="3"
                 >
 
                 <androidx.cardview.widget.CardView
@@ -59,7 +58,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:padding="5dp"
+                        android:padding="10dp"
                         android:gravity="center"
                         android:background="@color/colorPrimary">
 
@@ -79,9 +78,10 @@
                             android:text="@string/defaultThemeText"
                             android:layout_below="@+id/imgDefaultAT"
                             android:layout_alignParentBottom="true"
-                            android:textSize="28sp"
+                            android:textSize="10.5sp"
                             android:textColor="@color/colorText"
-                            android:layout_gravity="center"                        android:gravity="center"
+                            android:layout_gravity="center"
+                            android:gravity="center"
                             android:textStyle="bold"/>
                     </RelativeLayout>
 
@@ -103,7 +103,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:padding="5dp"
+                        android:padding="10dp"
                         android:gravity="center"
                         android:background="@color/tasniaPrimary">
 
@@ -123,7 +123,7 @@
                             android:text="@string/tasniaThemeText"
                             android:layout_below="@+id/imgTasniaAT"
                             android:layout_alignParentBottom="true"
-                            android:textSize="28sp"
+                            android:textSize="10.5sp"
                             android:textColor="@color/tasniaColorText"
                             android:layout_gravity="center"
                             android:gravity="center"
@@ -148,7 +148,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:padding="5dp"
+                        android:padding="10dp"
                         android:gravity="center"
                         android:background="@color/rimiPrimary">
 
@@ -169,9 +169,10 @@
                             android:text="@string/rimiThemeText"
                             android:layout_below="@+id/imgRimiAT"
                             android:layout_alignParentBottom="true"
-                            android:textSize="28sp"
+                            android:textSize="10.5sp"
                             android:textColor="@color/rimiColorText"
-                            android:layout_gravity="center"                        android:gravity="center"
+                            android:layout_gravity="center"
+                            android:gravity="center"
                             android:textStyle="bold"/>
                     </RelativeLayout>
 
@@ -193,7 +194,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:padding="5dp"
+                        android:padding="10dp"
                         android:gravity="center"
                         android:background="@color/soulmatePrimary">
 
@@ -214,9 +215,10 @@
                             android:text="@string/soulmateThemeText"
                             android:layout_below="@+id/imgSoulmateAT"
                             android:layout_alignParentBottom="true"
-                            android:textSize="28sp"
+                            android:textSize="10.5sp"
                             android:textColor="@color/soulmateColorText"
-                            android:layout_gravity="center"                        android:gravity="center"
+                            android:layout_gravity="center"
+                            android:gravity="center"
                             android:textStyle="bold"/>
                     </RelativeLayout>
 
@@ -238,7 +240,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:padding="5dp"
+                        android:padding="10dp"
                         android:gravity="center"
                         android:background="@color/inlawsPrimary">
 
@@ -259,9 +261,10 @@
                             android:text="@string/inlawsThemeText"
                             android:layout_below="@+id/imgInlawsAT"
                             android:layout_alignParentBottom="true"
-                            android:textSize="28sp"
+                            android:textSize="10.5sp"
                             android:textColor="@color/inlawsBottomNavItemChecked"
-                            android:layout_gravity="center"                        android:gravity="center"
+                            android:layout_gravity="center"
+                            android:gravity="center"
                             android:textStyle="bold"/>
                     </RelativeLayout>
 
@@ -283,7 +286,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:padding="5dp"
+                        android:padding="10dp"
                         android:gravity="center"
                         android:background="@color/bangladeshPrimary">
 
@@ -304,9 +307,10 @@
                             android:text="@string/bangladeshThemeText"
                             android:layout_below="@+id/imgBangladeshAT"
                             android:layout_alignParentBottom="true"
-                            android:textSize="28sp"
+                            android:textSize="10.5sp"
                             android:textColor="@color/bangladeshColorText"
-                            android:layout_gravity="center"                        android:gravity="center"
+                            android:layout_gravity="center"
+                            android:gravity="center"
                             android:textStyle="bold"/>
                     </RelativeLayout>
 
@@ -328,7 +332,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:padding="5dp"
+                        android:padding="10dp"
                         android:gravity="center"
                         android:background="@color/saudiArabiaPrimary">
 
@@ -349,9 +353,10 @@
                             android:text="@string/saudiArabiaThemeText"
                             android:layout_below="@+id/imgSaudiAT"
                             android:layout_alignParentBottom="true"
-                            android:textSize="28sp"
+                            android:textSize="10.5sp"
                             android:textColor="@color/saudiArabiaColorText"
-                            android:layout_gravity="center"                        android:gravity="center"
+                            android:layout_gravity="center"
+                            android:gravity="center"
                             android:textStyle="bold"/>
                     </RelativeLayout>
 
@@ -373,7 +378,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:padding="5dp"
+                        android:padding="10dp"
                         android:background="@color/japanPrimary"
                         android:gravity="center">
 
@@ -394,9 +399,10 @@
                             android:text="@string/japanThemeText"
                             android:layout_below="@+id/imgJapanAT"
                             android:layout_alignParentBottom="true"
-                            android:textSize="28sp"
+                            android:textSize="10.5sp"
                             android:textColor="@color/japanColorText"
-                            android:layout_gravity="center"                        android:gravity="center"
+                            android:layout_gravity="center"
+                            android:gravity="center"
                             android:textStyle="bold"/>
                     </RelativeLayout>
 

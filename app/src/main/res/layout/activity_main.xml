@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="0dp"
-        android:background="?bottomNavBackground"
+        android:background="@drawable/bottom_nav_bar_rectangle_outline_background"
         app:itemIconTint="@drawable/state_for_nav"
         app:itemTextColor="@drawable/state_for_nav"
         app:menu="@menu/bottom_nav_menu" />

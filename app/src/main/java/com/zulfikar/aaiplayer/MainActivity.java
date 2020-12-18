@@ -1,16 +1,7 @@
 package com.zulfikar.aaiplayer;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -19,36 +10,44 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.util.ArraySet;
-import android.util.Log;
+import android.util.Pair;
+import android.view.Gravity;
+import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements ActivityUtility {
 
     private static final int REQUEST_CODE_PERMISSION = 123;
-    private static final String TAG = "MAIN_ACTIVITY_LOG";
+//    private static final String TAG = "MAIN_ACTIVITY_LOG";
 
     BottomNavigationView bottomNav;
     FloatingActionButton btnRefresh;
     SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+//    SharedPreferences.Editor editor;
 
     Snackbar videoLoadingSnackBar;
 
-    Handler mainActivityHandler = new Handler();;
+    Handler mainActivityHandler = new Handler();
 
     boolean onPause;
     int themeId = 0;
+    long backPressedRecord;
 
     static FragmentManager fragmentManager;
 
@@ -84,26 +83,13 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
         bottomNav = findViewById(R.id.bottomNavViewAM);
         btnRefresh = findViewById(R.id.btnRefresh);
         if (fragmentManager == null) fragmentManager = getSupportFragmentManager();
-        bottomNav.setOnNavigationItemSelectedListener(item -> {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            if (item.getItemId() == R.id.folderList) {
-                if (FolderVideoFragment.isLoaded() && !item.isChecked()) {
-                    loadFragment(fragmentTransaction, FolderVideoFragment.getInstance());
-                } else {
-                    FolderVideoFragment.requestUnload();
-                    loadFragment(fragmentTransaction, FolderFragment.getInstance());
-                }
-            } else if (item.getItemId() == R.id.filesList) {
-                loadFragment(fragmentTransaction, FilesFragment.getInstance());
-            } else if (item.getItemId() == R.id.btnNavSettings) {
-                loadFragment(fragmentTransaction, new SettingsFragment());
-            }
-            return item.setChecked(true) == null;
-        });
+
+        addBottomNavListener();
+
         btnRefresh.setOnClickListener(v -> {
-            int selectedId = bottomNav.getSelectedItemId();
-            Fragment fragment = selectedId == R.id.folderList? FolderVideoFragment.isLoaded()? FolderVideoFragment.getInstance() : FolderFragment.getInstance() : selectedId == R.id.filesList? FilesFragment.getInstance() : new SettingsFragment();
-            load(getSupportFragmentManager().beginTransaction(), fragment);
+//            int selectedId = bottomNav.getSelectedItemId();
+//            Fragment fragment = selectedId == R.id.folderList? FolderVideoFragment.isLoaded()? FolderVideoFragment.getInstance() : FolderFragment.getInstance() : selectedId == R.id.filesList? FilesFragment.getInstance() : new SettingsFragment();
+            load(); //load(getSupportFragmentManager().beginTransaction(), fragment);
 //            videoFiles = loadLibrary();
 //            FilesFragment.reload();
 //            FolderFragment.requestLoad();
@@ -122,12 +108,12 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
 //            if (videoFiles == null) loadFolders();
 
             if (savedInstanceState == null) {
-                if (videoFiles == null) load(getSupportFragmentManager().beginTransaction(), FolderFragment.getInstance());
+                if (videoFiles == null) load(); //load(getSupportFragmentManager().beginTransaction(), FolderFragment.getInstance());
                 loadFragment(getSupportFragmentManager().beginTransaction(), FolderFragment.getInstance());
             } else {
-                int selectedId = bottomNav.getSelectedItemId();
-                Fragment fragment = selectedId == R.id.folderList? FolderVideoFragment.isLoaded()? FolderVideoFragment.getInstance() : FolderFragment.getInstance() : selectedId == R.id.filesList? FilesFragment.getInstance() : new SettingsFragment();
-                if (videoFiles == null) load(getSupportFragmentManager().beginTransaction(), fragment);
+//                int selectedId = bottomNav.getSelectedItemId();
+//                Fragment fragment = selectedId == R.id.folderList? FolderVideoFragment.isLoaded()? FolderVideoFragment.getInstance() : FolderFragment.getInstance() : selectedId == R.id.filesList? FilesFragment.getInstance() : new SettingsFragment();
+                if (videoFiles == null) load(); // load(getSupportFragmentManager().beginTransaction(), fragment);
             }
         }
     }
@@ -139,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 //                videoFiles = loadLibrary();
 //                if (videoFiles == null) loadFolders();
-                if (videoFiles == null) load(getSupportFragmentManager().beginTransaction(), FolderFragment.getInstance());
+                if (videoFiles == null) load(); //load(getSupportFragmentManager().beginTransaction(), FolderFragment.getInstance());
                 loadFragment(getSupportFragmentManager().beginTransaction(), FolderFragment.getInstance());
             } else {
                 ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION);
@@ -153,7 +139,12 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
             FolderVideoFragment.requestUnload();
             loadFragment(getSupportFragmentManager().beginTransaction(), FolderFragment.getInstance());
         } else {
-            super.onBackPressed();
+            if (System.currentTimeMillis() - backPressedRecord <= 2100) {
+                super.onBackPressed();
+            } else {
+                Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+            }
+            backPressedRecord = System.currentTimeMillis();
         }
     }
 
@@ -169,28 +160,26 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
         }
     }
 
-    private void load(FragmentTransaction fragmentTransaction, Fragment fragment) {
-        (videoLoadingSnackBar = Snackbar.make(bottomNav, "Loading. Please wait...", BaseTransientBottomBar.LENGTH_INDEFINITE)).show();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Object[] data = refreshLibraryAsync(MainActivity.this);
-                mainActivityHandler.post(() -> {
-                    videoLoadingSnackBar.dismiss();
-                    videoFiles = (ArrayList<VideoFiles>) data[0];
-                    folderList = (ArrayList<String>) data[1];
-                    FolderFragment.requestLoad();
-                    FilesFragment.requestLoad();
-                    if (FolderVideoFragment.isLoaded()) FolderVideoFragment.requestLoad();
-//                    Fragment refreshedFragment = fragment instanceof  FolderFragment? FolderFragment.getInstance() : fragment instanceof FilesFragment? FilesFragment.getInstance() : fragment instanceof FolderVideoFragment? FolderVideoFragment.getInstance() : fragment;
-//                    loadFragment(fragmentTransaction, refreshedFragment);
-                    bottomNav.setSelectedItemId(bottomNav.getSelectedItemId());
-                });
-            }
+    private void load() {
+        videoLoadingSnackBar = Snackbar.make(bottomNav, "Loading. Please wait...", BaseTransientBottomBar.LENGTH_INDEFINITE);
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) videoLoadingSnackBar.getView().getLayoutParams();
+        layoutParams.gravity = Gravity.TOP;
+        videoLoadingSnackBar.show();
+        new Thread(() -> {
+            Pair<ArrayList<VideoFiles>, ArrayList<String>> data = refreshLibraryAsync(MainActivity.this);
+            mainActivityHandler.post(() -> {
+                videoLoadingSnackBar.dismiss();
+                videoFiles = data.first;
+                folderList = data.second;
+                FolderFragment.requestLoad();
+                FilesFragment.requestLoad();
+                if (FolderVideoFragment.isLoaded()) FolderVideoFragment.requestLoad();
+                setBottomNavItemOnClick(true, bottomNav.getMenu().findItem(bottomNav.getSelectedItemId()));
+            });
         }).start();
     }
 
-    public Object[] refreshLibraryAsync(Context context) {
+    public Pair<ArrayList<VideoFiles>, ArrayList<String>> refreshLibraryAsync(Context context) {
         ArrayList<VideoFiles> videoFiles = new ArrayList<>();
         ArrayList<String> folderList = new ArrayList<>();
         Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
@@ -221,9 +210,49 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
             cursor.close();
         }
 
-        return new Object[] {videoFiles, folderList};
+        return new Pair<>(videoFiles, folderList);
     }
 
+    private void loadFragment(FragmentTransaction fragmentTransaction, Fragment fragment) {
+        if (!onPause) {
+            fragmentTransaction.replace(R.id.mainFragment, fragment);
+            fragmentTransaction.commit();
+        } else {
+            mainActivityHandler.post(() -> loadFragment(fragmentTransaction, fragment));
+        }
+    }
+
+    private void addBottomNavListener() {
+        bottomNav.setOnNavigationItemSelectedListener(item -> {
+            setBottomNavItemOnClick(false, item);
+            return item.setChecked(true) == null;
+        });
+    }
+
+    private void setBottomNavItemOnClick(boolean refreshCall, MenuItem item) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (item.getItemId() == R.id.folderList) {
+            if (FolderVideoFragment.isLoaded() && (refreshCall || !item.isChecked())) {
+                loadFragment(fragmentTransaction, FolderVideoFragment.getInstance());
+            } else {
+                FolderVideoFragment.requestUnload();
+                loadFragment(fragmentTransaction, FolderFragment.getInstance());
+            }
+        } else if (item.getItemId() == R.id.filesList) {
+            loadFragment(fragmentTransaction, FilesFragment.getInstance());
+        } else if (item.getItemId() == R.id.btnNavSettings) {
+            loadFragment(fragmentTransaction, new SettingsFragment());
+        }
+    }
+
+    @Override
+    public void saveInstanceState(Bundle bundle) {
+        onSaveInstanceState(bundle);
+    }
+}
+
+// <editor-fold defaultstate="collapsed" desc="Deprecated V1.0">
+/*
     private void loadFolders() {
         (videoLoadingSnackBar = Snackbar.make(bottomNav, "Loading videos. Please wait...", BaseTransientBottomBar.LENGTH_INDEFINITE)).show();
         HashSet<String> folderNames = (HashSet<String>) sharedPreferences.getStringSet("folderNames", null);
@@ -311,7 +340,6 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
     }
 
     public ArrayList<VideoFiles> refreshLibrary(Context context) {
-        long start = System.currentTimeMillis();
         ArrayList<VideoFiles> tempVideoFiles = new ArrayList<>();
         Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
         String[] projection = {MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, MediaStore.Video.Media.DISPLAY_NAME};
@@ -352,16 +380,5 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
         editor.apply();
         return tempVideoFiles;
     }
-
-    private void loadFragment(FragmentTransaction fragmentTransaction, Fragment fragment) {
-        if (!onPause) {
-            fragmentTransaction.replace(R.id.mainFragment, fragment);
-            fragmentTransaction.commit();
-        }
-    }
-
-    @Override
-    public void saveInstanceState(Bundle bundle) {
-        onSaveInstanceState(bundle);
-    }
-}
+*/
+// </editor-fold>

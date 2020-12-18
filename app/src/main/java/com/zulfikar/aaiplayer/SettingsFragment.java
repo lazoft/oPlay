@@ -1,15 +1,9 @@
 package com.zulfikar.aaiplayer;
 
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.fragment.app.Fragment;
-
-import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -17,9 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import com.google.android.material.switchmaterial.SwitchMaterial;
 
-import java.io.Serializable;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 
 public class SettingsFragment extends Fragment {
@@ -32,12 +29,12 @@ public class SettingsFragment extends Fragment {
 
     private static final String PLAYBACK_JUMPER_PREFERENCE = "playback_jumper_preferences";
     public static final String BACKGROUND_PLAYBACK_STATE = "background_playback_state";
+//    private static final String TAG = "Settings Fragment DEBUG";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
         sharedPreferences = requireActivity().getSharedPreferences(PLAYBACK_JUMPER_PREFERENCE, Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
         btnChangeTheme = view.findViewById(R.id.btnChangeThemeFS);
         btnMyAccount = view.findViewById(R.id.btnMyAccountFS);
         btnPlaylist = view.findViewById(R.id.btnPlaylistFS);
@@ -56,6 +53,17 @@ public class SettingsFragment extends Fragment {
         switchBackgroundPlayback.setChecked(sharedPreferences.getBoolean(BACKGROUND_PLAYBACK_STATE,true));
         txtBackwardPlayback.setText(sharedPreferences.getString("backward_jumper_time", "10"));
         txtForwardPlayback.setText(sharedPreferences.getString("forward_jumper_time", "10"));
+
+        addListeners();
+        setOnClickForUpcomingButtons(btnMyAccount, btnChangeLanguage, btnWifiShare, btnResetSettings, btnSendFeedback, btnUpdate);
+        return view;
+    }
+
+    public void setOnClickForUpcomingButtons(TextView... buttons) {
+        for (TextView button : buttons) button.setOnClickListener(v -> startActivity(new Intent(getActivity(), UnderMaintenanceActivity.class)));
+    }
+
+    private void addListeners() {
         btnChangeTheme.setOnClickListener(view1 -> {
             Intent themeActivityIntent = new Intent(getActivity(), ThemeActivity.class);
             themeActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -91,6 +99,7 @@ public class SettingsFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+                editor = sharedPreferences.edit();
                 editor.putString("forward_jumper_time", txtForwardPlayback.getText().toString());
                 editor.apply();
             }
@@ -101,20 +110,29 @@ public class SettingsFragment extends Fragment {
             editor.apply();
         });
 
+        btnVideoRecordedClips.setOnClickListener(v -> {
+            Snackbar snack = Snackbar.make(btnMyAccount,  "Olosh Clips are being saved on\n\n/storage/emulated/0/DCIM/Olosh Player/Olosh Clips/", Snackbar.LENGTH_INDEFINITE);
+            snack.setAction("CLOSE", v1 -> {});
+            snack.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
+            ((TextView) snack.getView().findViewById(com.google.android.material.R.id.snackbar_text)).setLines(4);
+            snack.show();
+        });
+
+        btnVideoSnaps.setOnClickListener(v -> {
+            Snackbar snack = Snackbar.make(btnMyAccount,  "Olosh Clips are being saved on\n\n/storage/emulated/0/DCIM/Olosh Player/Olosh Snaps/", Snackbar.LENGTH_INDEFINITE);
+            snack.setAction("CLOSE", v1 -> {});
+            snack.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
+            ((TextView) snack.getView().findViewById(com.google.android.material.R.id.snackbar_text)).setLines(4);
+            snack.show();
+        });
+
         btnPlaylist.setOnClickListener(v -> {
             Intent playlistChooserIntent = new Intent(getActivity(), PlaylistChooserActivity.class);
             playlistChooserIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(playlistChooserIntent);
         });
-        setOnClickForUpcomingButtons(btnMyAccount, btnChangeLanguage, btnWifiShare, btnVideoSnaps, btnVideoRecordedClips, btnResetSettings, btnSendFeedback, btnUpdate, btnExit);
-        btnExit.setOnClickListener(v -> {
-            System.exit(0);
-        });
-        return view;
-    }
 
-    public void setOnClickForUpcomingButtons(TextView... buttons) {
-        for (TextView button : buttons) button.setOnClickListener(v -> startActivity(new Intent(getActivity(), UnderMaintenanceActivity.class)));
+        btnExit.setOnClickListener(v -> System.exit(0));
     }
 }
 
