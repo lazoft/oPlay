@@ -14,6 +14,5 @@ public class AboutActivity extends AppCompatActivity {
         Theme.applyTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        Objects.requireNonNull(getSupportActionBar()).hide();
     }
 }

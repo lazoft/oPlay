@@ -82,6 +82,7 @@ public class SettingsFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+                editor = sharedPreferences.edit();
                 editor.putString("backward_jumper_time", txtBackwardPlayback.getText().toString());
                 editor.apply();
             }
@@ -106,6 +107,7 @@ public class SettingsFragment extends Fragment {
         });
         btnAbout.setOnClickListener(v -> startActivity(new Intent(getActivity(), AboutActivity.class)));
         switchBackgroundPlayback.setOnCheckedChangeListener((compoundButton, b) -> {
+            editor = sharedPreferences.edit();
             editor.putBoolean(BACKGROUND_PLAYBACK_STATE, b);
             editor.apply();
         });

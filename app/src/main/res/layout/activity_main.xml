@@ -11,9 +11,10 @@
         android:id="@+id/mainFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_above="@+id/bottomNavViewAM"
-        >
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp">
 
 
     </FrameLayout>
@@ -25,17 +26,19 @@
         android:layout_above="@id/bottomNavViewAM"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:background="@color/colorTransparent"
         android:clickable="true"
         android:contentDescription="@string/no_description"
         android:focusable="true"
-        android:scrollbarSize="0dp"
-        app:maxImageSize="45dp"
+        app:maxImageSize="50dp"
         app:srcCompat="@drawable/ic_refresh"
-        app:tint="@color/bottomNavItemChecked" />
+        android:tint="?bottomNavItemChecked"/>
+    <!--    app:backgroundTint="@color/colorTransparent"-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavViewAM"

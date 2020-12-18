@@ -27,7 +27,7 @@
             android:paddingEnd="10dp"
             android:paddingRight="10dp"
             android:textSize="20sp"
-            android:layout_weight="7"/>
+            android:layout_weight="7" />
 
         <TextView
             android:id="@+id/btnPlaylistFS"
@@ -102,10 +102,10 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textColor="?settingsItemTextColor"
+                android:backgroundTint="?settingsItemBackground"
                 android:text="@string/default_backward_playback_time"
                 android:layout_weight="2"
                 android:importantForAutofill="no"
-                android:backgroundTint="?settingsItemBackground"
                 android:inputType="number"
                 tools:ignore="labelFor"/>
         </LinearLayout>
@@ -291,14 +291,14 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/settings_button_background"
             android:gravity="center_vertical"
-            android:textColor="#FFFFFF"
+            android:textColor="?settingsItemTextColor"
             android:text="@string/button_exit_text"
             android:paddingStart="10dp"
             android:paddingLeft="10dp"
             android:paddingEnd="10dp"
             android:paddingRight="10dp"
             android:textSize="20sp"
-            android:layout_weight="7"/>
+            android:layout_weight="7" />
 
     </LinearLayout>
 
