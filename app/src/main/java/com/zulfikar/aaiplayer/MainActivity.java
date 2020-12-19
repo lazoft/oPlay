@@ -30,6 +30,7 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity implements ActivityUtility {
 
@@ -171,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
                 videoLoadingSnackBar.dismiss();
                 videoFiles = data.first;
                 folderList = data.second;
+                Collections.sort(folderList);
                 FolderFragment.requestLoad();
                 FilesFragment.requestLoad();
                 if (FolderVideoFragment.isLoaded()) FolderVideoFragment.requestLoad();

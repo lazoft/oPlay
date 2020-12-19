@@ -21,4 +21,9 @@
     <attr name="themeText" format="string"/>
     <attr name="themeInfo" format="reference"/>
 
+    <declare-styleable name="PickerWheel">
+        <attr name="maxVal" format="integer"/>
+        <attr name="minVal" format="integer"/>
+        <attr name="defaultValue" format="integer"/>
+    </declare-styleable>
 </resources>

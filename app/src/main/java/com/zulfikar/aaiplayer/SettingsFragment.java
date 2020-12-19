@@ -23,7 +23,7 @@ public class SettingsFragment extends Fragment {
 
     SharedPreferences.Editor editor;
     SharedPreferences sharedPreferences;
-    EditText txtForwardPlayback, txtBackwardPlayback;
+    PickerWheel txtForwardPlayback, txtBackwardPlayback;
     TextView btnMyAccount, btnPlaylist, btnChangeTheme, btnChangeLanguage, btnWifiShare, btnVideoSnaps, btnVideoRecordedClips, btnResetSettings, btnSendFeedback, btnUpdate, btnAbout, btnExit;
     SwitchCompat switchBackgroundPlayback;
 
@@ -51,8 +51,11 @@ public class SettingsFragment extends Fragment {
         txtForwardPlayback = view.findViewById(R.id.txtForwardPlaybackFS);
         switchBackgroundPlayback = view.findViewById(R.id.switchBackgroundPlayback);
         switchBackgroundPlayback.setChecked(sharedPreferences.getBoolean(BACKGROUND_PLAYBACK_STATE,true));
-        txtBackwardPlayback.setText(sharedPreferences.getString("backward_jumper_time", "10"));
-        txtForwardPlayback.setText(sharedPreferences.getString("forward_jumper_time", "10"));
+//        txtBackwardPlayback.setText(sharedPreferences.getString("backward_jumper_time", "10"));
+//        txtForwardPlayback.setText(sharedPreferences.getString("forward_jumper_time", "10"));
+
+        txtBackwardPlayback.setValue(sharedPreferences.getInt("backward_jumper_time", 10));
+        txtForwardPlayback.setValue(sharedPreferences.getInt("forward_jumper_time", 10));
 
         addListeners();
         setOnClickForUpcomingButtons(btnMyAccount, btnChangeLanguage, btnWifiShare, btnResetSettings, btnSendFeedback, btnUpdate);
@@ -69,41 +72,52 @@ public class SettingsFragment extends Fragment {
             themeActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(themeActivityIntent);
         });
-        txtBackwardPlayback.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//        txtBackwardPlayback.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                editor = sharedPreferences.edit();
+//                editor.putString("backward_jumper_time", txtBackwardPlayback.getText().toString());
+//                editor.apply();
+//            }
+//        });
+//        txtForwardPlayback.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                editor = sharedPreferences.edit();
+//                editor.putString("forward_jumper_time", txtForwardPlayback.getText().toString());
+//                editor.apply();
+//            }
+//        });
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                editor = sharedPreferences.edit();
-                editor.putString("backward_jumper_time", txtBackwardPlayback.getText().toString());
-                editor.apply();
-            }
+        txtForwardPlayback.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            editor = sharedPreferences.edit();
+            editor.putInt("forward_jumper_time", txtForwardPlayback.getValue());
+            editor.apply();
         });
-        txtForwardPlayback.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                editor = sharedPreferences.edit();
-                editor.putString("forward_jumper_time", txtForwardPlayback.getText().toString());
-                editor.apply();
-            }
+        txtBackwardPlayback.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            editor = sharedPreferences.edit();
+            editor.putInt("backward_jumper_time", txtBackwardPlayback.getValue());
+            editor.apply();
         });
         btnAbout.setOnClickListener(v -> startActivity(new Intent(getActivity(), AboutActivity.class)));
         switchBackgroundPlayback.setOnCheckedChangeListener((compoundButton, b) -> {

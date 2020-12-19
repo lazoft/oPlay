@@ -1,11 +1,15 @@
 package com.zulfikar.aaiplayer;
 
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.TextureView;
@@ -43,8 +47,12 @@ import com.google.android.material.snackbar.Snackbar;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -61,7 +69,7 @@ public class PlayerActivity extends AppCompatActivity {
     private static final int QUALITY = 100;
     private static final String PLAYBACK_JUMPER_PREFERENCE = "playback_jumper_preferences";
     private static final HashMap<String, Long> lastPlayed = new HashMap<>();
-//    private static final String TAG = "PLAYER ACTIVITY DEBUG";
+    private static final String TAG = "PLAYER ACTIVITY DEBUG";
 
     SharedPreferences sharedPreferences;
     DefaultTimeBar timeBar;
@@ -128,8 +136,8 @@ public class PlayerActivity extends AppCompatActivity {
         duration = lastPlayed.get(path);
         if (duration == null) duration = 0L;
 
-        backwardJumpTime = Integer.parseInt(sharedPreferences.getString("backward_jumper_time", "10"));
-        forwardJumpTime = Integer.parseInt(sharedPreferences.getString("forward_jumper_time", "10"));
+        backwardJumpTime = sharedPreferences.getInt("backward_jumper_time", 10);
+        forwardJumpTime = sharedPreferences.getInt("forward_jumper_time", 10);
 
         playVideo(duration);
         functioningCustomController(customController);
@@ -391,6 +399,13 @@ public class PlayerActivity extends AppCompatActivity {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY, fileOutputStream);
                 fileOutputStream.flush();
                 fileOutputStream.close();
+
+                Thread updateImageMediaStoreThread = new Thread(() -> {
+                    try { MediaStore.Images.Media.insertImage(getContentResolver(), path, null, null); }
+                    catch (IOException e) { e.printStackTrace(); }
+                });
+                updateImageMediaStoreThread.start();
+
                 Toast.makeText(PlayerActivity.this, "Snapshot saved", Toast.LENGTH_LONG).show();
             } catch (IOException e) {
                 Toast.makeText(PlayerActivity.this, "Failed due to storage access", Toast.LENGTH_SHORT).show();
@@ -411,45 +426,53 @@ public class PlayerActivity extends AppCompatActivity {
             Snackbar.make(timeBar, "Another clipping is in process. Please wait...", BaseTransientBottomBar.LENGTH_SHORT).show();
             return;
         }
+        Log.e(TAG, "executeCutVideoCommand: " + Environment.getExternalStorageDirectory().getAbsolutePath());
         String destPath = "/storage/emulated/0/DCIM/Olosh Player/Olosh Clips/";
         File externalStoragePublicDirectory = new File(destPath);
         if (externalStoragePublicDirectory.exists() || externalStoragePublicDirectory.mkdirs()) {
             String title = this.title.length() > 5? this.title.substring(0, 5) : this.title;
             String destFileName = "Olosh clip (" + title + ")";
             File destinationPath =  new File(externalStoragePublicDirectory, destFileName + ".mp4");
-            for (int fileNo = 1; destinationPath.exists(); fileNo++) {
-                destinationPath = new File(externalStoragePublicDirectory, destFileName + fileNo + ".mp4");
+            for (int fileNo = 2; destinationPath.exists(); fileNo++) {
+                destinationPath = new File(externalStoragePublicDirectory, destFileName + " - " + fileNo + ".mp4");
             }
 
             if (endMs < startMs) startMs += endMs - (endMs = startMs);
 
-//            final String[] complexCommand = {"-i", sourcePath, "-ss",startMs/1000 + "","-c:v","copy", "-t", ((endMs-startMs)/1000) + "", destinationPath.getAbsolutePath()};
-            String[] trimCommand = {"-ss", String.valueOf(startMs / 1000), "-y", "-i", sourcePath, "-t", String.valueOf((endMs - startMs) / 1000), "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", destinationPath.getAbsolutePath()};
+            String[] trimCommand = {"-ss", String.valueOf(startMs / 1000), "-y", "-i", sourcePath, "-t", String.valueOf((endMs - startMs) / 1000),
+                    "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", destinationPath.getAbsolutePath()};
 
-            executeTrimCommand(trimCommand, endMs - startMs);
+            executeTrimCommand(trimCommand, endMs - startMs, "Olosh clip (" + title + ")", destinationPath);
         }
     }
 
-    private void executeTrimCommand(String[] trimCommand, long trimDuration) {
+    private void executeTrimCommand(String[] trimCommand, long trimDuration, String title, File output) {
         recordingClipProcessing = true;
         controlLabelLayout.setVisibility(View.VISIBLE);
-        FFmpeg.executeAsync(trimCommand, new ExecuteCallback() {
-            @Override
-            public void apply(long executionId, int rc) {
-                if (rc == RETURN_CODE_SUCCESS) {
-                    Log.e("msg1", "Command execution completed successfully.");
-                    Toast.makeText(PlayerActivity.this, "Clip Saved", Toast.LENGTH_SHORT).show();
-                } else if (rc == RETURN_CODE_CANCEL) {
-                    Log.e("msg2", "Command execution cancelled by user.");
-                    Toast.makeText(PlayerActivity.this, "Clipping Cancelled", Toast.LENGTH_SHORT).show();
-                } else {
-                    Log.e("msg3", String.format("Command execution failed with rc=%d and the output below.", rc));
-                    Toast.makeText(PlayerActivity.this, "Clipping failed", Toast.LENGTH_SHORT).show();
-                    Config.printLastCommandOutput(Log.INFO);
-                }
-                recordingClipProcessing = false;
-                controlLabelLayout.setVisibility(View.INVISIBLE);
+        FFmpeg.executeAsync(trimCommand, (executionId, rc) -> {
+            if (rc == RETURN_CODE_SUCCESS) {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(MediaStore.Video.Media.TITLE, title);
+                contentValues.put(MediaStore.Video.Media.MIME_TYPE, "video/mp4");
+                contentValues.put(MediaStore.Video.Media.DATA, output.getAbsolutePath());
+
+                ContentResolver contentResolver = getContentResolver();
+                contentResolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, contentValues);
+                contentValues.clear();
+
+                Log.e("msg1", "Command execution completed successfully.");
+
+                Toast.makeText(PlayerActivity.this, "Clip Saved", Toast.LENGTH_SHORT).show();
+            } else if (rc == RETURN_CODE_CANCEL) {
+                Log.e("msg2", "Command execution cancelled by user.");
+                Toast.makeText(PlayerActivity.this, "Clipping Cancelled", Toast.LENGTH_SHORT).show();
+            } else {
+                Log.e("msg3", String.format("Command execution failed with rc=%d and the output below.", rc));
+                Toast.makeText(PlayerActivity.this, "Clipping failed", Toast.LENGTH_SHORT).show();
+                Config.printLastCommandOutput(Log.INFO);
             }
+            recordingClipProcessing = false;
+            controlLabelLayout.setVisibility(View.INVISIBLE);
         });
 
         Config.enableStatisticsCallback(new StatisticsCallback() {
@@ -746,5 +769,11 @@ ffmpeg = FFmpeg.getInstance(PlayerActivity.this);
     }
 
  */
+
+// </editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc="DEPRECATED V3.5">
+
+//            final String[] complexCommand = {"-i", sourcePath, "-ss",startMs/1000 + "","-c:v","copy", "-t", ((endMs-startMs)/1000) + "", destinationPath.getAbsolutePath()};
 
 // </editor-fold>

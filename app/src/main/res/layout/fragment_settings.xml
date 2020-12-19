@@ -47,7 +47,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_marginTop="5dp"
             android:background="?settingsItemBackground"
             android:orientation="horizontal"
@@ -64,23 +64,23 @@
                 android:layout_weight="7"
                 />
 
-            <EditText
+            <com.zulfikar.aaiplayer.PickerWheel
                 android:id="@+id/txtForwardPlaybackFS"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:textColor="?settingsItemTextColor"
-                android:text="@string/default_forward_playback_time"
                 android:layout_weight="2"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:backgroundTint="?settingsItemBackground"
+                android:gravity="center"
+                android:descendantFocusability="blocksDescendants"
+                app:minVal="1"
+                app:maxVal="60"
+                app:defaultValue="10"
+                android:theme="@style/PickerWheelStyle"
                 tools:ignore="labelFor"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_marginTop="5dp"
             android:background="?settingsItemBackground"
             android:orientation="horizontal"
@@ -96,18 +96,17 @@
                 android:textSize="20sp"
                 android:layout_weight="7" />
 
-            <EditText
+            <com.zulfikar.aaiplayer.PickerWheel
                 android:id="@+id/txtBackwardPlaybackFS"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:textColor="?settingsItemTextColor"
-                android:backgroundTint="?settingsItemBackground"
-                android:text="@string/default_backward_playback_time"
+                android:theme="@style/PickerWheelStyle"
+                android:descendantFocusability="blocksDescendants"
+                app:minVal="1"
+                app:maxVal="60"
+                app:defaultValue="10"
                 android:layout_weight="2"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                tools:ignore="labelFor"/>
+                android:gravity="center"/>
         </LinearLayout>
 
         <LinearLayout
