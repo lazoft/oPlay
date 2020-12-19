@@ -3,6 +3,7 @@ package com.zulfikar.aaiplayer;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,6 +32,7 @@ public class SettingsFragment extends Fragment {
     public static final String BACKGROUND_PLAYBACK_STATE = "background_playback_state";
 //    private static final String TAG = "Settings Fragment DEBUG";
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
@@ -53,6 +55,7 @@ public class SettingsFragment extends Fragment {
         switchBackgroundPlayback.setChecked(sharedPreferences.getBoolean(BACKGROUND_PLAYBACK_STATE,true));
 //        txtBackwardPlayback.setText(sharedPreferences.getString("backward_jumper_time", "10"));
 //        txtForwardPlayback.setText(sharedPreferences.getString("forward_jumper_time", "10"));
+
 
         txtBackwardPlayback.setValue(sharedPreferences.getInt("backward_jumper_time", 10));
         txtForwardPlayback.setValue(sharedPreferences.getInt("forward_jumper_time", 10));

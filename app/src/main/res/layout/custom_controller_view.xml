@@ -6,6 +6,18 @@
     android:background="@color/customControllerBackground"
     android:id="@+id/custom_controller_layout">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-black"
+        android:id="@+id/movieName"
+        android:textColor="@color/colorWhite"/>
+        <!--android:textColor="?bottomNavItemChecked"-->
+
     <LinearLayout
         android:id="@+id/control_label_layout"
         android:layout_width="wrap_content"
@@ -13,6 +25,8 @@
         android:layout_centerHorizontal="true"
         android:visibility="invisible"
         android:layout_above="@+id/playbackControl">
+
+
 
         <TextView
             android:id="@+id/control_label"
@@ -38,6 +52,7 @@
             android:layout_margin="10dp"
             android:src="@drawable/ic_baseline_replay_10"
             android:contentDescription="@string/no_description"/>
+            <!--app:tint="?bottomNavItemChecked"-->
 
         <com.zulfikar.aaiplayer.ImageViewButton
             android:id="@+id/btnRotate"
@@ -93,7 +108,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:unplayed_color="#aaa"
-            app:played_color="#03A9F4"
+            app:played_color="?bottomNavItemChecked"
             android:layout_marginBottom="20dp"/>
 
         <TextView
@@ -101,26 +116,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/exo_progress"
-            android:layout_alignLeft="@+id/exo_progress"
+
             android:layout_alignStart="@+id/exo_progress"
             android:paddingTop="20dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColor="#fff"/>
+            <!--android:layout_alignLeft="@+id/exo_progress"-->
 
         <TextView
             android:id="@+id/exo_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/exo_progress"
-            android:layout_alignRight="@+id/exo_progress"
+
             android:layout_alignEnd="@+id/exo_progress"
             android:paddingTop="20dp"
             android:paddingRight="10dp"
             android:paddingEnd="10dp"
             android:paddingLeft="10dp"
             android:textColor="#fff" />
+            <!--android:layout_alignRight="@+id/exo_progress"-->
 
     </RelativeLayout>
+
+
 
 </RelativeLayout>

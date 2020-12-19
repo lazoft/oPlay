@@ -82,7 +82,7 @@ public class PlayerActivity extends AppCompatActivity {
     RelativeLayout customController, timeBarLayout;
     SimpleExoPlayer simpleExoPlayer;
     String title, sender, path, recordingProcessStatus;
-    TextView controlLabel;
+    TextView controlLabel, movieName;
 
     boolean  recordingClip, recordingClipProcessing, controllerVisible = true, orientation = true, pip = false;
     int forwardJumpTime, backwardJumpTime, position = -1;
@@ -131,7 +131,8 @@ public class PlayerActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(PLAYBACK_JUMPER_PREFERENCE, MODE_PRIVATE);
         playerView = findViewById(R.id.exoplayer_movie);
         customController = findViewById(R.id.cloneCustomController);
-        btnPip = findViewById(R.id.btnPiP);
+//        btnPip = findViewById(R.id.btnPiP);
+        movieName = findViewById(R.id.movieName);
 
         title = getIntent().getStringExtra("title");
         position = getIntent().getIntExtra("position", -1);
@@ -154,6 +155,9 @@ public class PlayerActivity extends AppCompatActivity {
     private void playVideo(long duration) {
         if (path != null) {
             Uri uri = Uri.parse(path);
+//            int index = path.lastIndexOf("\\");
+            movieName.setText(path.substring( path.lastIndexOf("/") + 1));
+
             simpleExoPlayer = new SimpleExoPlayer.Builder(this).build();
             DataSource.Factory factory = new DefaultDataSourceFactory(this, Util.getUserAgent(this, "Olosh Player"));
             ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
@@ -221,11 +225,13 @@ public class PlayerActivity extends AppCompatActivity {
                 playbackController.setVisibility(View.INVISIBLE);
                 timeBarLayout.setVisibility(View.INVISIBLE);
                 controlLabelLayout.setVisibility(View.INVISIBLE);
+                movieName.setVisibility(View.INVISIBLE);
                 controllerVisible = false;
             } else {
                 v.setBackgroundColor(ContextCompat.getColor(PlayerActivity.this, R.color.customControllerBackground));
                 playbackController.setVisibility(View.VISIBLE);
                 timeBarLayout.setVisibility(View.VISIBLE);
+                movieName.setVisibility(View.VISIBLE);
                 if (recordingClipProcessing) controlLabelLayout.setVisibility(View.VISIBLE);
                 controllerVisible = true;
             }
@@ -268,6 +274,7 @@ public class PlayerActivity extends AppCompatActivity {
             playbackController.setVisibility(View.INVISIBLE);
             timeBarLayout.setVisibility(View.INVISIBLE);
             controlLabelLayout.setVisibility(View.INVISIBLE);
+            movieName.setVisibility(View.INVISIBLE);
 //                btnPlayPause.setVisibility(View.VISIBLE);
             controllerVisible = false;
             Log.e("msg", pip+" pip " );
@@ -275,30 +282,30 @@ public class PlayerActivity extends AppCompatActivity {
         });
 
         //Screen rotation method, has some issues
-       btnRotate.setOnTouchListener(new View.OnTouchListener() {
-           @Override
-           public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (orientation){
-                    orientation = false;
-                } else {
-                    orientation = true;
-                    return false;
-                }
+       btnRotate.setOnTouchListener((view, motionEvent) -> {
+            if (orientation){
+                orientation = false;
+            } else {
+                orientation = true;
+                return false;
+            }
 //                simpleExoPlayer.setVideoScalingMode(C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
-               int i = getRequestedOrientation();
-               Log.e("orientation in method ", i+"");
-               if (getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
-                   setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+           int i = getRequestedOrientation();
+           Log.e("orientation in method ", i+"");
+           if (getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+               setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 //                   i = PlayerActivity.this.getRequestedOrientation();
-                   Log.e("orientation in if ", i+"");
-               }
-               else {
-                   setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-//                   i = PlayerActivity.this.getRequestedOrientation();
-                   Log.e("orientation in else ", i+"");
-               }
-               return true;
+               Log.e("orientation in if ", i+"");
            }
+           else {
+               setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//                   i = PlayerActivity.this.getRequestedOrientation();
+               Log.e("orientation in else ", i+"");
+
+           }
+
+           view.performClick();
+           return true;
        });
 
 //        btnRotate.setOnClickListener(new View.OnClickListener() {

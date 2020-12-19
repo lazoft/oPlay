@@ -6,10 +6,13 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.MediaMetadataRetriever;
+import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -31,10 +34,13 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.MissingFormatArgumentException;
 
 public class MainActivity extends AppCompatActivity implements ActivityUtility {
 
     private static final int REQUEST_CODE_PERMISSION = 123;
+//    public final MediaPlayer mp = MediaPlayer.create(MainActivity.this, R.raw.tick);
+//    public final MediaPlayer mp = MediaPlayer.create(MainActivity.this, R.raw.tick);;
 //    private static final String TAG = "MAIN_ACTIVITY_LOG";
 
     BottomNavigationView bottomNav;
@@ -185,8 +191,21 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
         ArrayList<VideoFiles> videoFiles = new ArrayList<>();
         ArrayList<String> folderList = new ArrayList<>();
         Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-        String[] projection = {MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, MediaStore.Video.Media.DISPLAY_NAME, MediaStore.Video.Media.DURATION};
+
+        //TRYING TO FIX ERRORS FOR API 24
+//        String [] projection = makeProjection(Build.VERSION.SDK_INT, Build.VERSION_CODES.Q);
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+//            String [] projection = {MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, MediaStore.Video.Media.DISPLAY_NAME, MediaStore.Video.Media.DURATION};
+//        } else {
+//            String [] projection = {MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, MediaStore.Video.Media.DISPLAY_NAME};
+//        }
+
+//        String [] projection = {MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, MediaStore.Video.Media.DISPLAY_NAME, MediaStore.Video.Media.DURATION};
+
+        String [] projection = {MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, MediaStore.Video.Media.DISPLAY_NAME, MediaStore.Video.Media.DURATION};
         Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
+
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         if (cursor != null) {
             while(cursor.moveToNext()) {
@@ -246,6 +265,16 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
             loadFragment(fragmentTransaction, new SettingsFragment());
         }
     }
+
+//    private String [] makeProjection(int version, int q) {
+//        if (version >= q){
+//            Log.e("MSG", "API29");
+//            return new String[]{MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, MediaStore.Video.Media.DISPLAY_NAME, MediaStore.Video.Media.DURATION};
+//        } else {
+//            Log.e("MSG", "API24");
+//            return new String[]{MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, MediaStore.Video.Media.DISPLAY_NAME};
+//        }
+//    }
 
     @Override
     public void saveInstanceState(Bundle bundle) {

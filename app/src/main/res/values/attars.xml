@@ -20,6 +20,7 @@
     <attr name="switchBackgroundPlaybackOff" format="color"/>
     <attr name="themeText" format="string"/>
     <attr name="themeInfo" format="reference"/>
+    <attr name="videoTitle" format="reference"/>
 
     <declare-styleable name="PickerWheel">
         <attr name="maxVal" format="integer"/>

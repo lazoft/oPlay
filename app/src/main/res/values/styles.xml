@@ -23,6 +23,7 @@
         <item name="settingsSwitchThumbOff">@color/settingsSwitchThumbOff</item>
         <item name="settingsSwitchTrackOn">@color/settingsSwitchTrackOn</item>
         <item name="settingsSwitchTrackOff">@color/settingsSwitchTrackOff</item>
+        <item name="videoTitle">@color/settingItemTextColor</item>
         
     </style>
 
@@ -49,6 +50,7 @@
         <item name="settingsSwitchThumbOff">@color/tasniaSettingsSwitchThumbOff</item>
         <item name="settingsSwitchTrackOn">@color/tasniaSettingsSwitchTrackOn</item>
         <item name="settingsSwitchTrackOff">@color/tasniaSettingsSwitchTrackOff</item>
+        <item name="videoTitle">@color/tasniaPrimary</item>
     </style>
 
     <style name="RimiTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -74,6 +76,7 @@
         <item name="settingsSwitchThumbOff">@color/rimiSettingsSwitchThumbOff</item>
         <item name="settingsSwitchTrackOn">@color/rimiSettingsSwitchTrackOn</item>
         <item name="settingsSwitchTrackOff">@color/rimiSettingsSwitchTrackOff</item>
+        <item name="videoTitle">@color/rimiPrimary</item>
     </style>
 
     <style name="SoulMateTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -99,6 +102,7 @@
         <item name="settingsSwitchThumbOff">@color/soulmateSettingsSwitchThumbOff</item>
         <item name="settingsSwitchTrackOn">@color/soulmateSettingsSwitchTrackOn</item>
         <item name="settingsSwitchTrackOff">@color/soulmateSettingsSwitchTrackOff</item>
+        <item name="videoTitle">@color/soulmateAccent</item>
     </style>
 
     <style name="InLawsTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -124,6 +128,7 @@
         <item name="settingsSwitchThumbOff">@color/inlawsSettingsSwitchThumbOff</item>
         <item name="settingsSwitchTrackOn">@color/inlawsSettingsSwitchTrackOn</item>
         <item name="settingsSwitchTrackOff">@color/inlawsSettingsSwitchTrackOff</item>
+        <item name="videoTitle">@color/inlawsAccent</item>
     </style>
 
     <style name="BangladeshTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -149,6 +154,7 @@
         <item name="settingsSwitchThumbOff">@color/bangladeshSettingsSwitchThumbOff</item>
         <item name="settingsSwitchTrackOn">@color/bangladeshSettingsSwitchTrackOn</item>
         <item name="settingsSwitchTrackOff">@color/bangladeshSettingsSwitchTrackOff</item>
+        <item name="videoTitle">@color/bangladeshColorText</item>
     </style>
 
     <style name="SaudiArabiaTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -174,6 +180,7 @@
         <item name="settingsSwitchThumbOff">@color/saudiArabiaSettingsSwitchThumbOff</item>
         <item name="settingsSwitchTrackOn">@color/saudiArabiaSettingsSwitchTrackOn</item>
         <item name="settingsSwitchTrackOff">@color/saudiArabiaSettingsSwitchTrackOff</item>
+        <item name="videoTitle">@color/colorAccent</item>
     </style>
 
     <style name="JapanTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -200,6 +207,7 @@
         <item name="settingsSwitchTrackOn">@color/japanSettingsSwitchTrackOn</item>
         <item name="settingsSwitchTrackOff">@color/japanSettingsSwitchTrackOff</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="videoTitle">@color/japanColorText</item>
     </style>
 
     <style name="EditTextTheme">
