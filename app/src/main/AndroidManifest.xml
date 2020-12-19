@@ -30,7 +30,8 @@
         <activity android:name=".VideoFolderActivity" />
         <activity
             android:name=".PlayerActivity"
-            android:configChanges="orientation|screenSize" />
+            android:configChanges="smallestScreenSize|screenLayout|orientation|screenSize"
+            android:supportsPictureInPicture="true"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

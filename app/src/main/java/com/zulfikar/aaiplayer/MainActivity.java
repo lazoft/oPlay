@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
         ArrayList<VideoFiles> videoFiles = new ArrayList<>();
         ArrayList<String> folderList = new ArrayList<>();
         Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-        String[] projection = {MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, MediaStore.Video.Media.DISPLAY_NAME};
+        String[] projection = {MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, MediaStore.Video.Media.DISPLAY_NAME, MediaStore.Video.Media.DURATION};
         Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         if (cursor != null) {
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
                 String size = cursor.getString(3);
                 String dateAdded = cursor.getString(4);
                 String fileName = cursor.getString(5);
-                String duration = "0";
+                String duration = cursor.getString(6);
                 try { retriever.setDataSource(path); }
                 catch (Exception e) { retriever = null; }
                 if (retriever != null) duration = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);

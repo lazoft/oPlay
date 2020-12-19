@@ -40,12 +40,27 @@
             android:contentDescription="@string/no_description"/>
 
         <com.zulfikar.aaiplayer.ImageViewButton
+            android:id="@+id/btnRotate"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_baseline_change_circle_24"
+            android:contentDescription="@string/no_description" />
+
+        <com.zulfikar.aaiplayer.ImageViewButton
             android:id="@+id/exo_play"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="10dp"
             android:src="@drawable/ic_baseline_pause_circle_outline"
             android:contentDescription="@string/no_description" />
+
+        <com.zulfikar.aaiplayer.ImageViewButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_baseline_picture_in_picture_alt_24"
+            android:id="@+id/btnPiP"/>
 
         <com.zulfikar.aaiplayer.ImageViewButton
             android:id="@+id/btnCapture"
@@ -64,6 +79,8 @@
             android:contentDescription="@string/no_description" />
 
     </LinearLayout>
+
+
 
     <RelativeLayout
         android:id="@+id/time_bar_layout"
