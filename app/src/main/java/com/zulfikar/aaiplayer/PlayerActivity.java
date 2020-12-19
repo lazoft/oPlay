@@ -30,6 +30,7 @@ import com.arthenica.mobileffmpeg.ExecuteCallback;
 import com.arthenica.mobileffmpeg.FFmpeg;
 import com.arthenica.mobileffmpeg.Statistics;
 import com.arthenica.mobileffmpeg.StatisticsCallback;
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.analytics.AnalyticsListener;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
@@ -262,17 +263,15 @@ public class PlayerActivity extends AppCompatActivity {
         });
 
         //pip method, works for now, requires some management
-        btnPip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                enterPictureInPictureMode();
-                playbackController.setVisibility(View.INVISIBLE);
-                timeBarLayout.setVisibility(View.INVISIBLE);
-                controlLabelLayout.setVisibility(View.INVISIBLE);
-                controllerVisible = false;
-                Log.e("msg", pip+" pip " );
+        btnPip.setOnClickListener(view -> {
+            enterPictureInPictureMode();
+            playbackController.setVisibility(View.INVISIBLE);
+            timeBarLayout.setVisibility(View.INVISIBLE);
+            controlLabelLayout.setVisibility(View.INVISIBLE);
+//                btnPlayPause.setVisibility(View.VISIBLE);
+            controllerVisible = false;
+            Log.e("msg", pip+" pip " );
 
-            }
         });
 
         //Screen rotation method, has some issues
@@ -285,21 +284,20 @@ public class PlayerActivity extends AppCompatActivity {
                     orientation = true;
                     return false;
                 }
+//                simpleExoPlayer.setVideoScalingMode(C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
                int i = getRequestedOrientation();
                Log.e("orientation in method ", i+"");
                if (getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 //                   i = PlayerActivity.this.getRequestedOrientation();
                    Log.e("orientation in if ", i+"");
-                    return true;
                }
                else {
                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 //                   i = PlayerActivity.this.getRequestedOrientation();
                    Log.e("orientation in else ", i+"");
-                   return true;
                }
-//               return false;
+               return true;
            }
        });
 
