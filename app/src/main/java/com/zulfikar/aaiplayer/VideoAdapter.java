@@ -1,5 +1,6 @@
 package com.zulfikar.aaiplayer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -40,7 +41,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
         holder.fileName.setText(videoFiles.get(position).getTitle());
         holder.videoDuration.setText(getDuration(position));
         Glide.with(mContext).load(new File(videoFiles.get(position).getPath())).into(holder.thumbnail);
-        holder.menuMore.setOnClickListener(v -> {});
         holder.itemView.setOnClickListener(v -> startPlayerActivity(position));
     }
 
@@ -69,18 +69,14 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView thumbnail, menuMore;
+        ImageView thumbnail;
         TextView fileName, videoDuration;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             thumbnail = itemView.findViewById(R.id.thumbnailImage);
-            menuMore = itemView.findViewById(R.id.menu_more);
             fileName = itemView.findViewById(R.id.video_file_name);
             videoDuration = itemView.findViewById(R.id.thumbnailDuration);
         }
     }
-
-
-
 }

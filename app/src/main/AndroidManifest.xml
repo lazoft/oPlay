@@ -20,22 +20,19 @@
         android:roundIcon="@mipmap/app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".PlaylistChooserActivity"
-            android:label="@string/title_activity_playlist_chooser"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".SettingsActivity"/>
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".PlaylistChooserActivity"/>
         <activity android:name=".AboutActivity" />
         <activity android:name=".UnderMaintenanceActivity" />
         <activity android:name=".ThemeActivity" />
         <activity android:name=".VideoFolderActivity" />
-        <activity
-            android:name=".PlayerActivity"
-            android:configChanges="orientation|screenSize" />
+        <activity android:name=".PlayerActivity" android:configChanges="orientation|screenSize" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

@@ -16,6 +16,7 @@
         android:layout_alignParentTop="true">
 
         <ImageView
+            android:id="@+id/imgOloshLogoAA"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@drawable/logo"
@@ -316,6 +317,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/rowSohanRockStar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

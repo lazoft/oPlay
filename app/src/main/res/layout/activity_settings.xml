@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:background="?colorPrimary"
+android:id="@+id/frameLayoutAS"
+tools:context=".SettingsActivity">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:weightSum="14">
+
+    <TextView
+        android:id="@+id/btnPlaylistAS"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/settings_button_background"
+        android:gravity="center_vertical"
+        android:textColor="?settingsItemTextColor"
+        android:text="@string/button_playlist_text"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingEnd="10dp"
+        android:paddingRight="10dp"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:background="?settingsItemBackground"
+        android:orientation="horizontal"
+        android:weightSum="9">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
+            android:textColor="?settingsItemTextColor"
+            android:text="@string/forward_playback_duration"
+            android:textSize="20sp"
+            android:layout_weight="7"
+            />
+
+        <com.zulfikar.aaiplayer.PickerWheel
+            android:id="@+id/txtForwardPlaybackAS"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:descendantFocusability="blocksDescendants"
+            app:minVal="1"
+            app:maxVal="60"
+            app:defaultValue="10"
+            android:theme="@style/PickerWheelStyle"
+            tools:ignore="labelFor"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:background="?settingsItemBackground"
+        android:orientation="horizontal"
+        android:weightSum="9">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
+            android:textColor="?settingsItemTextColor"
+            android:text="@string/backward_playback_duration"
+            android:textSize="20sp"
+            android:layout_weight="7" />
+
+        <com.zulfikar.aaiplayer.PickerWheel
+            android:id="@+id/txtBackwardPlaybackAS"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:theme="@style/PickerWheelStyle"
+            android:descendantFocusability="blocksDescendants"
+            app:minVal="1"
+            app:maxVal="60"
+            app:defaultValue="10"
+            android:layout_weight="2"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:background="?settingsItemBackground"
+        android:orientation="horizontal"
+        android:weightSum="9">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
+            android:textColor="?settingsItemTextColor"
+            android:text="@string/background_playback"
+            android:textSize="20sp"
+            android:layout_weight="7"
+            />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchBackgroundPlaybackAS"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="2"
+            app:trackTint="@color/settings_switch_track_selector"
+            app:thumbTint="@color/settings_switch_thumb_selector"
+            android:checked="true"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btnChangeThemeAS"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/settings_button_background"
+        android:gravity="center_vertical"
+        android:textColor="?settingsItemTextColor"
+        android:text="@string/change_theme"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingEnd="10dp"
+        android:paddingRight="10dp"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/btnChangeLanguage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/settings_button_background"
+        android:gravity="center_vertical"
+        android:textColor="?settingsItemTextColor"
+        android:text="@string/btn_change_language_text"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingEnd="10dp"
+        android:paddingRight="10dp"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/btnWifiShareAS"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/settings_button_background"
+        android:gravity="center_vertical"
+        android:textColor="?settingsItemTextColor"
+        android:text="@string/wifi_share"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingEnd="10dp"
+        android:paddingRight="10dp"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/btnVideoSnapsAS"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/settings_button_background"
+        android:gravity="center_vertical"
+        android:textColor="?settingsItemTextColor"
+        android:text="@string/button_video_snaps_text"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingEnd="10dp"
+        android:paddingRight="10dp"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/btnVideoRecordedClipsAS"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/settings_button_background"
+        android:gravity="center_vertical"
+        android:textColor="?settingsItemTextColor"
+        android:text="@string/button_video_recorded_clips_text"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingEnd="10dp"
+        android:paddingRight="10dp"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/btnResetSettingsAS"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/settings_button_background"
+        android:gravity="center_vertical"
+        android:textColor="?settingsItemTextColor"
+        android:text="@string/reset_settings"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingEnd="10dp"
+        android:paddingRight="10dp"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/btnFeedbackAS"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/settings_button_background"
+        android:gravity="center_vertical"
+        android:textColor="?settingsItemTextColor"
+        android:text="@string/button_send_feedback_text"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingEnd="10dp"
+        android:paddingRight="10dp"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/btnUpdateAS"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/settings_button_background"
+        android:gravity="center_vertical"
+        android:textColor="?settingsItemTextColor"
+        android:text="@string/button_update_text"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingEnd="10dp"
+        android:paddingRight="10dp"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/btnAboutAS"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/settings_button_background"
+        android:gravity="center_vertical"
+        android:textColor="?settingsItemTextColor"
+        android:text="@string/about_button_text"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingEnd="10dp"
+        android:paddingRight="10dp"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/btnExitAS"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/settings_button_background"
+        android:gravity="center_vertical"
+        android:textColor="?settingsItemTextColor"
+        android:text="@string/button_exit_text"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingEnd="10dp"
+        android:paddingRight="10dp"
+        android:textSize="20sp"/>
+
+</LinearLayout>
+
+</ScrollView>

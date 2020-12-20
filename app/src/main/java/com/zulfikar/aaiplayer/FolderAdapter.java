@@ -17,11 +17,20 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.MyHolder> 
     private final ArrayList<String> folderName;
     private final FragmentActivity mContext;
 
+    private View titleBar, bottomNavBar;
+
     public static String folderTitle;
 
     public FolderAdapter(ArrayList<String> folderName, FragmentActivity mContext) {
         this.folderName = folderName;
         this.mContext = mContext;
+    }
+
+    public FolderAdapter(ArrayList<String> folderName, FragmentActivity mContext, View titleBar, View bottomNavBar) {
+        this.folderName = folderName;
+        this.mContext = mContext;
+        this.titleBar = titleBar;
+        this.bottomNavBar = bottomNavBar;
     }
 
     @NonNull
@@ -34,11 +43,14 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.MyHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
         holder.folder.setText(folderName.get(position));
-        holder.itemView.setOnClickListener(v -> {
-            folderTitle = folderName.get(position);
-            FolderVideoFragment folderVideoFragment = new FolderVideoFragment();
-            mContext.getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, folderVideoFragment).commit();
-        });
+        holder.itemView.setOnClickListener(v -> openFolder(position));
+    }
+
+    private void openFolder(int position) {
+        folderTitle = folderName.get(position);
+        FolderVideoFragment folderVideoFragment = new FolderVideoFragment();
+        if (mContext instanceof MainActivity) mContext.getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, folderVideoFragment).commit();
+        else if (mContext instanceof HomeActivity) mContext.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.to_left).replace(R.id.mainFragmentAH, folderVideoFragment.setBars(titleBar, bottomNavBar).setInitialPaddingTop(250)).commit();
     }
 
     @Override

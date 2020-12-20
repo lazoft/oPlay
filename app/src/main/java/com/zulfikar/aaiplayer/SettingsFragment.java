@@ -58,12 +58,15 @@ public class SettingsFragment extends Fragment {
         txtForwardPlayback.setValue(sharedPreferences.getInt("forward_jumper_time", 10));
 
         addListeners();
-        setOnClickForUpcomingButtons(btnMyAccount, btnChangeLanguage, btnWifiShare, btnResetSettings, btnSendFeedback, btnUpdate);
+        setOnClickForUpcomingButtons(btnChangeLanguage, btnWifiShare, btnResetSettings, btnSendFeedback, btnUpdate);
         return view;
     }
 
     public void setOnClickForUpcomingButtons(TextView... buttons) {
-        for (TextView button : buttons) button.setOnClickListener(v -> startActivity(new Intent(getActivity(), UnderMaintenanceActivity.class)));
+        for (TextView button : buttons) button.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), UnderMaintenanceActivity.class));
+            getActivity().overridePendingTransition(R.anim.from_right, R.anim.to_left);
+        });
     }
 
     private void addListeners() {
@@ -71,6 +74,7 @@ public class SettingsFragment extends Fragment {
             Intent themeActivityIntent = new Intent(getActivity(), ThemeActivity.class);
             themeActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(themeActivityIntent);
+            getActivity().overridePendingTransition(R.anim.from_right, R.anim.to_left);
         });
 //        txtBackwardPlayback.addTextChangedListener(new TextWatcher() {
 //            @Override
@@ -146,6 +150,14 @@ public class SettingsFragment extends Fragment {
             Intent playlistChooserIntent = new Intent(getActivity(), PlaylistChooserActivity.class);
             playlistChooserIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(playlistChooserIntent);
+            getActivity().overridePendingTransition(R.anim.from_right, R.anim.to_left);
+        });
+
+        btnMyAccount.setOnClickListener(v -> {
+            Intent homeIntent = new Intent(getActivity(), HomeActivity.class);
+            homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
+            getActivity().overridePendingTransition(R.anim.from_up, R.anim.to_down);
         });
 
         btnExit.setOnClickListener(v -> System.exit(0));

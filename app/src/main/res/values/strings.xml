@@ -3,9 +3,9 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="forward_playback_duration">Forward Playback Duration:</string>
+    <string name="forward_playback_duration">Forward Seek:</string>
     <string name="default_forward_playback_time">10</string>
-    <string name="backward_playback_duration">Backward Playback Duration:</string>
+    <string name="backward_playback_duration">Backward Seek:</string>
     <string name="default_backward_playback_time">10</string>
     <string name="no_description" />
     <string name="folder_name">Folder Name</string>
@@ -14,7 +14,7 @@
     <string name="folder_label">Folder</string>
     <string name="video_label">Videos</string>
     <string name="settings_label">Settings</string>
-    <string name="my_account">My Account</string>
+    <string name="my_account">Dashboard</string>
     <string name="wifi_share">Wifi Share</string>
     <string name="reset_settings">Reset Settings</string>
     <string name="themeCaption">Choose Theme</string>
@@ -69,8 +69,8 @@
     <string name="role_sohan">Quality Assurance Manager</string>
     <string name="role_afsan">Lead Developer</string>
     <string name="role_adnan">Intern Developer</string>
-    <string name="app_version">Version 1.0</string>
-    <string name="app_build">Build 127</string>
+    <string name="app_version">Version 1.1</string>
+    <string name="app_build">Build 162</string>
     <string name="capture_label">Snap Current Frame</string>
     <string name="start_clip_record_label">Start Clip Record</string>
     <string name="stop_clip_recording_label">Stop Clip Recording</string>
@@ -82,7 +82,4 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

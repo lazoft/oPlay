@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (savedInstanceState == null) savedInstanceState = getIntent().getBundleExtra("saved_state");
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+//        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         themeId = Theme.applyTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -142,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
         } else {
             if (System.currentTimeMillis() - backPressedRecord <= 2100) {
                 super.onBackPressed();
+                overridePendingTransition(R.anim.from_down, R.anim.to_down);
             } else {
                 Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
             }
@@ -157,7 +158,6 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
                 Snackbar.make(MainActivity.this.bottomNav, "Applying theme. Please wait...", Snackbar.LENGTH_SHORT).show();
                 mainActivityHandler.postDelayed(() -> Theme.recreate(MainActivity.this, MainActivity.this), 300);
             }).start();
-
         }
     }
 

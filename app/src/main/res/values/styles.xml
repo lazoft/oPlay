@@ -18,11 +18,12 @@
         <item name="surpriseText">@string/defaultThemeText</item>
         <item name="themeText">@string/defaultThemeText</item>
         <item name="themeInfo">@string/defaultThemeInfo</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="settingsSwitchThumbOn">@color/settingsSwitchThumbOn</item>
         <item name="settingsSwitchThumbOff">@color/settingsSwitchThumbOff</item>
         <item name="settingsSwitchTrackOn">@color/settingsSwitchTrackOn</item>
         <item name="settingsSwitchTrackOff">@color/settingsSwitchTrackOff</item>
+        <item name="colorRecentlyPlayedCardTitleBackground">@color/colorRecentlyPlayedCardTitleBackground</item>
+        <item name="colorPlaylistCardTitleBackground">@color/colorPlaylistCardTitleBackground</item>
         
     </style>
 
@@ -44,11 +45,12 @@
         <item name="surpriseText">@string/tasniaThemeText</item>
         <item name="themeText">@string/tasniaThemeText</item>
         <item name="themeInfo">@string/tasniaThemeInfo</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="settingsSwitchThumbOn">@color/tasniaSettingsSwitchThumbOn</item>
         <item name="settingsSwitchThumbOff">@color/tasniaSettingsSwitchThumbOff</item>
         <item name="settingsSwitchTrackOn">@color/tasniaSettingsSwitchTrackOn</item>
         <item name="settingsSwitchTrackOff">@color/tasniaSettingsSwitchTrackOff</item>
+        <item name="colorRecentlyPlayedCardTitleBackground">@color/tasniaColorRecentlyPlayedCardTitleBackground</item>
+        <item name="colorPlaylistCardTitleBackground">@color/tasniaColorPlaylistCardTitleBackground</item>
     </style>
 
     <style name="RimiTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -69,11 +71,12 @@
         <item name="surpriseText">@string/rimiThemeText</item>
         <item name="themeText">@string/rimiThemeText</item>
         <item name="themeInfo">@string/rimiThemeInfo</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="settingsSwitchThumbOn">@color/rimiSettingsSwitchThumbOn</item>
         <item name="settingsSwitchThumbOff">@color/rimiSettingsSwitchThumbOff</item>
         <item name="settingsSwitchTrackOn">@color/rimiSettingsSwitchTrackOn</item>
         <item name="settingsSwitchTrackOff">@color/rimiSettingsSwitchTrackOff</item>
+        <item name="colorRecentlyPlayedCardTitleBackground">@color/rimiColorRecentlyPlayedCardTitleBackground</item>
+        <item name="colorPlaylistCardTitleBackground">@color/rimiColorPlaylistCardTitleBackground</item>
     </style>
 
     <style name="SoulMateTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -94,11 +97,12 @@
         <item name="surpriseText">@string/soulmateThemeText</item>
         <item name="themeText">@string/soulmateThemeText</item>
         <item name="themeInfo">@string/soulmateThemeInfo</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="settingsSwitchThumbOn">@color/soulmateSettingsSwitchThumbOn</item>
         <item name="settingsSwitchThumbOff">@color/soulmateSettingsSwitchThumbOff</item>
         <item name="settingsSwitchTrackOn">@color/soulmateSettingsSwitchTrackOn</item>
         <item name="settingsSwitchTrackOff">@color/soulmateSettingsSwitchTrackOff</item>
+        <item name="colorRecentlyPlayedCardTitleBackground">@color/soulmateColorRecentlyPlayedCardTitleBackground</item>
+        <item name="colorPlaylistCardTitleBackground">@color/soulmateColorPlaylistCardTitleBackground</item>
     </style>
 
     <style name="InLawsTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -119,11 +123,12 @@
         <item name="surpriseText">@string/inlawsThemeText</item>
         <item name="themeText">@string/inlawsThemeText</item>
         <item name="themeInfo">@string/inlawsThemeInfo</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="settingsSwitchThumbOn">@color/inlawsSettingsSwitchThumbOn</item>
         <item name="settingsSwitchThumbOff">@color/inlawsSettingsSwitchThumbOff</item>
         <item name="settingsSwitchTrackOn">@color/inlawsSettingsSwitchTrackOn</item>
         <item name="settingsSwitchTrackOff">@color/inlawsSettingsSwitchTrackOff</item>
+        <item name="colorRecentlyPlayedCardTitleBackground">@color/inlawsColorRecentlyPlayedCardTitleBackground</item>
+        <item name="colorPlaylistCardTitleBackground">@color/inlawsColorPlaylistCardTitleBackground</item>
     </style>
 
     <style name="BangladeshTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -144,11 +149,12 @@
         <item name="surpriseText">@string/bangladeshThemeText</item>
         <item name="themeText">@string/bangladeshThemeText</item>
         <item name="themeInfo">@string/bangladeshThemeInfo</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="settingsSwitchThumbOn">@color/bangladeshSettingsSwitchThumbOn</item>
         <item name="settingsSwitchThumbOff">@color/bangladeshSettingsSwitchThumbOff</item>
         <item name="settingsSwitchTrackOn">@color/bangladeshSettingsSwitchTrackOn</item>
         <item name="settingsSwitchTrackOff">@color/bangladeshSettingsSwitchTrackOff</item>
+        <item name="colorRecentlyPlayedCardTitleBackground">@color/bangladeshColorRecentlyPlayedCardTitleBackground</item>
+        <item name="colorPlaylistCardTitleBackground">@color/bangladeshColorPlaylistCardTitleBackground</item>
     </style>
 
     <style name="SaudiArabiaTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -169,11 +175,12 @@
         <item name="surpriseText">@string/saudiArabiaThemeText</item>
         <item name="themeText">@string/saudiArabiaThemeText</item>
         <item name="themeInfo">@string/saudiArabiaThemeInfo</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="settingsSwitchThumbOn">@color/saudiArabiaSettingsSwitchThumbOn</item>
         <item name="settingsSwitchThumbOff">@color/saudiArabiaSettingsSwitchThumbOff</item>
         <item name="settingsSwitchTrackOn">@color/saudiArabiaSettingsSwitchTrackOn</item>
         <item name="settingsSwitchTrackOff">@color/saudiArabiaSettingsSwitchTrackOff</item>
+        <item name="colorRecentlyPlayedCardTitleBackground">@color/saudiArabiaColorRecentlyPlayedCardTitleBackground</item>
+        <item name="colorPlaylistCardTitleBackground">@color/saudiArabiaColorPlaylistCardTitleBackground</item>
     </style>
 
     <style name="JapanTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -194,11 +201,12 @@
         <item name="surpriseText">@string/japanThemeText</item>
         <item name="themeText">@string/japanThemeText</item>
         <item name="themeInfo">@string/japanThemeInfo</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="settingsSwitchThumbOn">@color/japanSettingsSwitchThumbOn</item>
         <item name="settingsSwitchThumbOff">@color/japanSettingsSwitchThumbOff</item>
         <item name="settingsSwitchTrackOn">@color/japanSettingsSwitchTrackOn</item>
         <item name="settingsSwitchTrackOff">@color/japanSettingsSwitchTrackOff</item>
+        <item name="colorRecentlyPlayedCardTitleBackground">@color/japanColorRecentlyPlayedCardTitleBackground</item>
+        <item name="colorPlaylistCardTitleBackground">@color/japanColorPlaylistCardTitleBackground</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
@@ -206,12 +214,6 @@
         <item name="colorControlNormal">#00FFFFFF</item>
         <item name="colorControlActivated">#FFFFFF</item>
         <item name="colorControlHighlight">#FFFFFF</item>
-    </style>
-
-    <style name="WindowAnimationTransition">
-        <item name="android:windowActivityTransitions">true</item>
-        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
-        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
     <style name="PickerWheelStyle">
