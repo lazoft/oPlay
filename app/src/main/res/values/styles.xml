@@ -24,7 +24,8 @@
         <item name="settingsSwitchTrackOff">@color/settingsSwitchTrackOff</item>
         <item name="colorRecentlyPlayedCardTitleBackground">@color/colorRecentlyPlayedCardTitleBackground</item>
         <item name="colorPlaylistCardTitleBackground">@color/colorPlaylistCardTitleBackground</item>
-        
+        <item name="videoTitle">@color/settingItemTextColor</item>
+
     </style>
 
     <style name="TasniaTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -51,6 +52,7 @@
         <item name="settingsSwitchTrackOff">@color/tasniaSettingsSwitchTrackOff</item>
         <item name="colorRecentlyPlayedCardTitleBackground">@color/tasniaColorRecentlyPlayedCardTitleBackground</item>
         <item name="colorPlaylistCardTitleBackground">@color/tasniaColorPlaylistCardTitleBackground</item>
+        <item name="videoTitle">@color/tasniaPrimary</item>
     </style>
 
     <style name="RimiTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -75,6 +77,7 @@
         <item name="settingsSwitchThumbOff">@color/rimiSettingsSwitchThumbOff</item>
         <item name="settingsSwitchTrackOn">@color/rimiSettingsSwitchTrackOn</item>
         <item name="settingsSwitchTrackOff">@color/rimiSettingsSwitchTrackOff</item>
+        <item name="videoTitle">@color/rimiPrimary</item>
         <item name="colorRecentlyPlayedCardTitleBackground">@color/rimiColorRecentlyPlayedCardTitleBackground</item>
         <item name="colorPlaylistCardTitleBackground">@color/rimiColorPlaylistCardTitleBackground</item>
     </style>
@@ -103,6 +106,7 @@
         <item name="settingsSwitchTrackOff">@color/soulmateSettingsSwitchTrackOff</item>
         <item name="colorRecentlyPlayedCardTitleBackground">@color/soulmateColorRecentlyPlayedCardTitleBackground</item>
         <item name="colorPlaylistCardTitleBackground">@color/soulmateColorPlaylistCardTitleBackground</item>
+        <item name="videoTitle">@color/soulmateAccent</item>
     </style>
 
     <style name="InLawsTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -129,6 +133,7 @@
         <item name="settingsSwitchTrackOff">@color/inlawsSettingsSwitchTrackOff</item>
         <item name="colorRecentlyPlayedCardTitleBackground">@color/inlawsColorRecentlyPlayedCardTitleBackground</item>
         <item name="colorPlaylistCardTitleBackground">@color/inlawsColorPlaylistCardTitleBackground</item>
+        <item name="videoTitle">@color/inlawsAccent</item>
     </style>
 
     <style name="BangladeshTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -155,6 +160,7 @@
         <item name="settingsSwitchTrackOff">@color/bangladeshSettingsSwitchTrackOff</item>
         <item name="colorRecentlyPlayedCardTitleBackground">@color/bangladeshColorRecentlyPlayedCardTitleBackground</item>
         <item name="colorPlaylistCardTitleBackground">@color/bangladeshColorPlaylistCardTitleBackground</item>
+        <item name="videoTitle">@color/bangladeshColorText</item>
     </style>
 
     <style name="SaudiArabiaTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -181,6 +187,7 @@
         <item name="settingsSwitchTrackOff">@color/saudiArabiaSettingsSwitchTrackOff</item>
         <item name="colorRecentlyPlayedCardTitleBackground">@color/saudiArabiaColorRecentlyPlayedCardTitleBackground</item>
         <item name="colorPlaylistCardTitleBackground">@color/saudiArabiaColorPlaylistCardTitleBackground</item>
+        <item name="videoTitle">@color/colorAccent</item>
     </style>
 
     <style name="JapanTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -208,6 +215,7 @@
         <item name="colorRecentlyPlayedCardTitleBackground">@color/japanColorRecentlyPlayedCardTitleBackground</item>
         <item name="colorPlaylistCardTitleBackground">@color/japanColorPlaylistCardTitleBackground</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="videoTitle">@color/japanColorText</item>
     </style>
 
     <style name="EditTextTheme">

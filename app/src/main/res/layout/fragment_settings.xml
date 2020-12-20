@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?settingsBackground"
     android:id="@+id/frameLayoutFS"
@@ -69,6 +70,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
+                android:soundEffectsEnabled="true"
                 android:gravity="center"
                 android:descendantFocusability="blocksDescendants"
                 app:minVal="1"
@@ -102,6 +104,7 @@
                 android:layout_height="match_parent"
                 android:theme="@style/PickerWheelStyle"
                 android:descendantFocusability="blocksDescendants"
+                android:soundEffectsEnabled="true"
                 app:minVal="1"
                 app:maxVal="60"
                 app:defaultValue="10"
