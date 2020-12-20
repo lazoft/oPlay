@@ -8,8 +8,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import java.util.Objects;
-
 public class AboutActivity extends AppCompatActivity {
 
     LinearLayout rowSohanRockstar;
@@ -26,7 +24,7 @@ public class AboutActivity extends AppCompatActivity {
         Theme.applyTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        rowSohanRockstar = findViewById(R.id.rowSohanRockStar);
+        rowSohanRockstar = findViewById(R.id.rowSohanRockStarAA);
         oloshLogo = findViewById(R.id.imgOloshLogoAA);
 
         rowSohanRockstar.setVisibility(View.GONE);
