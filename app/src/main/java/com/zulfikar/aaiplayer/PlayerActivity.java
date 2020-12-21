@@ -266,7 +266,12 @@ public class PlayerActivity extends AppCompatActivity {
 
         //pip method, works for now, requires some management
         btnPip.setOnClickListener(view -> {
-            enterPictureInPictureMode();
+            try {
+                enterPictureInPictureMode();
+            } catch (IllegalStateException e) {
+                Toast.makeText(PlayerActivity.this, "Doesn't support Picture in Picture", Toast.LENGTH_SHORT).show();
+            }
+            customController.setBackgroundColor(ContextCompat.getColor(PlayerActivity.this, R.color.colorTransparent));
             playbackController.setVisibility(View.INVISIBLE);
             timeBarLayout.setVisibility(View.INVISIBLE);
             controlLabelLayout.setVisibility(View.INVISIBLE);

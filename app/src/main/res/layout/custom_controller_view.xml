@@ -110,6 +110,7 @@
             app:unplayed_color="#aaa"
             app:played_color="?bottomNavItemChecked"
             android:layout_marginBottom="20dp"/>
+            <!--app:scrubber_color="?colorPrimary"-->
 
         <TextView
             android:id="@+id/exo_position"
