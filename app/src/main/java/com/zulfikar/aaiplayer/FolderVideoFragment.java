@@ -27,7 +27,7 @@ public class FolderVideoFragment extends Fragment {
 
     private static boolean loaded;
     private static FolderVideoFragment me;
-    private int paddingTop, saveP, saveQ;
+    private int paddingTop, paddingBottom, saveP, saveQ;
 
     View titleBar, bottomNavBar;
 
@@ -116,8 +116,9 @@ public class FolderVideoFragment extends Fragment {
         return this;
     }
 
-    public FolderVideoFragment setInitialPaddingTop(int paddingTop) {
+    public FolderVideoFragment setInitialPaddingTop(int paddingTop, int paddingBottom) {
         this.paddingTop = paddingTop;
+        this.paddingBottom = paddingBottom;
         return this;
     }
 }

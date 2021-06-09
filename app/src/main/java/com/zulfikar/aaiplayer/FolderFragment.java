@@ -24,7 +24,7 @@ public class FolderFragment extends Fragment implements Serializable {
     private static boolean loaded;
     @SuppressLint("StaticFieldLeak")
     private static FolderFragment me;
-    private int paddingTop, saveP, saveQ;
+    private int paddingTop, paddingBottom, saveP, saveQ;
 
     View titleBar, bottomNavBar;
 
@@ -99,8 +99,9 @@ public class FolderFragment extends Fragment implements Serializable {
         return this;
     }
 
-    public FolderFragment setInitialPaddingTop(int paddingTop) {
+    public FolderFragment setInitialPaddingTop(int paddingTop, int paddingBottom) {
         this.paddingTop = paddingTop;
+        this.paddingBottom = paddingBottom;
         return this;
     }
 }

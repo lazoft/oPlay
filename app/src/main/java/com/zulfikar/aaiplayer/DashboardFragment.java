@@ -21,7 +21,7 @@ public class DashboardFragment extends Fragment {
     float titleBarPosY = -1;
     float bottomNavBarPosY = -1;
 
-    int paddingTop;
+    int paddingTop, paddingBottom;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -101,8 +101,9 @@ public class DashboardFragment extends Fragment {
         return this;
     }
 
-    public DashboardFragment setInitialPaddingTop(int paddingTop) {
+    public DashboardFragment setInitialPaddingTop(int paddingTop, int paddingBottom) {
         this.paddingTop = paddingTop;
+        this.paddingBottom = paddingBottom;
         return this;
     }
 }

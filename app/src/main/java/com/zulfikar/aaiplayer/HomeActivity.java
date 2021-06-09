@@ -82,7 +82,7 @@ public class HomeActivity extends AppCompatActivity implements ActivityUtility {
             fragmentTransaction.setCustomAnimations(anim.from_left, anim.to_right, anim.from_left, anim.to_right);
             fragmentTransaction.replace(R.id.mainFragmentAH, FolderFragment.getInstance());
             fragmentTransaction.commit();
-            FolderFragment.getInstance().setBars(titleBar, bottomNavBar).setInitialPaddingTop(250);;
+            FolderFragment.getInstance().setBars(titleBar, bottomNavBar).setInitialPaddingTop(240, 200);;
             selectedItem = 3;
         } else {
             finish();
@@ -111,7 +111,7 @@ public class HomeActivity extends AppCompatActivity implements ActivityUtility {
             itemCheck(btnDashboard.getId());
             txtLabel.setText("DASHBOARD");
             DashboardFragment dashboardFragment = new DashboardFragment();
-            dashboardFragment.setBars(titleBar, bottomNavBar).setInitialPaddingTop(250);;
+            dashboardFragment.setBars(titleBar, bottomNavBar).setInitialPaddingTop(240, 200);;
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(anim.from_left, anim.to_right, anim.from_left, anim.to_right);
             fragmentTransaction.replace(R.id.mainFragmentAH, dashboardFragment);
@@ -127,7 +127,7 @@ public class HomeActivity extends AppCompatActivity implements ActivityUtility {
             else if (selectedItem > 1) fragmentTransaction.setCustomAnimations(anim.from_left, anim.to_right, anim.from_left, anim.to_right);
             fragmentTransaction.replace(R.id.mainFragmentAH, FilesFragment.getInstance());
             fragmentTransaction.commit();
-            FilesFragment.getInstance().setBars(titleBar, bottomNavBar).setInitialPaddingTop(250);
+            FilesFragment.getInstance().setBars(titleBar, bottomNavBar).setInitialPaddingTop(240, 200);
             selectedItem = 1;
         });
 
@@ -135,7 +135,7 @@ public class HomeActivity extends AppCompatActivity implements ActivityUtility {
             itemCheck(btnPlaylist.getId());
             txtLabel.setText("PLAYLIST");
             PlaylistFragment playlistFragment = new PlaylistFragment();
-            playlistFragment.setBars(titleBar, bottomNavBar).setInitialPaddingTop(250);
+            playlistFragment.setBars(titleBar, bottomNavBar).setInitialPaddingTop(240, 200);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             if (selectedItem < 2) fragmentTransaction.setCustomAnimations(anim.from_right, anim.to_left, anim.from_right, anim.to_left);
             else if (selectedItem > 2) fragmentTransaction.setCustomAnimations(anim.from_left, anim.to_right, anim.from_left, anim.to_right);
@@ -152,7 +152,7 @@ public class HomeActivity extends AppCompatActivity implements ActivityUtility {
             else if (selectedItem == 3) fragmentTransaction.setCustomAnimations(anim.from_left, anim.to_right, anim.from_left, anim.to_right);
             fragmentTransaction.replace(R.id.mainFragmentAH, FolderFragment.getInstance());
             fragmentTransaction.commit();
-            FolderFragment.getInstance().setBars(titleBar, bottomNavBar).setInitialPaddingTop(250);;
+            FolderFragment.getInstance().setBars(titleBar, bottomNavBar).setInitialPaddingTop(240, 200);;
             selectedItem = 3;
         });
 
@@ -261,7 +261,7 @@ public class HomeActivity extends AppCompatActivity implements ActivityUtility {
         itemCheck(btnDashboard.getId());
         txtLabel.setText("DASHBOARD");
         DashboardFragment dashboardFragment = new DashboardFragment();
-        dashboardFragment.setBars(titleBar, bottomNavBar).setInitialPaddingTop(300);;
+        dashboardFragment.setBars(titleBar, bottomNavBar).setInitialPaddingTop(240, 200);;
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.mainFragmentAH, dashboardFragment);
         fragmentTransaction.commit();

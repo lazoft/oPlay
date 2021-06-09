@@ -27,7 +27,7 @@ public class FilesFragment extends Fragment implements Serializable {
 
     private View titleBar, bottomNavBar;
 
-    private int paddingTop, saveP, saveQ;
+    private int paddingTop, paddingBottom, saveP, saveQ;
 
     public FilesFragment() {
         me = this;
@@ -128,8 +128,9 @@ public class FilesFragment extends Fragment implements Serializable {
         return this;
     }
 
-    public FilesFragment setInitialPaddingTop(int paddingTop) {
+    public FilesFragment setInitialPaddingTop(int paddingTop, int paddingBottom) {
         this.paddingTop = paddingTop;
+        this.paddingBottom = paddingBottom;
         return this;
     }
 }

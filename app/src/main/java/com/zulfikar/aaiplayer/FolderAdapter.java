@@ -50,7 +50,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.MyHolder> 
         folderTitle = folderName.get(position);
         FolderVideoFragment folderVideoFragment = new FolderVideoFragment();
         if (mContext instanceof MainActivity) mContext.getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, folderVideoFragment).commit();
-        else if (mContext instanceof HomeActivity) mContext.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.to_left).replace(R.id.mainFragmentAH, folderVideoFragment.setBars(titleBar, bottomNavBar).setInitialPaddingTop(250)).commit();
+        else if (mContext instanceof HomeActivity) mContext.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.to_left).replace(R.id.mainFragmentAH, folderVideoFragment.setBars(titleBar, bottomNavBar).setInitialPaddingTop(240, 200)).commit();
     }
 
     @Override
