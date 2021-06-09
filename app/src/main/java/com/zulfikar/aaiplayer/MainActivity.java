@@ -226,6 +226,7 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
                 if (!folderList.contains(folderName)) {
                     folderList.add(folderName);
                 }
+
                 videoFiles.add(new VideoFiles(id, path, title, fileName, size, dateAdded, duration, folderName));
             }
             cursor.close();
