@@ -53,8 +53,6 @@ public class HomeActivity extends AppCompatActivity implements ActivityUtility {
 //    public final MediaPlayer mp = MediaPlayer.create(MainActivity.this, R.raw.tick);;
 //    private static final String TAG = "MAIN_ACTIVITY_LOG";
 
-    BottomNavigationView bottomNav;
-
     Snackbar videoLoadingSnackBar;
 
     Handler mainActivityHandler = new Handler();
@@ -194,7 +192,7 @@ public class HomeActivity extends AppCompatActivity implements ActivityUtility {
     }
 
     private void load() {
-        videoLoadingSnackBar = Snackbar.make(bottomNav, "Loading. Please wait...", BaseTransientBottomBar.LENGTH_INDEFINITE);
+        videoLoadingSnackBar = Snackbar.make(bottomNavBar, "Loading. Please wait...", BaseTransientBottomBar.LENGTH_INDEFINITE);
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) videoLoadingSnackBar.getView().getLayoutParams();
         layoutParams.gravity = Gravity.TOP;
         videoLoadingSnackBar.show();

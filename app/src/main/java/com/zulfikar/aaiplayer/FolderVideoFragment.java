@@ -104,7 +104,7 @@ public class FolderVideoFragment extends Fragment {
 
     public ArrayList<VideoFiles> getVideos(String folderName) {
         ArrayList<VideoFiles> videoFiles = new ArrayList<>();
-
+        Log.d("TAG", "getVideos: " + MainActivity.videoFiles);
         if (MainActivity.videoFiles != null) {
             for (VideoFiles videoFile : MainActivity.videoFiles) {
                 if (videoFile.getFolderName().equals(folderName)) videoFiles.add(videoFile);
