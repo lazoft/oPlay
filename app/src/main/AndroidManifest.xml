@@ -21,7 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SettingsActivity"/>
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".PlaylistChooserActivity"/>
         <activity android:name=".AboutActivity" />
         <activity android:name=".UnderMaintenanceActivity" />
@@ -33,7 +33,7 @@
             android:supportsPictureInPicture="true"
             android:hardwareAccelerated="true"
             android:launchMode="singleTask"/>
-        <activity android:name=".MainActivity">
+        <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

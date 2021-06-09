@@ -58,6 +58,9 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
 
     static FragmentManager fragmentManager;
 
+    public static ArrayList<VideoFiles> videoFiles;
+    public static ArrayList<String> folderList;
+
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
 //        outState.putSerializable("folderFragment", folderFragment);
@@ -66,9 +69,6 @@ public class MainActivity extends AppCompatActivity implements ActivityUtility {
         outState.putInt("bottomNavSelectedItem", bottomNav.getSelectedItemId());
         super.onSaveInstanceState(outState);
     }
-
-    public static ArrayList<VideoFiles> videoFiles;
-    public static ArrayList<String> folderList;
 
     @Override
     protected void onResume() {

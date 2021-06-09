@@ -36,32 +36,32 @@ public class DashboardFragment extends Fragment {
 
         scrollView.setPadding(0, paddingTop, 0, 0);
 
-        scrollView.setOnTouchListener(new View.OnTouchListener() {
-            float y;
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    y = event.getRawY();
-                    if (bottomNavBarPosY < 0) bottomNavBarPosY = bottomNavBar.getY();
-                    if (titleBarPosY < 0) titleBarPosY = titleBar.getY();
-                } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                    int r = 30;
-                    int p = 30;
-                    int q = 30;
-                    if (event.getRawY() - y < 0) {
-                        if (scrollView.getPaddingTop() > 0) scrollView.setPadding(0, scrollView.getPaddingTop() - r, 0, 0);
-                        if (titleBar.getY() > titleBarPosY - 300) titleBar.setY(titleBar.getY() - p);
-                        if (bottomNavBar.getY() < bottomNavBarPosY + 300) bottomNavBar.setY(bottomNavBar.getY() + q);
-                    } else if (event.getRawY() - y > 0) {
-                        if (scrollView.getPaddingTop() < 300) scrollView.setPadding(0, scrollView.getPaddingTop() + r, 0, 0);
-                        if (titleBar.getY() < titleBarPosY) titleBar.setY(titleBar.getY() + p);
-                        if (bottomNavBar.getY() > bottomNavBarPosY) bottomNavBar.setY(bottomNavBar.getY() - q);
-                    }
-                }
-                Log.e("TAG", "onTouch: " + bottomNavBarPosY);
-                return false;
-            }
-        });
+//        scrollView.setOnTouchListener(new View.OnTouchListener() {
+//            float y;
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//                    y = event.getRawY();
+//                    if (bottomNavBarPosY < 0) bottomNavBarPosY = bottomNavBar.getY();
+//                    if (titleBarPosY < 0) titleBarPosY = titleBar.getY();
+//                } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+//                    int r = 30;
+//                    int p = 30;
+//                    int q = 30;
+//                    if (event.getRawY() - y < 0) {
+//                        if (scrollView.getPaddingTop() > 0) scrollView.setPadding(0, scrollView.getPaddingTop() - r, 0, 0);
+//                        if (titleBar.getY() > titleBarPosY - 300) titleBar.setY(titleBar.getY() - p);
+//                        if (bottomNavBar.getY() < bottomNavBarPosY + 300) bottomNavBar.setY(bottomNavBar.getY() + q);
+//                    } else if (event.getRawY() - y > 0) {
+//                        if (scrollView.getPaddingTop() < 300) scrollView.setPadding(0, scrollView.getPaddingTop() + r, 0, 0);
+//                        if (titleBar.getY() < titleBarPosY) titleBar.setY(titleBar.getY() + p);
+//                        if (bottomNavBar.getY() > bottomNavBarPosY) bottomNavBar.setY(bottomNavBar.getY() - q);
+//                    }
+//                }
+//                Log.e("TAG", "onTouch: " + bottomNavBarPosY);
+//                return false;
+//            }
+//        });
 
 //        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
 //            @Override

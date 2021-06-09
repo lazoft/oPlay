@@ -56,35 +56,39 @@ public class FolderFragment extends Fragment implements Serializable {
             folderAdapter = new FolderAdapter(MainActivity.folderList, getActivity(), titleBar, bottomNavBar);
             recyclerView.setAdapter(folderAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        } else if (HomeActivity.folderList != null && HomeActivity.folderList.size() > 0) {
+            folderAdapter = new FolderAdapter(HomeActivity.folderList, getActivity(), titleBar, bottomNavBar);
+            recyclerView.setAdapter(folderAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         }
 
         recyclerView.setPadding(0, paddingTop, 0, 0);
 
-        recyclerView.setOnTouchListener(new View.OnTouchListener() {
-            float y;
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (titleBar == null || bottomNavBar == null) return false;
-                if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                    int r = 25;
-                    int p = 30;
-                    int q = 30;
-                    if (event.getRawY() - y < 0) {
-                        if (recyclerView.getPaddingTop() > 0) recyclerView.setPadding(0, recyclerView.getPaddingTop() - r, 0, 0);
-                        if (titleBar.getY() + titleBar.getHeight() > 0) { titleBar.setY(titleBar.getY() - p); saveP--; }
-                        if (bottomNavBar.getY() < recyclerView.getBottom()) { bottomNavBar.setY(bottomNavBar.getY() + q); saveQ--; }
-                        Log.e("TAG", "onTouch+: " + (bottomNavBar.getY()) + " <<>> " + recyclerView.getBottom());
-                    } else if (event.getRawY() - y > 0) {
-                        if (recyclerView.getPaddingTop() < 250) recyclerView.setPadding(0, recyclerView.getPaddingTop() + r, 0, 0);
-                        if (saveP < 0) { titleBar.setY(titleBar.getY() + p); saveP++; }
-                        if (saveQ < 0) { bottomNavBar.setY(bottomNavBar.getY() - q); saveQ++; }
-                        Log.e("TAG", "onTouch-: " + (bottomNavBar.getY()) + " <<>> " + recyclerView.getBottom());
-                    }
-                    y = event.getRawY();
-                }
-                return false;
-            }
-        });
+//        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+//            float y;
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if (titleBar == null || bottomNavBar == null) return false;
+//                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+//                    int r = 25;
+//                    int p = 30;
+//                    int q = 30;
+//                    if (event.getRawY() - y < 0) {
+//                        if (recyclerView.getPaddingTop() > 0) recyclerView.setPadding(0, recyclerView.getPaddingTop() - r, 0, 0);
+//                        if (titleBar.getY() + titleBar.getHeight() > 0) { titleBar.setY(titleBar.getY() - p); saveP--; }
+//                        if (bottomNavBar.getY() < recyclerView.getBottom()) { bottomNavBar.setY(bottomNavBar.getY() + q); saveQ--; }
+//                        Log.e("TAG", "onTouch+: " + (bottomNavBar.getY()) + " <<>> " + recyclerView.getBottom());
+//                    } else if (event.getRawY() - y > 0) {
+//                        if (recyclerView.getPaddingTop() < 250) recyclerView.setPadding(0, recyclerView.getPaddingTop() + r, 0, 0);
+//                        if (saveP < 0) { titleBar.setY(titleBar.getY() + p); saveP++; }
+//                        if (saveQ < 0) { bottomNavBar.setY(bottomNavBar.getY() - q); saveQ++; }
+//                        Log.e("TAG", "onTouch-: " + (bottomNavBar.getY()) + " <<>> " + recyclerView.getBottom());
+//                    }
+//                    y = event.getRawY();
+//                }
+//                return false;
+//            }
+//        });
 
         return view;
     }

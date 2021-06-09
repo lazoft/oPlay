@@ -1,21 +1,41 @@
 package com.zulfikar.aaiplayer;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.media.MediaMetadataRetriever;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
+import android.util.Pair;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.zulfikar.aaiplayer.R.anim;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class HomeActivity extends AppCompatActivity implements ActivityUtility {
 
@@ -27,6 +47,20 @@ public class HomeActivity extends AppCompatActivity implements ActivityUtility {
     private FrameLayout mainFragment;
     private ImageView btnDashboard, btnVideos, btnPlaylist, btnFolder, imgUser;
     private TextView txtLabel;
+
+    private static final int REQUEST_CODE_PERMISSION = 123;
+//    public final MediaPlayer mp = MediaPlayer.create(MainActivity.this, R.raw.tick);
+//    public final MediaPlayer mp = MediaPlayer.create(MainActivity.this, R.raw.tick);;
+//    private static final String TAG = "MAIN_ACTIVITY_LOG";
+
+    BottomNavigationView bottomNav;
+
+    Snackbar videoLoadingSnackBar;
+
+    Handler mainActivityHandler = new Handler();
+
+    public static ArrayList<VideoFiles> videoFiles;
+    public static ArrayList<String> folderList;
 
     @Override
     protected void onRestart() {
@@ -132,12 +166,95 @@ public class HomeActivity extends AppCompatActivity implements ActivityUtility {
             }
         });
 
+        permission(savedInstanceState);
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         onLoad();
+    }
+
+    private void permission(Bundle savedInstanceState) {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(HomeActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION);
+        } else {
+            if (videoFiles == null) load();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (videoFiles == null) load();
+            }
+        }
+    }
+
+    private void load() {
+        videoLoadingSnackBar = Snackbar.make(bottomNav, "Loading. Please wait...", BaseTransientBottomBar.LENGTH_INDEFINITE);
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) videoLoadingSnackBar.getView().getLayoutParams();
+        layoutParams.gravity = Gravity.TOP;
+        videoLoadingSnackBar.show();
+        new Thread(() -> {
+            android.util.Pair<ArrayList<VideoFiles>, ArrayList<String>> data = refreshLibraryAsync(HomeActivity.this);
+            mainActivityHandler.post(() -> {
+                videoLoadingSnackBar.dismiss();
+                videoFiles = data.first;
+                folderList = data.second;
+                Collections.sort(folderList);
+            });
+        }).start();
+    }
+
+    public android.util.Pair<ArrayList<VideoFiles>, ArrayList<String>> refreshLibraryAsync(Context context) {
+        ArrayList<VideoFiles> videoFiles = new ArrayList<>();
+        ArrayList<String> folderList = new ArrayList<>();
+        Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+
+        //TRYING TO FIX ERRORS FOR API 24
+//        String [] projection = makeProjection(Build.VERSION.SDK_INT, Build.VERSION_CODES.Q);
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+//            projection = new String[]{MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, MediaStore.Video.Media.DISPLAY_NAME, MediaStore.Video.Media.DURATION};
+//        } else {
+//            projection = new String[]{MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, MediaStore.Video.Media.DISPLAY_NAME};
+//        }
+
+//        String [] projection = {MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, MediaStore.Video.Media.DISPLAY_NAME, MediaStore.Video.Media.DURATION};
+
+        String [] projection = {MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DATE_ADDED, MediaStore.Video.Media.DISPLAY_NAME, MediaStore.Video.Media.DURATION};
+        Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
+
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        if (cursor != null) {
+            while(cursor.moveToNext()) {
+                String id = cursor.getString(0);
+                String path = cursor.getString(1);
+                String title = cursor.getString(2);
+                String size = cursor.getString(3);
+                String dateAdded = cursor.getString(4);
+                String fileName = cursor.getString(5);
+                String duration = cursor.getString(6);
+                try { retriever.setDataSource(path); }
+                catch (Exception e) { retriever = null; }
+                if (retriever != null) duration = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+                int slashFirstIndex = path.lastIndexOf("/");
+                String subString = path.substring(0, slashFirstIndex);
+                int index = subString.lastIndexOf("/");
+                String folderName = subString.substring((index + 1));
+                if (!folderList.contains(folderName)) {
+                    folderList.add(folderName);
+                }
+
+                videoFiles.add(new VideoFiles(id, path, title, fileName, size, dateAdded, duration, folderName));
+            }
+            cursor.close();
+        }
+
+        return new Pair<>(videoFiles, folderList);
     }
 
     private void onLoad() {
